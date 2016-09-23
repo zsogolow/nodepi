@@ -1,4 +1,5 @@
-var webApp = require('./server/webapp')
+var webApp = require('./server/webapp');
+var NodePi = require('./index');
 
 var app = webApp.createWebApp();
 var settings = {
@@ -17,4 +18,19 @@ app.router.get('/hi', function (req, res) {
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
+});
+
+var nodePi = new NodePi();
+
+app.router.get('/hostname', function (req, res) {
+    var promDate = nodePi.getHostnameAsync();
+    var data = '';
+    promDate.then(function (result) {
+        data = result;
+        res.end(data);
+    }).catch(function (err) {
+        console.log(err);
+        data = 'error reading: /etc/hostname';
+        res.end(data);
+    });
 });

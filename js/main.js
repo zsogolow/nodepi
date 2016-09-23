@@ -9,7 +9,6 @@ _(document).bind('DOMContentLoaded', function () {
         _tabsContainer = _('.tabs'),
         _menuToggle = _('.menu-icon');
 
-
     _tabs.bind('click', function() {
         var _clicked = _(this);
         _tabs.removeClass('active');
@@ -26,6 +25,14 @@ _(document).bind('DOMContentLoaded', function () {
     function init() {
         _(_tabs.item(0)).addClass('active');
         _(_sections.item(0)).addClass('active');
+
+        var hostname = _.http('/hostname').get();
+        hostname.then(function(host) {
+            _('#hostnameField').html(host);
+        }).catch(function(err) {
+            _('#hostnameField').html(err);
+        });
+
     }
 
     function resize(event) {

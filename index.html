@@ -25,8 +25,8 @@
         <nav>
             <ul>
                 <li>
-                    <div class="tab" data-tab="one">
-                        <a>One</a>
+                    <div class="tab" data-tab="network">
+                        <a>Network</a>
                     </div>
                 </li>
                 <li>
@@ -40,12 +40,17 @@
                     </div>
                 </li>
             </ul>
-
-
         </nav>
-        <section class="tab-section" data-tab="one">
+        <section class="tab-section" data-tab="network">
             <div class="tab-content">
-                one
+                <div class="flex-label">
+                    <p>hostname: </p>
+                    <p id="hostnameField" class="data"></p>
+                </div>
+                <div class="flex-label">
+                    <p>ip address: </p>
+                    <p id="ipField" class="data"></p>
+                </div>
             </div>
         </section>
         <section class="tab-section" data-tab="two">
