@@ -1,0 +1,16 @@
+{
+  "name": "webapp",
+  "version": "0.0.1",
+  "description": "simple web server",
+  "main": "webapp.js",
+  "dependencies": {
+    "router": "~1.1.4",
+    "node-static": "~0.7.8",
+    "body-parser": "~1.15.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zachery M. Sogolow",
+  "license": "ISC"
+}
