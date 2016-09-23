@@ -24,7 +24,6 @@ var nodePi = new NodePi();
 
 app.router.get('/osInfo', function (req, res) {
     var promDate = nodePi.osInfo();
-    console.log(promDate);
     res.end(JSON.stringify(promDate));
 });
 
