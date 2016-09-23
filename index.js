@@ -24,7 +24,6 @@ NodePi.prototype = {
             platform: os.platform(),
             EOL: os.EOL,
             endianness: os.endianness()
-
         }
     },
 }

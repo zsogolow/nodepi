@@ -27,3 +27,16 @@ app.router.get('/osInfo', function (req, res) {
     console.log(promDate);
     res.end(JSON.stringify(promDate));
 });
+
+app.router.post('/shutdown', function (req, res) {
+    var exec = require('child_process').exec;
+    function execute(command, callback) {
+        exec(command, function (error, stdout, stderr) {
+            callback(stdout);
+        });
+    }
+
+    execute('sudo halt', function (out) {
+        console.log(out);
+    });
+});
