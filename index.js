@@ -2,9 +2,16 @@
 
 var fs = require('fs');
 var os = require('os');
+var exec = require('child_process').exec;
 
 function NodePi() {
 
+}
+
+function execute(command, callback) {
+    exec(command, function (error, stdout, stderr) {
+        callback(stdout);
+    });
 }
 
 NodePi.prototype = {
@@ -26,6 +33,12 @@ NodePi.prototype = {
             endianness: os.endianness()
         }
     },
+
+    halt: function () {
+        execute('sudo halt', function (stdout) {
+            console.log(stdout);
+        });
+    }
 }
 
 module.exports = NodePi; 

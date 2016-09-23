@@ -45,6 +45,13 @@ _(document).bind('DOMContentLoaded', function () {
         }).catch(function (err) {
             console.log('oops!');
         });
+
+        _('#powerButton').bind('click', function (evt) {
+            var shutdownSig = _.http('/shutdown').post();
+            shutdownSig.then(function (data) {
+            }).catch(function (err) {
+            });
+        })
     }
 
     function resize(event) {
