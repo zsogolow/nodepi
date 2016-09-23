@@ -16,8 +16,6 @@ function execute(command, callback) {
 
 NodePi.prototype = {
     osInfo: function () {
-        console.log('hi')
-
         return {
             hostname: os.hostname(),
             loadavg: os.loadavg(),
