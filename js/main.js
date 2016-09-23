@@ -49,6 +49,7 @@ _(document).bind('DOMContentLoaded', function () {
         _('#powerButton').bind('click', function (evt) {
             var shutdownSig = _.http('/shutdown').post();
             shutdownSig.then(function (data) {
+                alert(data);
             }).catch(function (err) {
             });
         })
