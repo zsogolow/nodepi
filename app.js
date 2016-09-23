@@ -22,15 +22,8 @@ app.listen(settings.port, settings.hostname, () => {
 
 var nodePi = new NodePi();
 
-app.router.get('/hostname', function (req, res) {
-    var promDate = nodePi.getHostnameAsync();
-    var data = '';
-    promDate.then(function (result) {
-        data = result;
-        res.end(data);
-    }).catch(function (err) {
-        console.log(err);
-        data = 'error reading: /etc/hostname';
-        res.end(data);
-    });
+app.router.get('/osInfo', function (req, res) {
+    var promDate = nodePi.osInfo();
+    console.log(promDate);
+    res.end(JSON.stringify(promDate));
 });

@@ -9,7 +9,7 @@ _(document).bind('DOMContentLoaded', function () {
         _tabsContainer = _('.tabs'),
         _menuToggle = _('.menu-icon');
 
-    _tabs.bind('click', function() {
+    _tabs.bind('click', function () {
         var _clicked = _(this);
         _tabs.removeClass('active');
         _sections.removeClass('active');
@@ -19,20 +19,32 @@ _(document).bind('DOMContentLoaded', function () {
 
     _menuToggle.bind('click', function () {
         _menuToggle.toggleClass('open');
-       _tabsContainer.toggleClass('open');
+        _tabsContainer.toggleClass('open');
     });
 
     function init() {
         _(_tabs.item(0)).addClass('active');
         _(_sections.item(0)).addClass('active');
 
-        var hostname = _.http('/hostname').get();
-        hostname.then(function(host) {
-            _('#hostnameField').html(host);
-        }).catch(function(err) {
-            _('#hostnameField').html(err);
+        var hostname = _.http('/osInfo').get();
+        hostname.then(function (data) {
+            var osInfo = JSON.parse(data);
+            console.log(osInfo);
+            _('#hostnameField').html(osInfo.hostname);
+            _('#loadavgField').html(osInfo.loadavg);
+            _('#uptimeField').html(osInfo.uptime);
+            _('#freememField').html(osInfo.freemem);
+            _('#totalmemField').html(osInfo.totalmem);
+            _('#cpusField').html(osInfo.cpus.length);
+            _('#typeField').html(osInfo.type);
+            _('#releaseField').html(osInfo.release);
+            _('#archField').html(osInfo.arch);
+            _('#platformField').html(osInfo.platform);
+            _('#eolField').html(osInfo.EOL);
+            _('#endiannessField').html(osInfo.endianness);
+        }).catch(function (err) {
+            console.log('oops!');
         });
-
     }
 
     function resize(event) {
