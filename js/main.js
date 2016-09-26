@@ -54,7 +54,17 @@ _(document).bind('DOMContentLoaded', function () {
                 }).catch(function (err) {
                 });
             }
-        })
+        });
+
+         _('#rebootButton').bind('click', function (evt) {
+            if (confirm('are you sure you want to reboot?')) {
+                var rebnootSig = _.http('/reboot').post();
+                rebnootSig.then(function (data) {
+                    alert(data);
+                }).catch(function (err) {
+                });
+            }
+        });
     }
 
     function resize(event) {

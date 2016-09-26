@@ -63,6 +63,7 @@ p {
     min-width: 56px;
     cursor: pointer;
     text-align: center;
+    margin: 0 6px;
 }
 
 .tabs {

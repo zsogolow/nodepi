@@ -36,6 +36,12 @@ NodePi.prototype = {
         execute('sudo halt', function (stdout) {
             console.log(stdout);
         });
+    },
+
+    reboot: function() {
+          execute('sudo reboot', function (stdout) {
+            console.log(stdout);
+        });
     }
 }
 

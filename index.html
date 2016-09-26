@@ -20,6 +20,9 @@
         <div id="powerButton" class="button">
             <h4>shutdown</h4>
         </div>
+        <div id="rebootButton" class="button">
+            <h4>reboot</h4>
+        </div>
     </header>
     <main class="tabs">
         <nav>
@@ -100,6 +103,29 @@
     </main>
 
 </body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io('http://localhost:3000');
+    socket.on('connected', function (data) {
+        console.log(data);
+        socket.emit('ack', {
+            type: 'connected',
+            data: 'hi!'
+        });
+    });
+
+    socket.on('data', function (data) {
+        console.log(data);
+        switch (data.type) {
+            case 'uptime':
+                _('#uptimeField').html(data.data);
+                break;
+            default:
+                break;
+        }
+    });
+</script>
 
 <script src="/underscore/js/jelements.js" type="text/javascript"></script>
 <script src="/js/main.js" type="text/javascript"></script>
