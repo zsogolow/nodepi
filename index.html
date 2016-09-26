@@ -106,7 +106,7 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var socket = io('http://localhost:3000');
+    var socket = io(location.host);
     socket.on('connected', function (data) {
         console.log(data);
         socket.emit('ack', {
