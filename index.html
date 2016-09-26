@@ -116,13 +116,12 @@
     });
 
     socket.on('data', function (data) {
-        console.log(data);
+        // console.log(data);
         switch (data.type) {
             case 'uptime':
                 _('#uptimeField').html(data.data);
                 break;
             case 'blah':
-                console.log(data);
                 break;
             default:
                 break;

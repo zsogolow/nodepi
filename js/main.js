@@ -26,8 +26,8 @@ _(document).bind('DOMContentLoaded', function () {
         _(_tabs.item(0)).addClass('active');
         _(_sections.item(0)).addClass('active');
 
-        var hostname = _.http('/osInfo').get();
-        hostname.then(function (data) {
+        var osInfoPromise = _.http('/osInfo').get();
+        osInfoPromise.then(function (data) {
             var osInfo = JSON.parse(data);
             console.log(osInfo);
             _('#hostnameField').html(osInfo.hostname);
@@ -43,7 +43,16 @@ _(document).bind('DOMContentLoaded', function () {
             _('#eolField').html(osInfo.EOL);
             _('#endiannessField').html(osInfo.endianness);
         }).catch(function (err) {
-            console.log('oops!');
+            console.log(`oops! ${err}`);
+        });
+
+        var netInfoPromise = _.http('/networkInfo').get();
+        netInfoPromise.then(function (data) {
+            var netInfo = JSON.parse(data);
+            console.log(netInfo);
+            // _('#ipField').html();
+        }).catch(function (err) {
+            console.log(`oops! ${err}`);
         });
 
         _('#powerButton').bind('click', function (evt) {
@@ -52,23 +61,24 @@ _(document).bind('DOMContentLoaded', function () {
                 shutdownSig.then(function (data) {
                     alert(data);
                 }).catch(function (err) {
+                    console.log(`oops! ${err}`);
                 });
             }
         });
 
-         _('#rebootButton').bind('click', function (evt) {
+        _('#rebootButton').bind('click', function (evt) {
             if (confirm('are you sure you want to reboot?')) {
                 var rebnootSig = _.http('/reboot').post();
                 rebnootSig.then(function (data) {
                     alert(data);
                 }).catch(function (err) {
+                    console.log(`oops! ${err}`);
                 });
             }
         });
     }
 
-    function resize(event) {
-    }
+    function resize(event) {}
     var lastResizeEvent = undefined;
     var resizing = false;
     window.requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame;

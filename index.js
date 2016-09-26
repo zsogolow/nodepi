@@ -32,6 +32,10 @@ NodePi.prototype = {
         }
     },
 
+    network: function() {
+        return os.networkInterfaces();
+    },
+
     halt: function () {
         execute('sudo halt', function (stdout) {
             console.log(stdout);

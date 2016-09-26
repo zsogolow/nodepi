@@ -29,6 +29,11 @@ app.router.get('/osInfo', function (req, res) {
     res.end(JSON.stringify(promDate));
 });
 
+app.router.get('/networkInfo', function(req, res) {
+    var networkInfo = nodePi.network();
+    res.end(JSON.stringify(networkInfo));
+});
+
 app.router.post('/shutdown', function (req, res) {
     nodePi.halt();
     res.end('shutting down');
