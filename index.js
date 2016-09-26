@@ -38,11 +38,11 @@ NodePi.prototype = {
         });
     },
 
-    reboot: function() {
-          execute('sudo reboot', function (stdout) {
+    reboot: function () {
+        execute('sudo reboot', function (stdout) {
             console.log(stdout);
         });
-    }
+    },
 }
 
-module.exports = NodePi; 
+module.exports = NodePi;

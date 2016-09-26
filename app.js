@@ -32,6 +32,11 @@ app.router.post('/shutdown', function (req, res) {
     res.end('shutting down');
 });
 
+app.router.post('/reboot', function (req, res) {
+    nodePi.reboot();
+    res.end('rebooting');
+});
+
 function streamUptime(interval) {
     setInterval(function () {
         for (var prop in cons) {
