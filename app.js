@@ -32,7 +32,7 @@ app.router.post('/shutdown', function (req, res) {
     res.end('shutting down');
 });
 
-function streamUptime() {
+function streamUptime(interval) {
     setInterval(function () {
         for (var prop in cons) {
             if (cons.hasOwnProperty(prop)) {
@@ -43,10 +43,10 @@ function streamUptime() {
                 });
             }
         }
-    }, 500);
+    }, interval);
 }
 
-streamUptime();
+streamUptime(1000);
 
 var seed = 0;
 var cons = {};
