@@ -42,13 +42,22 @@ _(document).bind('DOMContentLoaded', function () {
                     console.log(`oops! ${err}`);
                 });
                 break;
-                
+
             case 'net':
                 var netInfoPromise = _.http('/networkInfo').get();
                 netInfoPromise.then(function (data) {
                     var netInfo = JSON.parse(data);
                     console.log(netInfo);
-                    // _('#ipField').html();
+                    
+                    var _networkListDiv = _('#network-list');
+                    for (var prop in netInfo) {
+                        if (netInfo.hasOwnProperty(prop)) {
+                            var netCon = netInfo[prop];
+                            var networkDiv = generateNetConDiv(netCon);
+                            _networkListDiv.item(0).appendChild(networkDiv);
+                        }
+                    }
+
                 }).catch(function (err) {
                     console.log(`oops! ${err}`);
                 });
@@ -60,6 +69,12 @@ _(document).bind('DOMContentLoaded', function () {
             default:
                 break;
         }
+    }
+
+    function generateNetConDiv(netCon) {
+        var _div = _.create('div');
+        _div.html(netCon);
+        return _div.item(0);
     }
 
     function init() {
