@@ -9,50 +9,77 @@ _(document).bind('DOMContentLoaded', function () {
         _tabsContainer = _('.tabs'),
         _menuToggle = _('.menu-icon');
 
-    _tabs.bind('click', function () {
-        var _clicked = _(this);
-        _tabs.removeClass('active');
-        _sections.removeClass('active');
-        _clicked.addClass('active');
-        _('.tab-section[data-tab="' + _clicked.data('tab') + '"]').addClass('active');
-    });
+    function clickTab(tab) {
+        var netContent = _.http('/html/' + tab + '.html').get();
+        netContent.then(function (data) {
+            _section = _('.tab-section[data-tab="' + tab + '"]');
+            _section.addClass('active');
+            _section.html(data);
+            initTab(tab);
+        });
+    }
 
-    _menuToggle.bind('click', function () {
-        _menuToggle.toggleClass('open');
-        _tabsContainer.toggleClass('open');
-    });
+    function initTab(tab) {
+        switch (tab) {
+            case 'os':
+                var osInfoPromise = _.http('/osInfo').get();
+                osInfoPromise.then(function (data) {
+                    var osInfo = JSON.parse(data);
+                    console.log(osInfo);
+                    _('#hostnameField').html(osInfo.hostname);
+                    _('#loadavgField').html(osInfo.loadavg);
+                    _('#uptimeField').html(osInfo.uptime);
+                    _('#freememField').html(osInfo.freemem);
+                    _('#totalmemField').html(osInfo.totalmem);
+                    _('#cpusField').html(osInfo.cpus.length);
+                    _('#typeField').html(osInfo.type);
+                    _('#releaseField').html(osInfo.release);
+                    _('#archField').html(osInfo.arch);
+                    _('#platformField').html(osInfo.platform);
+                    _('#eolField').html(osInfo.EOL);
+                    _('#endiannessField').html(osInfo.endianness);
+                }).catch(function (err) {
+                    console.log(`oops! ${err}`);
+                });
+                break;
+                
+            case 'net':
+                var netInfoPromise = _.http('/networkInfo').get();
+                netInfoPromise.then(function (data) {
+                    var netInfo = JSON.parse(data);
+                    console.log(netInfo);
+                    // _('#ipField').html();
+                }).catch(function (err) {
+                    console.log(`oops! ${err}`);
+                });
+                break;
+
+            case 'duinos':
+                break;
+
+            default:
+                break;
+        }
+    }
 
     function init() {
         _(_tabs.item(0)).addClass('active');
         _(_sections.item(0)).addClass('active');
 
-        var osInfoPromise = _.http('/osInfo').get();
-        osInfoPromise.then(function (data) {
-            var osInfo = JSON.parse(data);
-            console.log(osInfo);
-            _('#hostnameField').html(osInfo.hostname);
-            _('#loadavgField').html(osInfo.loadavg);
-            _('#uptimeField').html(osInfo.uptime);
-            _('#freememField').html(osInfo.freemem);
-            _('#totalmemField').html(osInfo.totalmem);
-            _('#cpusField').html(osInfo.cpus.length);
-            _('#typeField').html(osInfo.type);
-            _('#releaseField').html(osInfo.release);
-            _('#archField').html(osInfo.arch);
-            _('#platformField').html(osInfo.platform);
-            _('#eolField').html(osInfo.EOL);
-            _('#endiannessField').html(osInfo.endianness);
-        }).catch(function (err) {
-            console.log(`oops! ${err}`);
+        clickTab('os');
+
+        _tabs.bind('click', function () {
+            var _clicked = _(this);
+            _tabs.removeClass('active');
+            _sections.removeClass('active');
+            _clicked.addClass('active');
+            var tabData = _clicked.data('tab');
+            clickTab(tabData);
         });
 
-        var netInfoPromise = _.http('/networkInfo').get();
-        netInfoPromise.then(function (data) {
-            var netInfo = JSON.parse(data);
-            console.log(netInfo);
-            // _('#ipField').html();
-        }).catch(function (err) {
-            console.log(`oops! ${err}`);
+        _menuToggle.bind('click', function () {
+            _menuToggle.toggleClass('open');
+            _tabsContainer.toggleClass('open');
         });
 
         _('#powerButton').bind('click', function (evt) {
