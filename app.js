@@ -1,5 +1,6 @@
 var webApp = require('./server/webapp');
 var NodePi = require('./index');
+var NodeRelay = require('./relay');
 var Sockets = require('./sockets');
 
 var app = webApp.createWebApp();
@@ -9,6 +10,7 @@ var settings = {
 };
 
 var nodePi = new NodePi();
+var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
 app.router.use(function (req, res, next) {
@@ -32,6 +34,16 @@ app.router.get('/osInfo', function (req, res) {
 app.router.get('/networkInfo', function(req, res) {
     var networkInfo = nodePi.network();
     res.end(JSON.stringify(networkInfo));
+});
+
+app.router.post('/lightsOn', function(req, res) {
+    nodeRelay.lightsOn();
+    res.end();
+});
+
+app.router.post('/lightsOff', function(req, res) {
+    nodeRelay.lightsOff();
+    res.end();
 });
 
 app.router.post('/shutdown', function (req, res) {
