@@ -48,7 +48,7 @@ _(document).bind('DOMContentLoaded', function () {
                 netInfoPromise.then(function (data) {
                     var netInfo = JSON.parse(data);
                     console.log(netInfo);
-                    
+
                     var _networkListDiv = _('#network-list');
                     for (var prop in netInfo) {
                         if (netInfo.hasOwnProperty(prop)) {
@@ -64,8 +64,16 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             case 'duinos':
-                break;
+                _('#offButton').bind('click', function () {
+                    console.log('off');
+                    _.http('/lightsOff').post();
+                });
 
+                _('#onButton').bind('click', function () {
+                    console.log('on');
+                    _.http('/lightsOn').post();
+                });
+                break;
             default:
                 break;
         }
@@ -120,7 +128,7 @@ _(document).bind('DOMContentLoaded', function () {
         });
     }
 
-    function resize(event) {}
+    function resize(event) { }
     var lastResizeEvent = undefined;
     var resizing = false;
     window.requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame;
