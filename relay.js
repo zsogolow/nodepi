@@ -13,16 +13,19 @@ function execute(command, callback) {
 Relay.prototype = {
     lightsOn: function () {
         execute('sudo runner -d 1 -t 5', function (stdout) {
+            console.log(stdout);
         });
     },
 
     lightsOff: function () {
         execute('sudo runner -d 1 -t 6', function (stdout) {
+            console.log(stdout);
         });
     },
 
     lightsState: function () {
         execute('sudo runner -d 1 -t 4', function (stdout) {
+            console.log(stdout);
         });
     }
 };
