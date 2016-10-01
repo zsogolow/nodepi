@@ -31,19 +31,24 @@ app.router.get('/osInfo', function (req, res) {
     res.end(JSON.stringify(promDate));
 });
 
-app.router.get('/networkInfo', function(req, res) {
+app.router.get('/networkInfo', function (req, res) {
     var networkInfo = nodePi.network();
     res.end(JSON.stringify(networkInfo));
 });
 
-app.router.post('/lightsOn', function(req, res) {
+app.router.post('/lightsOn', function (req, res) {
     nodeRelay.lightsOn();
     res.end();
 });
 
-app.router.post('/lightsOff', function(req, res) {
+app.router.post('/lightsOff', function (req, res) {
     nodeRelay.lightsOff();
     res.end();
+});
+
+app.router.get('/lightsState', function (req, res) {
+    var state = nodeRelay.lightsState();
+    res.end(state);
 });
 
 app.router.post('/shutdown', function (req, res) {
