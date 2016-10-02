@@ -75,6 +75,6 @@ sockets.stream(2000, 'all', 'lights', function () {
     var promise = nodeRelay.lightsState();
     var state = undefined;
     return promise.then(function (data) {
-        state = data;
+        return data;
     });
 });
