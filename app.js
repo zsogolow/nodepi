@@ -15,24 +15,24 @@ var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
-// unixSocket('/tmp/hidden', function (data) {
-//     var dataArray = [];
-//     for (var i = 0; i < data.length; i++) {
-//         dataArray.push(data[i]);
-//     }
-//     var type = dataArray[0];
-//     var id = dataArray[1];
-//     var duino = {
-//         type: nodePi.getDuinoType(type),
-//         id: id,
-//         heartbeat: new Date().toLocaleString()
-//     }
-//     sockets.send('all', 'heartbeat', duino);
-// });
+unixSocket('/tmp/hidden', function (data) {
+    var dataArray = [];
+    for (var i = 0; i < data.length; i++) {
+        dataArray.push(data[i]);
+    }
+    var type = dataArray[0];
+    var id = dataArray[1];
+    var duino = {
+        type: nodePi.getDuinoType(type),
+        id: id,
+        heartbeat: new Date().toLocaleString()
+    }
+    sockets.send('all', 'heartbeat', duino);
+});
 
-// setTimeout(function () {
-//     nodePi.startListening();
-// }, 1500);
+setTimeout(function () {
+    nodePi.startListening();
+}, 1500);
 
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
