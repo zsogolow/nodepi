@@ -94,7 +94,7 @@
                     _cloned.data('id', duinoId);
 
                     // set up the click handlers
-                    _cloned.children('on-button').bind('click', function() {
+                    _cloned.children('.on-button').bind('click', function() {
                         var _lightState = _cloned.children('lights-state');
                         console.log('on');
                         var lightsOn = _.http('/lightsOn').post();
@@ -102,7 +102,7 @@
                             _lightState.html(getStateString(data));
                         });
                     });
-                    _cloned.children('off-button').bind('click', function() {
+                    _cloned.children('.off-button').bind('click', function() {
                         var _lightState = _cloned.children('lights-state');
                         console.log('off');
                         var lightsOff = _.http('/lightsOff').post();
