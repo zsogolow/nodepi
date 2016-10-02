@@ -14,7 +14,9 @@ var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
-unixSocket();
+unixSocket(undefined, function (data) {
+    console.log(data);
+});
 
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
