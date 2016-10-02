@@ -84,7 +84,7 @@ p {
     z-index: 2;
     padding: 12px 0;
 }
-
+    
 .tabs ul {
     margin: 0;
     padding: 0;
@@ -125,7 +125,7 @@ p {
     color: #040404;
     overflow-y: auto;
     border-radius: 4px;
-    margin-left: 80px;
+    margin: 0 80px;
 }
 
 .tabs .tab-section .tab-content {
