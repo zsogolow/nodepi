@@ -14,11 +14,12 @@ var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
+nodePi.startListening();
+
 unixSocket(undefined, function (data) {
     console.log(data);
 });
 
-nodePi.startListening();
 
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
