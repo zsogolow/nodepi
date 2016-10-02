@@ -68,10 +68,11 @@ p {
 
 .tabs {
     position: relative;
-    width: calc(100% - 80px);
     height: calc(100% - 112px);
     top: 56px;
     bottom: 56px;
+    /*margin: 2px;*/
+    border-radius: 2px;
 }
 
 .tabs nav {
@@ -80,7 +81,8 @@ p {
     bottom: 0;
     left: 0;
     width: 80px;
-    padding: 24px 0;
+    z-index: 2;
+    padding: 12px 0;
 }
 
 .tabs ul {
@@ -113,7 +115,7 @@ p {
 .tabs .tab-section {
     display: none;
     position: absolute;
-    left: 80px;
+    left: 0;
     right: 0;
     top: 0;
     bottom: 0;
@@ -123,6 +125,7 @@ p {
     color: #040404;
     overflow-y: auto;
     border-radius: 4px;
+    margin-left: 80px;
 }
 
 .tabs .tab-section .tab-content {

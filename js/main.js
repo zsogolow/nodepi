@@ -48,25 +48,19 @@ _(document).bind('DOMContentLoaded', function () {
                 netInfoPromise.then(function (data) {
                     var netInfo = JSON.parse(data);
                     console.log(netInfo);
-
-                    var _networkListDiv = _('#network-list');
-                    for (var prop in netInfo) {
-                        if (netInfo.hasOwnProperty(prop)) {
-                            var netCon = netInfo[prop];
-                            var networkDiv = generateNetConDiv(netCon);
-                            _networkListDiv.item(0).appendChild(networkDiv);
-                        }
-                    }
-
                 }).catch(function (err) {
                     console.log(`oops! ${err}`);
                 });
                 break;
 
             case 'duinos':
+                var _lightState = _('#lightsState');
                 var lightState = _.http('/lightsState').get();
+                function getStateString(state) {
+                    return state == 0 ? "off" : state == 1 ? "on" : "off"
+                }
                 lightState.then(function (data) {
-                    _("#lightState").html(data == 0 ? "off" : data == 1 ? "on" : "off");
+                    _lightState.html(getStateString(data));
                 }).catch(function (err) {
                     console.log(`oops! ${err}`);
                 })
@@ -74,7 +68,7 @@ _(document).bind('DOMContentLoaded', function () {
                     console.log('off');
                     var lightsOff = _.http('/lightsOff').post();
                     lightsOff.then(function (data) {
-                        _("#lightState").html(data == 0 ? "off" : data == 1 ? "on" : "off");
+                        _lightState.html(getStateString(data));
                     });
                 });
 
@@ -82,7 +76,7 @@ _(document).bind('DOMContentLoaded', function () {
                     console.log('on');
                     var lightsOn = _.http('/lightsOn').post();
                     lightsOn.then(function (data) {
-                        _("#lightState").html(data == 0 ? "off" : data == 1 ? "on" : "off");
+                        _lightState.html(getStateString(data));
                     });
                 });
                 break;
