@@ -15,12 +15,12 @@ var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
 unixSocket('/tmp/hidden', function (data) {
-    console.log(data.toString());
+    console.log(data.toJSON());
 });
 
 setTimeout(function () {
     nodePi.startListening();
-}, 2000);
+}, 1500);
 
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
