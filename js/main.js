@@ -54,42 +54,36 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             case 'duinos':
-                // var _lightState = _('#lightState');
-                // var lightState = _.http('/lightsState').get();
-                // function getStateString(state) {
-                //     return state == 0 ? "off" : state == 1 ? "on" : "off"
-                // }
-                // lightState.then(function (data) {
-                //     _lightState.html(getStateString(data));
-                // }).catch(function (err) {
-                //     console.log(`oops! ${err}`);
-                // })
-                // _('#offButton').bind('click', function () {
-                //     console.log('off');
-                //     var lightsOff = _.http('/lightsOff').post();
-                //     lightsOff.then(function (data) {
-                //         _lightState.html(getStateString(data));
-                //     });
-                // });
+                var _lightState = _('.relay-template .lights-state');
+                var lightState = _.http('/lightsState').get();
+                function getStateString(state) {
+                    return state == 0 ? "off" : state == 1 ? "on" : "off"
+                }
+                lightState.then(function (data) {
+                    _lightState.html(getStateString(data));
+                }).catch(function (err) {
+                    console.log(`oops! ${err}`);
+                })
+                _('.relay-template .off-button').bind('click', function () {
+                    console.log('off');
+                    var lightsOff = _.http('/lightsOff').post();
+                    lightsOff.then(function (data) {
+                        _lightState.html(getStateString(data));
+                    });
+                });
 
-                // _('#onButton').bind('click', function () {
-                //     console.log('on');
-                //     var lightsOn = _.http('/lightsOn').post();
-                //     lightsOn.then(function (data) {
-                //         _lightState.html(getStateString(data));
-                //     });
-                // });
+                _('.relay-template .on-button').bind('click', function () {
+                    console.log('on');
+                    var lightsOn = _.http('/lightsOn').post();
+                    lightsOn.then(function (data) {
+                        _lightState.html(getStateString(data));
+                    });
+                });
 
                 break;
             default:
                 break;
         }
-    }
-
-    function generateNetConDiv(netCon) {
-        var _div = _.create('div');
-        _div.html(netCon);
-        return _div.item(0);
     }
 
     function init() {

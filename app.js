@@ -72,8 +72,7 @@ app.router.post('/lightsOff', function (req, res) {
 });
 
 app.router.get('/lightsState', function (req, res) {
-    var parsed = url.parse(req.url, true);    
-    var promise = nodeRelay.lightsState(parsed.query.id);
+    var promise = nodeRelay.lightsState();
     promise.then(function (data) {
         res.end(data.toString());
     });
