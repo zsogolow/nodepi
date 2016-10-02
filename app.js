@@ -16,9 +16,9 @@ var sockets = new Sockets(app.server);
 
 nodePi.startListening();
 
-unixSocket(undefined, function (data) {
-    console.log(data);
-});
+// unixSocket(undefined, function (data) {
+//     console.log(data);
+// });
 
 
 app.router.use(function (req, res, next) {
