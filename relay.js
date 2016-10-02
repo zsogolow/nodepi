@@ -12,21 +12,33 @@ function execute(command, callback) {
 
 Relay.prototype = {
     lightsOn: function () {
-        execute('sudo runner -d 1 -t 5', function (stdout) {
-            console.log(stdout);
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d 1 -t 5', function (stdout) {
+                var state = parseInt(stdout);
+                resolve(state);
+            });
         });
+        return prom;
     },
 
     lightsOff: function () {
-        execute('sudo runner -d 1 -t 6', function (stdout) {
-            console.log(stdout);
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d 1 -t 6', function (stdout) {
+                var state = parseInt(stdout);
+                resolve(state);
+            });
         });
+        return prom;
     },
 
     lightsState: function () {
-        execute('sudo runner -d 1 -t 4', function (stdout) {
-            console.log(stdout);
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d 1 -t 4', function (stdout) {
+                var state = parseInt(stdout);
+                resolve(state);
+            });
         });
+        return prom;
     }
 };
 

@@ -64,6 +64,13 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             case 'duinos':
+                var lightState = _.http('/lightState').get();
+                lightState.then(function (data) {
+                    _("#lightState").html(data == 0 ? "off" : data == 1 ? "on" : "off");
+                    console.log(data);
+                }).catch(function (err) {
+                    console.log(`oops! ${err}`);
+                })
                 _('#offButton').bind('click', function () {
                     console.log('off');
                     _.http('/lightsOff').post();

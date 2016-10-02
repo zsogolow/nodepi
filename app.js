@@ -37,18 +37,30 @@ app.router.get('/networkInfo', function (req, res) {
 });
 
 app.router.post('/lightsOn', function (req, res) {
-    nodeRelay.lightsOn();
-    res.end();
+    var promise = nodeRelay.lightsOn();
+    promise.then(function (data) {
+        res.end(data);
+    }, function (err) {
+        res.end(err);
+    });
 });
 
 app.router.post('/lightsOff', function (req, res) {
-    nodeRelay.lightsOff();
-    res.end();
+    var promise = nodeRelay.lightsOff();
+    promise.then(function (data) {
+        res.end(data);
+    }, function (err) {
+        res.end(err);
+    });
 });
 
 app.router.get('/lightsState', function (req, res) {
-    var state = nodeRelay.lightsState();
-    res.end(state);
+    var promise = nodeRelay.lightsState();
+    promise.then(function (data) {
+        res.end(data);
+    }, function (err) {
+        res.end(err);
+    });
 });
 
 app.router.post('/shutdown', function (req, res) {
