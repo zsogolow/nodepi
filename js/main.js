@@ -67,18 +67,23 @@ _(document).bind('DOMContentLoaded', function () {
                 var lightState = _.http('/lightsState').get();
                 lightState.then(function (data) {
                     _("#lightState").html(data == 0 ? "off" : data == 1 ? "on" : "off");
-                    console.log(data);
                 }).catch(function (err) {
                     console.log(`oops! ${err}`);
                 })
                 _('#offButton').bind('click', function () {
                     console.log('off');
-                    _.http('/lightsOff').post();
+                    var lightsOff = _.http('/lightsOff').post();
+                    lightsOff.then(function (data) {
+                        _("#lightState").html(data == 0 ? "off" : data == 1 ? "on" : "off");
+                    });
                 });
 
                 _('#onButton').bind('click', function () {
                     console.log('on');
-                    _.http('/lightsOn').post();
+                    var lightsOn = _.http('/lightsOn').post();
+                    lightsOn.then(function (data) {
+                        _("#lightState").html(data == 0 ? "off" : data == 1 ? "on" : "off");
+                    });
                 });
                 break;
             default:
