@@ -25,7 +25,7 @@ _(document).bind('DOMContentLoaded', function () {
                 _duino.children('#last-heartbeat').html(heartbeat);
 
                 var _template = _duino.children('#template');
-                if (_template.data('init') == false) {
+                if (!_template.data('init')) {
                     initTemplateActions(_template, duinoType, duinoId);
                 }
                 console.log(data);
