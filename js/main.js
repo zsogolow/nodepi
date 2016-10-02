@@ -85,9 +85,9 @@ _(document).bind('DOMContentLoaded', function () {
                     var pingGet = _.http('/ping?id=' + id).get();
                     pingGet.then(function (data) {
                         if (data == id) {
-                            _('duino-' + id).children('#pong-label').html('pong!');
+                            _('#duino-' + id).children('#pong-label').html('pong!');
                             setTimeout(function () {
-                                _('duino-' + id).children('#pong-label').html('');
+                                _('#duino-' + id).children('#pong-label').html('');
                             }, 3000);
                         }
                     });
