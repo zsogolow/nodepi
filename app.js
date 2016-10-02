@@ -14,15 +14,6 @@ var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
-unixSocket('/tmp/hidden', function (data) {
-    sockets.send('all', 'heartbeat', data[0]);
-    console.log(data);
-});
-
-setTimeout(function () {
-    nodePi.startListening();
-}, 1500);
-
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
     next();
@@ -80,3 +71,11 @@ app.router.post('/reboot', function (req, res) {
 sockets.stream(1000, 'all', 'uptime', function () {
     return nodePi.osInfo().uptime;
 });
+
+unixSocket('/tmp/hidden', function (data) {
+    sockets.send('all', 'heartbeat', data[0]);
+});
+
+setTimeout(function () {
+    nodePi.startListening();
+}, 1500);
