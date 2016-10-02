@@ -73,6 +73,7 @@ _.prototype.constructor.http = function (url) {
                 var uri = url;
 
                 if (args && (method === 'POST' || method === 'PUT')) {
+                    client.setRequestHeader('Content-Type', 'json');
                     uri += '?';
                     var argcount = 0;
                     for (var key in args) {
