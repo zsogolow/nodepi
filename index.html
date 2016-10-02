@@ -95,7 +95,7 @@
 
                     // set up the click handlers
                     _cloned.children('.on-button').bind('click', function() {
-                        var _lightState = _cloned.children('lights-state');
+                        var _lightState = _cloned.children('.lights-state');
                         console.log('on');
                         var lightsOn = _.http('/lightsOn').post();
                         lightsOn.then(function (data) {
