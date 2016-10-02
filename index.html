@@ -76,15 +76,52 @@
                 var duinoId = data.data.id;
                 var heartbeat = data.data.heartbeat;
                 var _duino = _('#duino-' + duinoId); 
+
+                _duino.children('#template').html('');
                 _duino.children('#type').html(duinoType);
                 _duino.children('#status').html(duinoId);
                 _duino.children('#last-heartbeat').html(heartbeat);
                 console.log(data);
+
+                if (duinoType == 'relay') {
+                    // get the template and copy it
+                    var _template = _('.relay-template');
+                    var cloned = _template.item(0).cloneNode(true);
+                    var _cloned = _(cloned);
+                    _cloned.removeClass('hidden');
+
+                    // set the data id prop to this duino
+                    _cloned.data('id', duinoId);
+
+                    // set up the click handlers
+                    _cloned.children('.on-button').bind('click', function() {
+                        var _lightState = _cloned.children('.lights-state');
+                        console.log('on');
+                        var lightsOn = _.http('/lightsOn').post();
+                        lightsOn.then(function (data) {
+                            _lightState.html(getStateString(data));
+                        });
+                    });
+                    _cloned.children('.off-button').bind('click', function() {
+                        var _lightState = _cloned.children('lights-state');
+                        console.log('off');
+                        var lightsOff = _.http('/lightsOff').post();
+                        lightsOff.then(function (data) {
+                            _lightState.html(getStateString(data));
+                        });
+                    });
+
+                    _duino.children('#template').item(0).appendChild(_cloned.item(0));
+                }
                 break;
             default:
                 break;
         }
     });
+    
+    function getStateString(state) {
+        return state == 0 ? "off" : state == 1 ? "on" : "off"
+    }
 </script>
 
 <script src="/underscore/js/jelements.js" type="text/javascript"></script>
