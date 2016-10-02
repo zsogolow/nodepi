@@ -2,7 +2,7 @@ var net = require('net');
 var fs = require('fs');
 var socketPath = '/tmp/hidden';
 
-function listen(path) {
+function listen(path, cb) {
     if (!path) {
         path = socketPath;
     }
@@ -18,7 +18,7 @@ function listen(path) {
             localSerialConnection.on('data', function (data) {
                 // data is a buffer from the socket
                 console.log(data);
-                
+                cb(data);
                 // send ack
                 localSerialConnection.write('ack!');
             });
