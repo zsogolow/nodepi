@@ -43,10 +43,10 @@ _(document).bind('DOMContentLoaded', function () {
             _relayTemplate.data('id', id);
             _template.item(0).appendChild(_relayTemplate.item(0));
 
-            var data = { 'id': id.toString() };
+            var holla = { 'id': id + '' };
 
             var _lightState = _relayTemplate.children('.lights-state');
-            var lightState = _.http('/lightsState').get(data);
+            var lightState = _.http('/lightsState').get(holla);
             function getStateString(state) {
                 return state == 0 ? "off" : state == 1 ? "on" : "off"
             }
@@ -57,7 +57,7 @@ _(document).bind('DOMContentLoaded', function () {
             })
             _relayTemplate.children('.off-button').bind('click', function () {
                 console.log('off');
-                var lightsOff = _.http('/lightsOff').post(data);
+                var lightsOff = _.http('/lightsOff').post(holla);
                 lightsOff.then(function (data) {
                     _lightState.html(getStateString(data));
                 });
@@ -65,7 +65,7 @@ _(document).bind('DOMContentLoaded', function () {
 
             _relayTemplate.children('.on-button').bind('click', function () {
                 console.log('on');
-                var lightsOn = _.http('/lightsOn').post(data);
+                var lightsOn = _.http('/lightsOn').post(holla);
                 lightsOn.then(function (data) {
                     _lightState.html(getStateString(data));
                 });
