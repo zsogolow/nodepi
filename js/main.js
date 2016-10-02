@@ -54,7 +54,7 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             case 'duinos':
-                var _lightState = _('#lightsState');
+                var _lightState = _('#lightState');
                 var lightState = _.http('/lightsState').get();
                 function getStateString(state) {
                     return state == 0 ? "off" : state == 1 ? "on" : "off"
