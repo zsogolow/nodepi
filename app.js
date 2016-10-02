@@ -70,3 +70,11 @@ app.router.post('/reboot', function (req, res) {
 sockets.stream(1000, 'all', 'uptime', function () {
     return nodePi.osInfo().uptime;
 });
+
+sockets.stream(2000, 'all', 'lights', function () {
+    var promise = nodeRelay.lightsState();
+    var state = undefined;
+    return promise.then(function (data) {
+        state = data;
+    });
+});
