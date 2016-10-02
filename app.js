@@ -66,6 +66,13 @@ app.router.get('/lightsState', function (req, res) {
     });
 });
 
+app.router.get('/ping', function (req, res) {
+    var promise = nodePi.ping(req.params.id);
+    promise.then(function (data) {
+        res.end(data.toString());
+    });
+});
+
 app.router.post('/shutdown', function (req, res) {
     nodePi.halt();
     res.end('shutting down');

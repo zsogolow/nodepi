@@ -50,10 +50,21 @@ NodePi.prototype = {
         });
     },
 
-    startListening() {
+    startListening: function () {
         execute('sudo runner -t 2', function (stdout) {
             console.log(stdout);
         });
+    },
+
+    ping: function (id) {
+        var prom = new Promise(function (resolve, reject) {
+            execute(`sudo runner -d ${id} -t 1`, function (stdout) {
+                var pong = parseInt(stdout);
+                console.log(pong);
+                resolve(pong);
+            });
+        });
+        return prom;
     }
 }
 

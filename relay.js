@@ -34,7 +34,7 @@ Relay.prototype = {
     },
 
     lightsState: function () {
-          var prom = new Promise(function (resolve, reject) {
+        var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d 1 -t 4', function (stdout) {
                 var state = parseInt(stdout);
                 console.log(state);
