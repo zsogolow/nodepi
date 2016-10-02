@@ -66,8 +66,8 @@ app.router.get('/lightsState', function (req, res) {
     });
 });
 
-app.router.get('/ping', function (req, res) {
-    console.log(req)
+app.router.get('/ping:id', function (req, res) {
+    console.log(req.params)
     var promise = nodePi.ping(req.params.id);
     promise.then(function (data) {
         res.end(data.toString());
