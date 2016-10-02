@@ -55,6 +55,22 @@ NodePi.prototype = {
             console.log(stdout);
         });
     },
+
+    getDuinoType: function (typeId) {
+        var type = undefined;
+        switch (typeId) {
+            case 21:
+                type = 'general';
+                break;
+            case 22:
+                type = 'relay';
+                break;
+            default:
+                type = 'unknown';
+                break;
+        }
+        return type;
+    },
 }
 
 module.exports = NodePi;

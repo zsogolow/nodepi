@@ -72,15 +72,13 @@
                 _('#uptimeField').html(data.data);
                 break;
             case 'heartbeat':
-                var duinoType = data.data[0];
-                var duinoId = data.data[1];
+                var duinoType = data.data.type;
+                var duinoId = data.data.id;
+                var heartbeat = data.data.heartbeat;
                 var _duino = _('#duino-' + duinoId); 
-                switch(duinoType) {
-                    case 21: _duino.children('#type').html('general'); break;
-                    case 22: _duino.children('#type').html('relay'); break;
-                }
-                _duino.children('#status').html('alive');
-                _duino.children('#last-heartbeat').html(new Date().toLocaleString());
+                _duino.children('#type').html(duinoType);
+                _duino.children('#status').html(duinoId);
+                _duino.children('#last-heartbeat').html(heartbeat);
                 console.log(data);
                 break;
             default:

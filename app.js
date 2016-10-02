@@ -20,7 +20,14 @@ unixSocket('/tmp/hidden', function (data) {
     for (var i = 0; i < data.length; i++) {
         dataArray.push(data[i]);
     }
-    sockets.send('all', 'heartbeat', dataArray);
+    var type = dataArray[0];
+    var id = dataArray[1];
+    var duino = {
+        type: nodePi.getDuinoType(type),
+        id: id,
+        heartbeat: new Date().toLocaleString()
+    }
+    sockets.send('all', 'heartbeat', duino);
 });
 
 setTimeout(function () {
