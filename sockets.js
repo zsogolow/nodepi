@@ -68,6 +68,14 @@ Sockets.prototype = {
             socketid = 'all';
         }
 
+        function getRealData() {
+            if (typeof getData == 'function') {
+                return getData();
+            } else {
+                return getData;
+            }
+        }
+
         var self = this;
         setInterval(function () {
             if (socketid === 'all') {
@@ -93,6 +101,7 @@ Sockets.prototype = {
     },
 
     send: function (socketid, dataType, data) {
+        var self = this;
         if (socketid === 'all') {
             for (var prop in self.cons) {
                 if (self.cons.hasOwnProperty(prop)) {
