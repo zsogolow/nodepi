@@ -18,6 +18,8 @@ unixSocket(undefined, function (data) {
     console.log(data);
 });
 
+nodePi.startListening();
+
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
     next();

@@ -47,6 +47,12 @@ NodePi.prototype = {
             console.log(stdout);
         });
     },
+
+    startListening() {
+        execute('sudo runner -t 2', function (stdout) {
+            console.log(stdout);
+        });
+    }
 }
 
 module.exports = NodePi;
