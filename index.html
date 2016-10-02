@@ -75,6 +75,10 @@
                 var duinoType = data.data[0];
                 var duinoId = data.data[1];
                 var _duino = _('#duino-' + duinoId); 
+                switch(duinoType) {
+                    case 21: _duino.children('#type').html('general'); break;
+                    case 22: _duino.children('#type').html('relay'); break;
+                }
                 _duino.children('#status').html('alive');
                 _duino.children('#last-heartbeat').html(new Date().toLocaleString());
                 console.log(data);
