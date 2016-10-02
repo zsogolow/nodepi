@@ -3,6 +3,7 @@
 var fs = require('fs');
 var os = require('os');
 var exec = require('child_process').exec;
+var execSync = requre('child_process').execSync;
 
 function NodePi() {
 
@@ -10,7 +11,8 @@ function NodePi() {
 
 function execute(command, callback) {
     exec(command, function (error, stdout, stderr) {
-        callback(stdout);
+        console.log(error);
+        callback(stdout, stderr);
     });
 }
 
