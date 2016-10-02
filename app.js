@@ -15,7 +15,8 @@ var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
 unixSocket('/tmp/hidden', function (data) {
-    console.log(data.toJSON());
+    sockets.send('all', 'heartbeat', data.data);
+    console.log(data);
 });
 
 setTimeout(function () {

@@ -92,6 +92,28 @@ Sockets.prototype = {
         }, interval);
     },
 
+    send: function (socketid, dataType, data) {
+        if (socketid === 'all') {
+            for (var prop in self.cons) {
+                if (self.cons.hasOwnProperty(prop)) {
+                    var con = self.cons[prop];
+                    con.socket.emit('data', {
+                        type: dataType,
+                        data: data
+                    });
+                }
+            }
+        } else {
+            var con = self.cons[socketid];
+            if (con) {
+                con.socket.emit('data', {
+                    type: dataType,
+                    data: data
+                });
+            }
+        }
+    },
+
     generateId: function () {
         return this.seed++;
     }
