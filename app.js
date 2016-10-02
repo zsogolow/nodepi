@@ -2,6 +2,7 @@ var webApp = require('./server/webapp');
 var NodePi = require('./index');
 var NodeRelay = require('./relay');
 var Sockets = require('./sockets');
+var unixSocket = require('./unixSocket');
 
 var app = webApp.createWebApp();
 var settings = {
@@ -12,6 +13,8 @@ var settings = {
 var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
+
+unixSocket();
 
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
@@ -70,5 +73,3 @@ app.router.post('/reboot', function (req, res) {
 sockets.stream(1000, 'all', 'uptime', function () {
     return nodePi.osInfo().uptime;
 });
-
-nodePi.startListening();
