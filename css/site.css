@@ -164,7 +164,7 @@ p {
 .duino {
     flex:1;
     min-width: 200px;
-    min-height: 200px;
+    min-height: 100px;
     margin:4px;
     box-shadow: 0 0 2px #040404;
 }

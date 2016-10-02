@@ -72,7 +72,8 @@
                 _('#uptimeField').html(data.data);
                 break;
             case 'heartbeat':
-                var duinoId = data.data;
+                var duinoType = data.data[0];
+                var duinoId = data.data[1];
                 var _duino = _('#duino-' + duinoId); 
                 _duino.children('#status').html('alive');
                 _duino.children('#last-heartbeat').html(new Date().toLocaleString());
