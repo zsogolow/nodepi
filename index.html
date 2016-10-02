@@ -73,7 +73,7 @@
                 break;
             case 'heartbeat':
                 var duinoId = data.data;
-                _('#duino-' + duinoId).find('#status').html('alive');
+                _('#duino-' + duinoId).children('#status').html('alive');
                 console.log(data);
                 break;
             default:
