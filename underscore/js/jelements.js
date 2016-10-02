@@ -86,7 +86,7 @@ _.prototype.constructor.http = function (url) {
                 }
 
                 client.open(method, uri);
-                client.setRequestHeader('Content-Type', 'json');
+                client.setRequestHeader('Content-Type', 'application/json');
                 client.send();
 
                 client.onload = function () {

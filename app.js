@@ -58,6 +58,7 @@ app.router.get('/networkInfo', function (req, res) {
 });
 
 app.router.post('/lightsOn', function (req, res) {
+    console.log(req.body);
     var promise = nodeRelay.lightsOn(req.body.id);
     promise.then(function (data) {
         res.end(data.toString());
@@ -65,6 +66,7 @@ app.router.post('/lightsOn', function (req, res) {
 });
 
 app.router.post('/lightsOff', function (req, res) {
+    console.log(req.body);
     var promise = nodeRelay.lightsOff(req.body.id);
     promise.then(function (data) {
         res.end(data.toString());
