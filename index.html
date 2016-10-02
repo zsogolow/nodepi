@@ -73,7 +73,9 @@
                 break;
             case 'heartbeat':
                 var duinoId = data.data;
-                _('#duino-' + duinoId).children('#status').html('alive');
+                var _duino = _('#duino-' + duinoId); 
+                _duino.children('#status').html('alive');
+                _duino.children('#last-heartbeat').html(new Date().toLocaleString());
                 console.log(data);
                 break;
             default:

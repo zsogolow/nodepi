@@ -154,3 +154,17 @@ p {
     padding-left: 24px;
     text-align: left;
 }
+
+.duinos-flexbox {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+}
+
+.duino {
+    flex:1;
+    min-width: 200px;
+    min-height: 200px;
+    margin:4px;
+    box-shadow: 0 0 2px #040404;
+}
