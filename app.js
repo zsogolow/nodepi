@@ -15,13 +15,13 @@ var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
-// unixSocket('/tmp/hidden', function (data) {
-//     sockets.send('all', 'heartbeat', data[0]);
-// });
+unixSocket('/tmp/hidden', function (data) {
+    sockets.send('all', 'heartbeat', data[0]);
+});
 
-// setTimeout(function () {
-//     nodePi.startListening();
-// }, 1500);
+setTimeout(function () {
+    nodePi.startListening();
+}, 1500);
 
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
@@ -64,16 +64,6 @@ app.router.get('/lightsState', function (req, res) {
     var promise = nodeRelay.lightsState();
     promise.then(function (data) {
         res.end(data.toString());
-    });
-});
-
-app.router.get('/ping', function (req, res) {
-    var parsed = url.parse(req.url, true);
-    var promise = nodePi.ping(parsed.query.id);
-    promise.then(function (data) {
-        res.end(data.toString());
-    }).catch(function(err) {
-        res.end();
     });
 });
 

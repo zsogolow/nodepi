@@ -80,18 +80,6 @@ _(document).bind('DOMContentLoaded', function () {
                     });
                 });
 
-                _('.duinos-flexbox').children('button').bind('click', function () {
-                    var id = _(this).data('id');
-                    var pingGet = _.http('/ping?id=' + id).get();
-                    pingGet.then(function (data) {
-                        if (data == id) {
-                            _('#duino-' + id).children('#pong-label').html('pong!');
-                            setTimeout(function () {
-                                _('#duino-' + id).children('#pong-label').html('');
-                            }, 3000);
-                        }
-                    });
-                });
                 break;
             default:
                 break;

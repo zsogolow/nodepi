@@ -55,16 +55,6 @@ NodePi.prototype = {
             console.log(stdout);
         });
     },
-
-    ping: function (id) {
-        var prom = new Promise(function (resolve, reject) {
-            execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
-                var state = parseInt(stdout);
-                resolve(state);
-            });
-        });
-        return prom;
-    }
 }
 
 module.exports = NodePi;
