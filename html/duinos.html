@@ -1,7 +1,9 @@
 <div class="tab-content">
-    <p id="lightState"></p>
-    <button id="onButton">lights on</button>
-    <button id="offButton">lights off</button>
+    <div class="relay-template hidden">
+        <p class="lights-state"></p>
+        <button class="on-button">lights on</button>
+        <button class="off-button">lights off</button>
+    </div>
 
     <div class="duinos-flexbox">
         <div id="duino-1" class="duino">
@@ -9,6 +11,7 @@
             <p id="type"></p>
             <p id="status"></p>
             <p id="last-heartbeat"></p>
+            <div id="template"></div>
         </div>
         <div id="duino-2" class="duino">
             <h3>duino 2</h3>
