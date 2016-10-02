@@ -18,7 +18,9 @@ unixSocket(undefined, function (data) {
     console.log(data);
 });
 
-nodePi.startListening();
+setTimeout(function () {
+    nodePi.startListening();
+}, 2000);
 
 app.router.use(function (req, res, next) {
     res.setHeader('test', 'header1');
