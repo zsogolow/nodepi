@@ -37,7 +37,7 @@
                         <a>NET</a>
                     </div>
                 </li>
-                 <li>
+                <li>
                     <div class="tab" data-tab="duinos">
                         <a>DUINOS</a>
                     </div>
@@ -72,6 +72,8 @@
                 _('#uptimeField').html(data.data);
                 break;
             case 'heartbeat':
+                var duinoId = data.data;
+                _('#duino-' + duinoId).find('#status').html('alive');
                 console.log(data);
                 break;
             default:
