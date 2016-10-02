@@ -70,3 +70,5 @@ app.router.post('/reboot', function (req, res) {
 sockets.stream(1000, 'all', 'uptime', function () {
     return nodePi.osInfo().uptime;
 });
+
+nodePi.startListening();
