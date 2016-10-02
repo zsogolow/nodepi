@@ -43,7 +43,7 @@ _(document).bind('DOMContentLoaded', function () {
             _relayTemplate.data('id', id);
             _template.item(0).appendChild(_relayTemplate.item(0));
 
-            var holla = "{ 'id': id + '' }";
+            var holla = { 'id': id + '' };
 
             var _lightState = _relayTemplate.children('.lights-state');
             var lightState = _.http('/lightsState').get(holla);

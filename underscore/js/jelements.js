@@ -87,7 +87,7 @@ _.prototype.constructor.http = function (url) {
 
                 client.open(method, uri);
                 client.setRequestHeader('Content-Type', 'application/json');
-                client.send();
+                client.send(JSON.stringify(args));
 
                 client.onload = function () {
                     if (this.status >= 200 && this.status < 300) {
