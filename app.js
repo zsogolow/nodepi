@@ -39,21 +39,21 @@ app.router.get('/networkInfo', function (req, res) {
 app.router.post('/lightsOn', function (req, res) {
     var promise = nodeRelay.lightsOn();
     promise.then(function (data) {
-        res.end(data);
+        res.end(data.toString());
     });
 });
 
 app.router.post('/lightsOff', function (req, res) {
     var promise = nodeRelay.lightsOff();
     promise.then(function (data) {
-        res.end(data);
+        res.end(data.toString());
     });
 });
 
 app.router.get('/lightsState', function (req, res) {
     var promise = nodeRelay.lightsState();
     promise.then(function (data) {
-        res.end(data);
+        res.end(data.toString());
     });
 });
 
