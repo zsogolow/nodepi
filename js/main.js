@@ -84,7 +84,12 @@ _(document).bind('DOMContentLoaded', function () {
                     var id = _(this).data('id');
                     var pingGet = _.http('/ping?id=' + id).get();
                     pingGet.then(function (data) {
-                        console.log(data);
+                        if (data == id) {
+                            _('duino-' + id).children('#pong-label').html('pong!');
+                            setTimeout(function () {
+                                _('duino-' + id).children('#pong-label').html('');
+                            }, 3000);
+                        }
                     });
                 });
                 break;
