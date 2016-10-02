@@ -20,7 +20,7 @@ function WebApp() {
     const httpServer = http.createServer(requestHandler);
     self.server = httpServer;
 
-    const router = Router();
+    const router = Router({ mergeParams: true });
     router.use(bodyParser.json());
     self.router = router;
 
