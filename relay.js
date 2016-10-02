@@ -11,9 +11,9 @@ function execute(command, callback) {
 }
 
 Relay.prototype = {
-    lightsOn: function () {
+    lightsOn: function (id) {
         var prom = new Promise(function (resolve, reject) {
-            execute('sudo runner -d 1 -t 5', function (stdout) {
+            execute('sudo runner -d ' + id + ' -t 5', function (stdout) {
                 var state = parseInt(stdout);
                 console.log(state);
                 resolve(state);
@@ -22,9 +22,9 @@ Relay.prototype = {
         return prom;
     },
 
-    lightsOff: function () {
+    lightsOff: function (id) {
         var prom = new Promise(function (resolve, reject) {
-            execute('sudo runner -d 1 -t 6', function (stdout) {
+            execute('sudo runner -d ' + id + ' -t 6', function (stdout) {
                 var state = parseInt(stdout);
                 console.log(state);
                 resolve(state);
@@ -33,9 +33,9 @@ Relay.prototype = {
         return prom;
     },
 
-    lightsState: function () {
+    lightsState: function (id) {
         var prom = new Promise(function (resolve, reject) {
-            execute('sudo runner -d 1 -t 4', function (stdout) {
+            execute('sudo runner -d ' + id + ' -t 4', function (stdout) {
                 var state = parseInt(stdout);
                 console.log(state);
                 resolve(state);
