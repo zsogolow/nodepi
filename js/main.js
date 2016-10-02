@@ -79,6 +79,14 @@ _(document).bind('DOMContentLoaded', function () {
                         _lightState.html(getStateString(data));
                     });
                 });
+
+                _('#duinos-flexbox').children('button').bind('click', function () {
+                    var id = _(this).data('id');
+                    var pingGet = _.http('/ping?id=' + id).get();
+                    pingGet.then(function (data) {
+                        console.log(data);
+                    });
+                });
                 break;
             default:
                 break;
