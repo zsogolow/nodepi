@@ -18,7 +18,6 @@ function listen(path, cb) {
         var unixServer = net.createServer(function (localSerialConnection) {
             localSerialConnection.on('data', function (data) {
                 // data is a buffer from the socket
-                console.log(data);
                 cb(data);
                 // send ack
                 localSerialConnection.write('ack!');

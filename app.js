@@ -14,8 +14,8 @@ var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
-unixSocket(undefined, function (data) {
-    console.log(data);
+unixSocket('/tmp/hidden', function (data) {
+    console.log(data.toString());
 });
 
 setTimeout(function () {
