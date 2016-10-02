@@ -15,6 +15,7 @@ Relay.prototype = {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d 1 -t 5', function (stdout) {
                 var state = parseInt(stdout);
+                console.log(state);
                 resolve(state);
             });
         });
@@ -25,6 +26,7 @@ Relay.prototype = {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d 1 -t 6', function (stdout) {
                 var state = parseInt(stdout);
+                console.log(state);
                 resolve(state);
             });
         });
@@ -35,6 +37,7 @@ Relay.prototype = {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d 1 -t 4', function (stdout) {
                 var state = parseInt(stdout);
+                console.log(state);
                 resolve(state);
             });
         });
