@@ -72,6 +72,8 @@ app.router.get('/ping', function (req, res) {
     var promise = nodePi.ping(parsed.query.id);
     promise.then(function (data) {
         res.end(data.toString());
+    }).catch(function(err) {
+        res.end();
     });
 });
 
