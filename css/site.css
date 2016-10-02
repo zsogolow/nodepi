@@ -125,7 +125,8 @@ p {
     color: #040404;
     overflow-y: auto;
     border-radius: 4px;
-    margin: 0 80px;
+    margin-left: 80px;
+    margin-right: 12px;
 }
 
 .tabs .tab-section .tab-content {
