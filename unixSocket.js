@@ -6,6 +6,7 @@ function listen(path, cb) {
     if (!path) {
         path = socketPath;
     }
+
     fs.stat(path, function (err) {
 
         if (!err) {
@@ -29,6 +30,6 @@ function listen(path, cb) {
     });
 }
 
-module.exports = function (path) {
-    return listen(path);
+module.exports = function (path, cb) {
+    listen(path, cb);
 }
