@@ -15,7 +15,7 @@ var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 
 unixSocket('/tmp/hidden', function (data) {
-    sockets.send('all', 'heartbeat', data.toString("utf8"));
+    sockets.send('all', 'heartbeat', data[0]);
     console.log(data);
 });
 
