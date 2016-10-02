@@ -74,7 +74,11 @@ sockets.stream(1000, 'all', 'uptime', function () {
 sockets.stream(2000, 'all', 'lights', function () {
     var promise = nodeRelay.lightsState();
     var state = undefined;
-    return promise.then(function (data) {
-        return data;
+    promise.then(function (data) {
+        state = data;
     });
+    while (state === undefined) {
+        continue;
+    }
+    return state;
 });
