@@ -13,11 +13,6 @@ function execute(command, callback) {
     });
 }
 
-function executeSync(command) {
-    var result = execSync(command);
-    return result;
-}
-
 function Duinos() {
     if (!this) {
         return new Duinos();
@@ -32,9 +27,6 @@ Duinos.prototype = {
             callback(stdout, stderr);
         });
     },
-    pingSync: function (id) {
-        return executeSync('sudo runner -d ' + id + ' -t 1');
-    }
 };
 
 module.exports = Duinos;
