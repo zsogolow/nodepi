@@ -86,6 +86,7 @@ app.router.get('/lightsState', function (req, res) {
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     duinos.ping(parsed.query.id, function (stdout) {
+        console.log('cb ' + stdout);
         res.end(parseInt(stdout).toString());
     });
 });
