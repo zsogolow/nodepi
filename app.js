@@ -85,10 +85,10 @@ app.router.get('/lightsState', function (req, res) {
 
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
-    var result = duinos.pingSync(parsed.query.id);
-    console.log(result);
-    res.end(parseInt(result).toString());
-
+    duinos.ping(parsed.query.id, function (stdout) {
+        console.log('cb ' + stdout);
+        res.end(parseInt(stdout).toString());
+    });
 });
 
 app.router.post('/shutdown', function (req, res) {
