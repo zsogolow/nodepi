@@ -1,5 +1,6 @@
 var webApp = require('./server/webapp');
 var NodePi = require('./index');
+var Duinos = require('./duinos');
 var NodeRelay = require('./relay');
 var Sockets = require('./sockets');
 var unixSocket = require('./unixSocket');
@@ -14,6 +15,7 @@ var settings = {
 var nodePi = new NodePi();
 var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
+var duinos = new Duinos();
 
 unixSocket('/tmp/hidden', function (data) {
     var dataArray = [];
@@ -78,6 +80,13 @@ app.router.get('/lightsState', function (req, res) {
     var promise = nodeRelay.lightsState(parsed.query.id);
     promise.then(function (data) {
         res.end(data.toString());
+    });
+});
+
+app.router.get('/ping', function (req, res) {
+    var parsed = url.parse(req.url, true);
+    duinos.ping(parsed.query.id, function (stdout) {
+        res.end(parseInt(stdout).toString());
     });
 });
 
