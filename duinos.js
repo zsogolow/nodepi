@@ -27,9 +27,12 @@ function Duinos() {
 Duinos.prototype = {
     ping: function (id, callback) {
         execute('sudo runner -d ' + id + ' -t 1', function (stdout, stderr) {
-            console.log(stdout);
+            console.log(stdout)
             callback(stdout, stderr);
         });
+    },
+    pingSync: function (id) {
+        return executeSync('sudo runner -d ' + id + ' -t 1');
     }
 };
 
