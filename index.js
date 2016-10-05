@@ -71,6 +71,7 @@ NodePi.prototype = {
         }
         return type;
     },
+    
 }
 
 module.exports = NodePi;
