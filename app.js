@@ -39,6 +39,7 @@ unixSocket('/tmp/hidden', function (data) {
 });
 
 setTimeout(function () {
+    console.log("listening now");
     nodePi.startListening();
 }, 1500);
 
