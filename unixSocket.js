@@ -21,7 +21,7 @@ function listen(path, cb) {
                 console.log(data);
                 cb(data);
                 // send ack
-                localSerialConnection.write('ack!');
+              //  localSerialConnection.write('ack!');
             });
             // write to socket with localSerialConnection.write()
         });
