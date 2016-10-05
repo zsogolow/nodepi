@@ -35,7 +35,7 @@ unixSocket('/tmp/hidden', function (data) {
         heartbeat: new Date().toLocaleString()
     }
 
-    sockets.send('all', 'data', duino);
+    sockets.send('all', action, duino);
 });
 
 setTimeout(function () {
