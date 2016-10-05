@@ -14,7 +14,7 @@ _(document).bind('DOMContentLoaded', function () {
             case 'uptime':
                 _('#uptimeField').html(data.data);
                 break;
-                
+
             case 'heartbeat':
                 var duinoType = data.data.type;
                 var duinoId = data.data.id;
@@ -32,7 +32,7 @@ _(document).bind('DOMContentLoaded', function () {
                 console.log(data);
                 break;
 
-            case data:
+            case 'data':
                 console.log(data);
                 break;
 
