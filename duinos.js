@@ -21,11 +21,13 @@ function Duinos() {
 
 Duinos.prototype = {
     ping: function (id, callback) {
-        execute('sudo runner -d ' + id + ' -t 1', function (stdout, stderr) {
-            console.log(stderr);
-            console.log(stdout);
-            callback(stdout, stderr);
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
+                console.log(stdout);
+                resolve(stdout);
+            });
         });
+        return prom;
     },
 };
 

@@ -14,6 +14,7 @@ _(document).bind('DOMContentLoaded', function () {
             case 'uptime':
                 _('#uptimeField').html(data.data);
                 break;
+                
             case 'heartbeat':
                 var duinoType = data.data.type;
                 var duinoId = data.data.id;
@@ -29,8 +30,12 @@ _(document).bind('DOMContentLoaded', function () {
                     initTemplateActions(_template, duinoType, duinoId);
                 }
                 console.log(data);
-
                 break;
+
+            case data:
+                console.log(data);
+                break;
+
             default:
                 break;
         }
@@ -43,10 +48,13 @@ _(document).bind('DOMContentLoaded', function () {
             _relayTemplate.data('id', id);
             _template.item(0).appendChild(_relayTemplate.item(0));
 
-            var holla = { 'id': id + '' };
+            var holla = {
+                'id': id + ''
+            };
 
             var _lightState = _relayTemplate.children('.lights-state');
             var lightState = _.http('/lightsState?id=' + id).get();
+
             function getStateString(state) {
                 return state == 0 ? "off" : state == 1 ? "on" : "off"
             }
@@ -73,8 +81,7 @@ _(document).bind('DOMContentLoaded', function () {
 
 
             _relayTemplate.removeClass('hidden');
-        } else {
-        }
+        } else {}
 
         _template.data('init', true);
     }

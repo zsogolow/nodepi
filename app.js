@@ -22,14 +22,20 @@ unixSocket('/tmp/hidden', function (data) {
     for (var i = 0; i < data.length; i++) {
         dataArray.push(data[i]);
     }
-    var type = dataArray[0];
-    var id = dataArray[1];
+    var id = dataArray[0];
+    var action = dataArray[1];
+    var type = dataArray[2];
+    var extra = dataArray[3];
+
     var duino = {
-        type: nodePi.getDuinoType(type),
         id: id,
+        action: action,
+        type: nodePi.getDuinoType(type),
+        extra: extra,
         heartbeat: new Date().toLocaleString()
     }
-    sockets.send('all', 'heartbeat', duino);
+
+    sockets.send('all', 'data', duino);
 });
 
 setTimeout(function () {
@@ -62,32 +68,41 @@ app.router.get('/networkInfo', function (req, res) {
 app.router.post('/lightsOn', function (req, res) {
     console.log(req.body);
     var promise = nodeRelay.lightsOn(req.body.id);
-    promise.then(function (data) {
-        res.end(data.toString());
+    promise.then(function (data) {}).catch(function (err) {
+        console.log(`oops! ${err}`);
     });
+
+    res.end();
 });
 
 app.router.post('/lightsOff', function (req, res) {
     console.log(req.body);
     var promise = nodeRelay.lightsOff(req.body.id);
-    promise.then(function (data) {
-        res.end(data.toString());
+    promise.then(function (data) {}).catch(function (err) {
+        console.log(`oops! ${err}`);
     });
+
+    res.end();
 });
 
 app.router.get('/lightsState', function (req, res) {
     var parsed = url.parse(req.url, true);
     var promise = nodeRelay.lightsState(parsed.query.id);
-    promise.then(function (data) {
-        res.end(data.toString());
+    promise.then(function (data) {}).catch(function (err) {
+        console.log(`oops! ${err}`);
     });
+
+    res.end();
 });
 
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
-    duinos.ping(parsed.query.id, function (stdout) {
-        res.end(parseInt(stdout).toString());
+    var promise = duinos.ping(parsed.query.id);
+    promise.then(function (data) {}).catch(function (err) {
+        console.log(`oops! ${err}`);
     });
+    
+    res.end();
 });
 
 app.router.post('/shutdown', function (req, res) {
