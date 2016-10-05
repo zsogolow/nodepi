@@ -29,7 +29,7 @@ unixSocket('/tmp/hidden', function (data) {
 
     var duino = {
         id: id,
-        action: action,
+        action: nodePi.getDuinoAction(action),
         type: nodePi.getDuinoType(type),
         extra: extra,
         heartbeat: new Date().toLocaleString()

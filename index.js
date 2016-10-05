@@ -5,6 +5,20 @@ var os = require('os');
 var exec = require('child_process').exec;
 var execSync = require('child_process').execSync;
 
+// types
+const GENERAL = 21;
+const RELAY = 22;
+
+// actions
+const EMPTY = -1;
+const PING = 1;
+const HEARTBEAT = 2;
+const BLINK = 3;
+const RELAY_STATE = 4;
+const RELAY_ON = 5;
+const RELAY_OFF = 6;
+
+
 function NodePi() {
 
 }
@@ -59,10 +73,10 @@ NodePi.prototype = {
     getDuinoType: function (typeId) {
         var type = undefined;
         switch (typeId) {
-            case 21:
+            case GENERAL:
                 type = 'general';
                 break;
-            case 22:
+            case RELAY:
                 type = 'relay';
                 break;
             default:
@@ -71,7 +85,37 @@ NodePi.prototype = {
         }
         return type;
     },
-    
+
+    getDuinoAction: function (actionId) {
+        var action = "hi";
+        switch (actionId) {
+            case EMPTY:
+                action = "empty";
+                break;
+            case PING:
+                action = "ping";
+                break;
+            case HEARTBEAT:
+                action = "heartbeat";
+                break;
+            case BLINK:
+                action = "blink";
+                break;
+            case RELAY_STATE:
+                action = "relay_state";
+                break;
+            case RELAY_ON:
+                action = "relay_on";
+                break;
+            case RELAY_OFF:
+                action = "relay_off";
+                break;
+            default:
+                action = "unknown";
+                break;
+        }
+        return action;
+    },
 }
 
 module.exports = NodePi;
