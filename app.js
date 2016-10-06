@@ -119,7 +119,7 @@ app.router.get('/ping', function (req, res) {
     res.end();
 });
 
-app.router.get('/duinosState', function (req, res) {
+app.router.get('/fuckthefuckoff', function (req, res) {
     res.end(duinos.duinos);
 });
 
