@@ -10,45 +10,46 @@ _(document).bind('DOMContentLoaded', function () {
 
     socket.on('data', function (data) {
         // console.log(data);
-        console.log(data.data);
+
         switch (data.type) {
             case 'uptime':
-                _('#uptimeField').html(data.data);
+                updateUptime(data);
                 break;
 
             case 'heartbeat':
-                var duinoType = data.data.type;
-                var duinoId = data.data.id;
-                var heartbeat = data.data.heartbeat;
-                var _duino = _('#duino-' + duinoId);
-
-                _duino.children('#type').html(duinoType);
-                _duino.children('.duino-id').html(duinoId);
-                _duino.children('#last-heartbeat').html(heartbeat);
-
+                updateDuino(data.data);
                 break;
 
             case 'ping':
-                var duinoType = data.data.type;
-                var duinoId = data.data.id;
-                var heartbeat = data.data.heartbeat;
-                var _duino = _('#duino-' + duinoId);
-
-                _duino.children('#type').html(duinoType);
-                _duino.children('.duino-id').html(duinoId);
-                _duino.children('#last-heartbeat').html(heartbeat);
-
-                var _template = _duino.children('#template');
-                if (!_template.data('init')) {
-                    initTemplateActions(_template, duinoType, duinoId);
-                }
-                console.log(data);
+                updateDuino(data.data);
                 break;
-                
+
             default:
                 break;
         }
     });
+
+    function updateUptime(data) {
+        _('#uptimeField').html(data);
+    }
+
+    function updateDuino(duino) {
+        var duinoType = duino.type;
+        var duinoId = duino.id;
+        var heartbeat = duino.heartbeat;
+        var _duino = _('#duino-' + duinoId);
+
+        _duino.children('#type').html(duinoType);
+        _duino.children('.duino-id').html(duinoId);
+        _duino.children('#last-heartbeat').html(heartbeat);
+
+        var _template = _duino.children('#template');
+        if (!_template.data('init')) {
+            initTemplateActions(_template, duinoType, duinoId);
+        }
+
+        console.log(duino);
+    }
 
     function initTemplateActions(_template, type, id) {
         if (type == 'relay') {
