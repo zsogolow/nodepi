@@ -55,9 +55,7 @@ app.router.get('/hi', function (req, res) {
 
 app.router.get('/duinos', function (req, res, next) {
     req.url = '/html/duinos.html';
-    res.body = {
-        duinos: duinos.duinos
-    };
+    console.log(duinos.duinos);
     next();
 });
 
