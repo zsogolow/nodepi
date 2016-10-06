@@ -55,24 +55,30 @@ _(document).bind('DOMContentLoaded', function () {
 
             case 'duinos':
                 var duinos = _.http('/duinosState').get();
-                for (var prop in duinos) {
-                    if (duinos.hasOwnProperty(prop)) {
-                        var duino = duinos[prop];
-                        var duinoType = duino.type;
-                        var duinoId = duino.id;
-                        var heartbeat = duino.heartbeat;
-                        var _duino = _('#duino-' + duinoId);
+                duinos.then(function (data) {
+                    var duinos = JSON.parse(data);
+                    for (var prop in duinos) {
+                        if (duinos.hasOwnProperty(prop)) {
+                            var duino = duinos[prop];
+                            var duinoType = duino.type;
+                            var duinoId = duino.id;
+                            var heartbeat = duino.heartbeat;
+                            var _duino = _('#duino-' + duinoId);
 
-                        _duino.children('#type').html(duinoType);
-                        _duino.children('.duino-id').html(duinoId);
-                        _duino.children('#last-heartbeat').html(heartbeat);
+                            _duino.children('#type').html(duinoType);
+                            _duino.children('.duino-id').html(duinoId);
+                            _duino.children('#last-heartbeat').html(heartbeat);
 
-                        var _template = _duino.children('#template');
-                        if (!_template.data('init')) {
-                            initTemplateActions(_template, duinoType, duinoId);
+                            var _template = _duino.children('#template');
+                            if (!_template.data('init')) {
+                                initTemplateActions(_template, duinoType, duinoId);
+                            }
                         }
                     }
-                }
+                }).catch(function (err) {
+                    console.log(`oops! ${err}`);
+                });
+
                 break;
             default:
                 break;
