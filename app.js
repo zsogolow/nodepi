@@ -119,8 +119,8 @@ app.router.get('/ping', function (req, res) {
     res.end();
 });
 
-app.router.get('/fuckthefuckoff', function (req, res) {
-    res.end();
+app.router.get('/duinosState', function (req, res) {
+    res.end(JSON.stringify(duinos.duinos));
 });
 
 app.router.post('/shutdown', function (req, res) {
