@@ -58,7 +58,7 @@ _(document).bind('DOMContentLoaded', function () {
                     (function (i) {
                         setTimeout(function () {
                             _.http('/ping?id=' + i).get();
-                        }, 10);
+                        }, 100);
                     })(i);
                 }
                 // var _lightState = _('.relay-template .lights-state');
