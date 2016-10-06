@@ -6,14 +6,11 @@ _(document).bind('DOMContentLoaded', function () {
             type: 'connected',
             data: 'hi!'
         });
-
-        for (var i = 1; i <= 6; i++) {
-            _.http('/ping?id=' + i).get();
-        }
     });
 
     socket.on('data', function (data) {
         // console.log(data);
+        console.log(data.data);
         switch (data.type) {
             case 'uptime':
                 _('#uptimeField').html(data.data);
@@ -29,11 +26,6 @@ _(document).bind('DOMContentLoaded', function () {
                 _duino.children('.duino-id').html(duinoId);
                 _duino.children('#last-heartbeat').html(heartbeat);
 
-                // var _template = _duino.children('#template');
-                // if (!_template.data('init')) {
-                //     initTemplateActions(_template, duinoType, duinoId);
-                // }
-                // console.log(data);
                 break;
 
             case 'ping':
@@ -52,13 +44,8 @@ _(document).bind('DOMContentLoaded', function () {
                 }
                 console.log(data);
                 break;
-
-            case 'data':
-                console.log(data);
-                break;
-
+                
             default:
-                console.log(data);
                 break;
         }
     });
