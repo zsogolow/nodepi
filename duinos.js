@@ -35,7 +35,7 @@ Duinos.prototype = {
     },
 
     heartbeat: function (duino) {
-        duinos[duino.id] = duino;
+        this.duinos[duino.id] = duino;
     }
 };
 
