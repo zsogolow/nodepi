@@ -20,9 +20,6 @@ _(document).bind('DOMContentLoaded', function () {
                 updateDuino(data.data);
                 break;
 
-            case 'ping':
-                break;
-
             default:
                 break;
         }
