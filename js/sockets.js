@@ -19,6 +19,10 @@ _(document).bind('DOMContentLoaded', function () {
                 updateDuino(data.data);
                 break;
 
+            case 'pong':
+                pong(data.data);
+                break;
+
             default:
                 console.log(data.data);
                 break;
@@ -38,5 +42,13 @@ _(document).bind('DOMContentLoaded', function () {
         _duino.children('#type').html(duinoType);
         _duino.children('.duino-id').html(duinoId);
         _duino.children('#last-heartbeat').html(heartbeat);
+    }
+
+    function pong(duino) {
+        var _duino = _('#duino-' + duinoId);
+        _duino.children('pong-label').html('pong!');
+        setTimeout(function () {
+            _duino.children('pong-label').html('');
+        }, 3000);
     }
 });
