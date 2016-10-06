@@ -6,6 +6,10 @@ _(document).bind('DOMContentLoaded', function () {
             type: 'connected',
             data: 'hi!'
         });
+
+        for (var i = 1; i <= 6; i++) {
+            _.http('/ping?id=' + i).get();
+        }
     });
 
     socket.on('data', function (data) {
@@ -16,6 +20,23 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             case 'heartbeat':
+                var duinoType = data.data.type;
+                var duinoId = data.data.id;
+                var heartbeat = data.data.heartbeat;
+                var _duino = _('#duino-' + duinoId);
+
+                _duino.children('#type').html(duinoType);
+                _duino.children('.duino-id').html(duinoId);
+                _duino.children('#last-heartbeat').html(heartbeat);
+
+                // var _template = _duino.children('#template');
+                // if (!_template.data('init')) {
+                //     initTemplateActions(_template, duinoType, duinoId);
+                // }
+                // console.log(data);
+                break;
+
+            case 'ping':
                 var duinoType = data.data.type;
                 var duinoId = data.data.id;
                 var heartbeat = data.data.heartbeat;
@@ -37,6 +58,7 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             default:
+                console.log(data);
                 break;
         }
     });
@@ -81,7 +103,7 @@ _(document).bind('DOMContentLoaded', function () {
 
 
             _relayTemplate.removeClass('hidden');
-        } else {}
+        } else { }
 
         _template.data('init', true);
     }
