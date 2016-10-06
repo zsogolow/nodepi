@@ -119,6 +119,10 @@ app.router.get('/ping', function (req, res) {
     res.end();
 });
 
+app.router.get('/duinosState', function (req, res) {
+    res.end(duinos.duinos);
+});
+
 app.router.post('/shutdown', function (req, res) {
     nodePi.halt();
     res.end('shutting down');

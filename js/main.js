@@ -10,7 +10,7 @@ _(document).bind('DOMContentLoaded', function () {
         _menuToggle = _('.menu-icon');
 
     function clickTab(tab) {
-        var netContent = _.http('/'+tab).get();
+        var netContent = _.http('/' + tab).get();
         netContent.then(function (data) {
             _section = _('.tab-section[data-tab="' + tab + '"]');
             _section.addClass('active');
@@ -54,36 +54,74 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             case 'duinos':
-                // var _lightState = _('.relay-template .lights-state');
-                // var lightState = _.http('/lightsState').get();
-                // function getStateString(state) {
-                //     return state == 0 ? "off" : state == 1 ? "on" : "off"
-                // }
-                // lightState.then(function (data) {
-                //     _lightState.html(getStateString(data));
-                // }).catch(function (err) {
-                //     console.log(`oops! ${err}`);
-                // })
-                // _('.relay-template .off-button').bind('click', function () {
-                //     console.log('off');
-                //     var lightsOff = _.http('/lightsOff').post();
-                //     lightsOff.then(function (data) {
-                //         _lightState.html(getStateString(data));
-                //     });
-                // });
+                var duinos = _.http('/duinosState').get();
+                for (var prop in duinos) {
+                    if (duinos.hasOwnProperty(prop)) {
+                        var duino = duinos[prop];
+                        var duinoType = duino.type;
+                        var duinoId = duino.id;
+                        var heartbeat = duino.heartbeat;
+                        var _duino = _('#duino-' + duinoId);
 
-                // _('.relay-template .on-button').bind('click', function () {
-                //     console.log('on');
-                //     var lightsOn = _.http('/lightsOn').post();
-                //     lightsOn.then(function (data) {
-                //         _lightState.html(getStateString(data));
-                //     });
-                // });
+                        _duino.children('#type').html(duinoType);
+                        _duino.children('.duino-id').html(duinoId);
+                        _duino.children('#last-heartbeat').html(heartbeat);
 
+                        var _template = _duino.children('#template');
+                        if (!_template.data('init')) {
+                            initTemplateActions(_template, duinoType, duinoId);
+                        }
+                    }
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    function initTemplateActions(_template, type, id) {
+        if (type == 'relay') {
+            var _cloneMe = _('.relay-template');
+            var _relayTemplate = _(_cloneMe.item(0).cloneNode(true));
+            _relayTemplate.data('id', id);
+            _template.item(0).appendChild(_relayTemplate.item(0));
+
+            var holla = {
+                'id': id + ''
+            };
+
+            var _lightState = _relayTemplate.children('.lights-state');
+            var lightState = _.http('/lightsState?id=' + id).get();
+
+            function getStateString(state) {
+                return state == 0 ? "off" : state == 1 ? "on" : "off"
+            }
+            lightState.then(function (data) {
+                _lightState.html(getStateString(data));
+            }).catch(function (err) {
+                console.log(`oops! ${err}`);
+            })
+            _relayTemplate.children('.off-button').bind('click', function () {
+                console.log('off');
+                var lightsOff = _.http('/lightsOff').post(holla);
+                lightsOff.then(function (data) {
+                    _lightState.html(getStateString(data));
+                });
+            });
+
+            _relayTemplate.children('.on-button').bind('click', function () {
+                console.log('on');
+                var lightsOn = _.http('/lightsOn').post(holla);
+                lightsOn.then(function (data) {
+                    _lightState.html(getStateString(data));
+                });
+            });
+
+
+            _relayTemplate.removeClass('hidden');
+        } else {}
+
+        _template.data('init', true);
     }
 
     function init() {
@@ -129,7 +167,7 @@ _(document).bind('DOMContentLoaded', function () {
         });
     }
 
-    function resize(event) { }
+    function resize(event) {}
     var lastResizeEvent = undefined;
     var resizing = false;
     window.requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame;

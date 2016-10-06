@@ -43,56 +43,56 @@ _(document).bind('DOMContentLoaded', function () {
         _duino.children('.duino-id').html(duinoId);
         _duino.children('#last-heartbeat').html(heartbeat);
 
-        var _template = _duino.children('#template');
-        if (!_template.data('init')) {
-            initTemplateActions(_template, duinoType, duinoId);
-        }
+        // var _template = _duino.children('#template');
+        // if (!_template.data('init')) {
+        //     initTemplateActions(_template, duinoType, duinoId);
+        // }
 
-        console.log(duino);
+        // console.log(duino);
     }
 
-    function initTemplateActions(_template, type, id) {
-        if (type == 'relay') {
-            var _cloneMe = _('.relay-template');
-            var _relayTemplate = _(_cloneMe.item(0).cloneNode(true));
-            _relayTemplate.data('id', id);
-            _template.item(0).appendChild(_relayTemplate.item(0));
+    // function initTemplateActions(_template, type, id) {
+    //     if (type == 'relay') {
+    //         var _cloneMe = _('.relay-template');
+    //         var _relayTemplate = _(_cloneMe.item(0).cloneNode(true));
+    //         _relayTemplate.data('id', id);
+    //         _template.item(0).appendChild(_relayTemplate.item(0));
 
-            var holla = {
-                'id': id + ''
-            };
+    //         var holla = {
+    //             'id': id + ''
+    //         };
 
-            var _lightState = _relayTemplate.children('.lights-state');
-            var lightState = _.http('/lightsState?id=' + id).get();
+    //         var _lightState = _relayTemplate.children('.lights-state');
+    //         var lightState = _.http('/lightsState?id=' + id).get();
 
-            function getStateString(state) {
-                return state == 0 ? "off" : state == 1 ? "on" : "off"
-            }
-            lightState.then(function (data) {
-                _lightState.html(getStateString(data));
-            }).catch(function (err) {
-                console.log(`oops! ${err}`);
-            })
-            _relayTemplate.children('.off-button').bind('click', function () {
-                console.log('off');
-                var lightsOff = _.http('/lightsOff').post(holla);
-                lightsOff.then(function (data) {
-                    _lightState.html(getStateString(data));
-                });
-            });
+    //         function getStateString(state) {
+    //             return state == 0 ? "off" : state == 1 ? "on" : "off"
+    //         }
+    //         lightState.then(function (data) {
+    //             _lightState.html(getStateString(data));
+    //         }).catch(function (err) {
+    //             console.log(`oops! ${err}`);
+    //         })
+    //         _relayTemplate.children('.off-button').bind('click', function () {
+    //             console.log('off');
+    //             var lightsOff = _.http('/lightsOff').post(holla);
+    //             lightsOff.then(function (data) {
+    //                 _lightState.html(getStateString(data));
+    //             });
+    //         });
 
-            _relayTemplate.children('.on-button').bind('click', function () {
-                console.log('on');
-                var lightsOn = _.http('/lightsOn').post(holla);
-                lightsOn.then(function (data) {
-                    _lightState.html(getStateString(data));
-                });
-            });
+    //         _relayTemplate.children('.on-button').bind('click', function () {
+    //             console.log('on');
+    //             var lightsOn = _.http('/lightsOn').post(holla);
+    //             lightsOn.then(function (data) {
+    //                 _lightState.html(getStateString(data));
+    //             });
+    //         });
 
 
-            _relayTemplate.removeClass('hidden');
-        } else { }
+    //         _relayTemplate.removeClass('hidden');
+    //     } else { }
 
-        _template.data('init', true);
-    }
+    //     _template.data('init', true);
+    // }
 });
