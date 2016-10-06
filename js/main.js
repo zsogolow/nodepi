@@ -97,17 +97,19 @@ _(document).bind('DOMContentLoaded', function () {
             };
 
             _relayTemplate.children('.off-button').bind('click', function () {
-                console.log('off');
                 var lightsOff = _.http('/lightsOff').post(holla);
                 lightsOff.then(function (data) {}).catch(function (err) {});
             });
 
             _relayTemplate.children('.on-button').bind('click', function () {
-                console.log('on');
                 var lightsOn = _.http('/lightsOn').post(holla);
                 lightsOn.then(function (data) {}).catch(function (err) {});
             });
 
+            _relayTemplate.children('.ping-button').bind('click', function () {
+                var ping = _.http('/ping?id=' + id).get();
+                ping.then(function (data) {}).catch(function (err) {});
+            });
 
             _relayTemplate.removeClass('hidden');
         } else {}

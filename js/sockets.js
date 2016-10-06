@@ -9,11 +9,10 @@ _(document).bind('DOMContentLoaded', function () {
     });
 
     socket.on('data', function (data) {
-        // console.log(data);
 
         switch (data.type) {
             case 'uptime':
-                updateUptime(data);
+                updateUptime(data.data);
                 break;
 
             case 'heartbeat':
@@ -21,6 +20,7 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             default:
+                console.log(data.data);
                 break;
         }
     });
@@ -38,6 +38,5 @@ _(document).bind('DOMContentLoaded', function () {
         _duino.children('#type').html(duinoType);
         _duino.children('.duino-id').html(duinoId);
         _duino.children('#last-heartbeat').html(heartbeat);
-
     }
 });
