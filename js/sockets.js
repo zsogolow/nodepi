@@ -47,9 +47,9 @@ _(document).bind('DOMContentLoaded', function () {
     function pong(duino) {
         var duinoId = duino.id;
         var _duino = _('#duino-' + duinoId);
-        _duino.children('pong-label').html('pong!');
+        _duino.children('.pong-label').html('pong!');
         setTimeout(function () {
-            _duino.children('pong-label').html('');
+            _duino.children('.pong-label').html('');
         }, 3000);
     }
 });
