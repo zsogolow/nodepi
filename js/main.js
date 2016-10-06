@@ -10,7 +10,7 @@ _(document).bind('DOMContentLoaded', function () {
         _menuToggle = _('.menu-icon');
 
     function clickTab(tab) {
-        var netContent = _.http('/html/' + tab + '.html').get();
+        var netContent = _.http('/'+tab).get();
         netContent.then(function (data) {
             _section = _('.tab-section[data-tab="' + tab + '"]');
             _section.addClass('active');

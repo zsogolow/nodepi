@@ -17,9 +17,13 @@ function Duinos() {
     if (!this) {
         return new Duinos();
     }
+
+    var self = this;
 }
 
 Duinos.prototype = {
+    duinos: {},
+
     ping: function (id, callback) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
@@ -29,6 +33,10 @@ Duinos.prototype = {
         });
         return prom;
     },
+
+    heartbeat: function (duino) {
+        duinos[duino.id] = duino;
+    }
 };
 
 module.exports = Duinos;

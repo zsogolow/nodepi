@@ -35,6 +35,8 @@ unixSocket('/tmp/hidden', function (data) {
         heartbeat: new Date().toLocaleString()
     }
 
+    duinos.heartbeat(duino);
+
     sockets.send('all', duino.action, duino);
 });
 
@@ -43,17 +45,30 @@ setTimeout(function () {
     nodePi.startListening();
 }, 1500);
 
-app.router.use(function (req, res, next) {
-    res.setHeader('test', 'header1');
-    next();
+app.listen(settings.port, settings.hostname, () => {
+    console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
 });
 
 app.router.get('/hi', function (req, res) {
     res.end('you got hi!');
 });
 
-app.listen(settings.port, settings.hostname, () => {
-    console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
+app.router.get('/duinos', function (req, res, next) {
+    req.url = '/html/duinos.html';
+    res.body = {
+        duinos: duinos.duinos
+    };
+    next();
+});
+
+app.router.get('/os', function (req, res, next) {
+    req.url = '/html/os.html';
+    next();
+});
+
+app.router.get('/net', function (req, res, next) {
+    req.url = '/html/net.html';
+    next();
 });
 
 app.router.get('/osInfo', function (req, res) {
@@ -102,7 +117,7 @@ app.router.get('/ping', function (req, res) {
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
-    
+
     res.end();
 });
 
