@@ -45,6 +45,7 @@ _(document).bind('DOMContentLoaded', function () {
     }
 
     function pong(duino) {
+        var duinoId = duino.id;
         var _duino = _('#duino-' + duinoId);
         _duino.children('pong-label').html('pong!');
         setTimeout(function () {
