@@ -50,6 +50,6 @@ _(document).bind('DOMContentLoaded', function () {
         _duino.children('.pong-label').html('pong!');
         setTimeout(function () {
             _duino.children('.pong-label').html('');
-        }, 3000);
+        }, 2000);
     }
 });
