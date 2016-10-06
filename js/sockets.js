@@ -19,7 +19,7 @@ _(document).bind('DOMContentLoaded', function () {
                 updateDuino(data.data);
                 break;
 
-            case 'pong':
+            case 'ping':
                 pong(data.data);
                 break;
 
