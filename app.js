@@ -120,7 +120,7 @@ app.router.get('/ping', function (req, res) {
 });
 
 app.router.get('/fuckthefuckoff', function (req, res) {
-    res.end(duinos.duinos);
+    res.end();
 });
 
 app.router.post('/shutdown', function (req, res) {
