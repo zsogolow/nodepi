@@ -54,13 +54,6 @@ _(document).bind('DOMContentLoaded', function () {
                 break;
 
             case 'duinos':
-                for (var i = 1; i <= 6; i++) {
-                    (function (i) {
-                        setTimeout(function () {
-                            _.http('/ping?id=' + i).get();
-                        }, 100);
-                    })(i);
-                }
                 // var _lightState = _('.relay-template .lights-state');
                 // var lightState = _.http('/lightsState').get();
                 // function getStateString(state) {
