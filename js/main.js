@@ -96,17 +96,6 @@ _(document).bind('DOMContentLoaded', function () {
                 'id': id + ''
             };
 
-            var _lightState = _relayTemplate.children('.lights-state');
-            var lightState = _.http('/lightsState?id=' + id).get();
-
-            function getStateString(state) {
-                return state == 0 ? "off" : state == 1 ? "on" : "off"
-            }
-            lightState.then(function (data) {
-                _lightState.html(getStateString(data));
-            }).catch(function (err) {
-                console.log(`oops! ${err}`);
-            })
             _relayTemplate.children('.off-button').bind('click', function () {
                 console.log('off');
                 var lightsOff = _.http('/lightsOff').post(holla);
