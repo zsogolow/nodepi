@@ -32,7 +32,7 @@ unixSocket('/tmp/hidden', function (data) {
         action: nodePi.getDuinoAction(action),
         type: nodePi.getDuinoType(type),
         extra: extra,
-        heartbeat: new Date().toLocaleString()
+        heartbeat: new Date()
     }
 
     duinos.heartbeat(duino);

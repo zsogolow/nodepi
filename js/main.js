@@ -88,40 +88,121 @@ _(document).bind('DOMContentLoaded', function () {
     function initTemplateActions(_template, type, id) {
         if (type == 'relay') {
             var _cloneMe = _('.relay-template');
-            var _relayTemplate = _(_cloneMe.item(0).cloneNode(true));
-            _relayTemplate.data('id', id);
-            _template.item(0).appendChild(_relayTemplate.item(0));
+            var cloneMe = _cloneMe.item(0);
+            if (cloneMe) {
+                var _relayTemplate = _(cloneMe.cloneNode(true));
+                _relayTemplate.data('id', id);
+                _template.item(0).appendChild(_relayTemplate.item(0));
 
-            var holla = {
-                'id': id + ''
-            };
+                var holla = {
+                    'id': id + ''
+                };
 
-            _relayTemplate.children('.off-button').bind('click', function () {
-                var lightsOff = _.http('/lightsOff').post(holla);
-                lightsOff.then(function (data) {}).catch(function (err) {});
-            });
+                _relayTemplate.children('.off-button').bind('click', function () {
+                    var lightsOff = _.http('/lightsOff').post(holla);
+                    lightsOff.then(function (data) { }).catch(function (err) { });
+                });
 
-            _relayTemplate.children('.on-button').bind('click', function () {
-                var lightsOn = _.http('/lightsOn').post(holla);
-                lightsOn.then(function (data) {}).catch(function (err) {});
-            });
+                _relayTemplate.children('.on-button').bind('click', function () {
+                    var lightsOn = _.http('/lightsOn').post(holla);
+                    lightsOn.then(function (data) { }).catch(function (err) { });
+                });
 
-            _relayTemplate.children('.ping-button').bind('click', function () {
-                var ping = _.http('/ping?id=' + id).get();
-                ping.then(function (data) {}).catch(function (err) {});
-            });
+                _relayTemplate.children('.ping-button').bind('click', function () {
+                    var ping = _.http('/ping?id=' + id).get();
+                    ping.then(function (data) { }).catch(function (err) { });
+                });
 
-            _relayTemplate.removeClass('hidden');
-        } else {}
+                _relayTemplate.removeClass('hidden');
+            }
+        } else {
+            var _cloneMe = _('.general-template');
+            var cloneMe = _cloneMe.item(0);
+            if (cloneMe) {
+                var _genearlTemplate = _(cloneMe.cloneNode(true));
+                _genearlTemplate.data('id', id);
+                _template.item(0).appendChild(_genearlTemplate.item(0));
+
+                var holla = {
+                    'id': id + ''
+                };
+
+                _genearlTemplate.children('.ping-button').bind('click', function () {
+                    var ping = _.http('/ping?id=' + id).get();
+                    ping.then(function (data) { }).catch(function (err) { });
+                });
+
+                _genearlTemplate.removeClass('hidden');
+            }
+        }
 
         _template.data('init', true);
     }
 
+    function initSocket() {
+        var socket = io(location.host);
+        socket.on('connected', function (data) {
+            console.log(data);
+            socket.emit('ack', {
+                type: 'connected',
+                data: 'hi!'
+            });
+        });
+
+        socket.on('data', function (data) {
+            switch (data.type) {
+                case 'uptime':
+                    updateUptime(data.data);
+                    break;
+                case 'heartbeat':
+                    updateDuino(data.data);
+                    break;
+                case 'ping':
+                    pong(data.data);
+                    break;
+                default:
+                    console.log(data.data);
+                    break;
+            }
+        });
+
+        function updateUptime(data) {
+            _('#uptimeField').html(data);
+        }
+
+        function updateDuino(duino) {
+            var duinoType = duino.type;
+            var duinoId = duino.id;
+            var heartbeat = duino.heartbeat;
+            var _duino = _('#duino-' + duinoId);
+
+            _duino.children('#type').html(duinoType);
+            _duino.children('.duino-id').html(duinoId);
+            _duino.children('#last-heartbeat').html(heartbeat);
+
+            var _template = _duino.children('#template');
+            if (!_template.data('init')) {
+                initTemplateActions(_template, duinoType, duinoId);
+            }
+        }
+
+        function pong(duino) {
+            var duinoId = duino.id;
+            var _duino = _('#duino-' + duinoId);
+            _duino.children('.pong-label').html('pong!');
+            setTimeout(function () {
+                _duino.children('.pong-label').html('');
+            }, 2000);
+        }
+    }
+
     function init() {
+        initSocket();
+
         _(_tabs.item(0)).addClass('active');
         _(_sections.item(0)).addClass('active');
 
-        clickTab('os');
+        clickTab('duinos');
 
         _tabs.bind('click', function () {
             var _clicked = _(this);
@@ -160,7 +241,7 @@ _(document).bind('DOMContentLoaded', function () {
         });
     }
 
-    function resize(event) {}
+    function resize(event) { }
     var lastResizeEvent = undefined;
     var resizing = false;
     window.requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame;

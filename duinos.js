@@ -35,8 +35,20 @@ Duinos.prototype = {
     },
 
     heartbeat: function (duino) {
-        this.duinos[duino.id] = duino;
-    }
+        var duinos = this.duinos;
+        duinos[duino.id] = duino;
+
+        for (var prop in duinos) {
+            if (duinos.hasOwnProperty(prop)) {
+                var oldDuino = duinos[prop];
+                var timeToExpire = 20000;
+                var check = new Date(oldDuino.heartbeat.getTime() + timeToExpire);
+                if (check < new Date()) {
+                    delete duinos[prop];
+                }
+            }
+        }
+    },
 };
 
 module.exports = Duinos;
