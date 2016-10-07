@@ -38,7 +38,7 @@ Duinos.prototype = {
         var duinos = this.duinos;
         duinos[duino.id] = duino;
 
-        new Promise(function (resolve, reject) {
+        // new Promise(function (resolve, reject) {
             for (var prop in dunios) {
                 if (duinos.hasOwnProperty(prop)) {
                     var oldDuino = duions[prop];
@@ -47,12 +47,12 @@ Duinos.prototype = {
                     }
                 }
             }
-            resolve(true);
-        }).then(function (data) {
+            // resolve(true);
+        // }).then(function (data) {
 
-        }).catch(function (err) {
-            console.log(`oops...! ${err}`);
-        })
+        // }).catch(function (err) {
+        //     console.log(`oops...! ${err}`);
+        // })
     },
 };
 
