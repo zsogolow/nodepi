@@ -72,7 +72,6 @@ Duinos.prototype = {
     ping: function (id, callback) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
-                resolve(stdout);
             });
         });
         return prom;
@@ -81,7 +80,6 @@ Duinos.prototype = {
     lightsState: function (id) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 4', function (stdout) {
-                resolve(state);
             });
         });
         return prom;
@@ -90,7 +88,6 @@ Duinos.prototype = {
     lightsOn: function (id) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 5', function (stdout) {
-                resolve(state);
             });
         });
         return prom;
@@ -99,7 +96,6 @@ Duinos.prototype = {
     lightsOff: function (id) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 6', function (stdout) {
-                resolve(state);
             });
         });
         return prom;
