@@ -126,7 +126,7 @@ app.router.get('/ping', function (req, res) {
         var realAction = duinos.getDuinoAction(action);
         var duino = new Duino(id, realType, realAction, extra);
 
-        res.end(duino);
+        res.end(JSON.stringify(duino));
 
         sockets.send('all', duino.action, duino);
     });
