@@ -36,7 +36,7 @@ Duinos.prototype = {
 
     heartbeat: function (duino) {
         this.duinos[duino.id] = duino;
-    }
+    },
 };
 
 module.exports = Duinos;
