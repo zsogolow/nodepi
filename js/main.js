@@ -122,6 +122,11 @@ _(document).bind('DOMContentLoaded', function () {
                 'id': id + ''
             };
 
+            _genearlTemplate.children('.ping-button').bind('click', function () {
+                var ping = _.http('/ping?id=' + id).get();
+                ping.then(function (data) { }).catch(function (err) { });
+            });
+
             _genearlTemplate.removeClass('hidden');
         }
 
