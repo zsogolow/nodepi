@@ -168,6 +168,11 @@ _(document).bind('DOMContentLoaded', function () {
             _duino.children('#type').html(duinoType);
             _duino.children('.duino-id').html(duinoId);
             _duino.children('#last-heartbeat').html(heartbeat);
+
+            var _template = _duino.children('#template');
+            if (!_template.data('init')) {
+                initTemplateActions(_template, duinoType, duinoId);
+            }
         }
 
         function pong(duino) {
