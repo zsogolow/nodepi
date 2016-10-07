@@ -74,9 +74,11 @@ NodePi.prototype = {
         GENERAL: 'general',
         RELAY: 'relay'
     },
-    
+
     getDuinoType: function (typeId) {
+        console.log(typeId)
         var type = this.types[typeId];
+        console.log(type)
         return type || 'unknown';
     },
 
