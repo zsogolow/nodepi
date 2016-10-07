@@ -29,7 +29,6 @@ function Sockets(server) {
          * we are getting the ack from.
          */
         socket.on('ack', function (data) {
-            console.log(data.data);
             switch (data.type) {
                 case 'connected':
                     break;
@@ -42,7 +41,6 @@ function Sockets(server) {
          * listen for \'request\''s
          */
         socket.on('request', function (data) {
-            console.log(data.data);
             switch (data.type) {
                 default: break;
             }

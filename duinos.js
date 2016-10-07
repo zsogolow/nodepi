@@ -63,10 +63,15 @@ Duinos.prototype = {
         }
     },
 
+    startListening: function () {
+        execute('sudo runner -t 2', function (stdout) {
+            console.log(stdout);
+        });
+    },
+
     ping: function (id, callback) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
-                console.log(stdout);
                 resolve(stdout);
             });
         });
@@ -76,8 +81,6 @@ Duinos.prototype = {
     lightsState: function (id) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 4', function (stdout) {
-                var state = parseInt(stdout);
-                console.log(state);
                 resolve(state);
             });
         });
@@ -87,8 +90,6 @@ Duinos.prototype = {
     lightsOn: function (id) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 5', function (stdout) {
-                var state = parseInt(stdout);
-                console.log(state);
                 resolve(state);
             });
         });
@@ -98,8 +99,6 @@ Duinos.prototype = {
     lightsOff: function (id) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 6', function (stdout) {
-                var state = parseInt(stdout);
-                console.log(state);
                 resolve(state);
             });
         });

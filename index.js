@@ -25,7 +25,6 @@ function NodePi() {
 
 function execute(command, callback) {
     exec(command, function (error, stdout, stderr) {
-        console.log(error);
         callback(stdout, stderr);
     });
 }
@@ -54,22 +53,13 @@ NodePi.prototype = {
 
     halt: function () {
         execute('sudo halt', function (stdout) {
-            console.log(stdout);
         });
     },
 
     reboot: function () {
         execute('sudo reboot', function (stdout) {
-            console.log(stdout);
         });
     },
-
-    startListening: function () {
-        execute('sudo runner -t 2', function (stdout) {
-            console.log(stdout);
-        });
-    },
-
 }
 
 module.exports = NodePi;

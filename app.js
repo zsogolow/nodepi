@@ -47,7 +47,7 @@ for (var prop in actions) {
 
 setTimeout(function () {
     console.log("listening now");
-    nodePi.startListening();
+    duinos.startListening();
 }, 1500);
 
 app.listen(settings.port, settings.hostname, () => {
@@ -60,7 +60,6 @@ app.router.get('/hi', function (req, res) {
 
 app.router.get('/duinos', function (req, res, next) {
     req.url = '/html/duinos.html';
-    console.log(duinos.duinos);
     next();
 });
 
@@ -85,7 +84,6 @@ app.router.get('/networkInfo', function (req, res) {
 });
 
 app.router.post('/lightsOn', function (req, res) {
-    console.log(req.body);
     var promise = duinos.lightsOn(req.body.id);
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
@@ -95,7 +93,6 @@ app.router.post('/lightsOn', function (req, res) {
 });
 
 app.router.post('/lightsOff', function (req, res) {
-    console.log(req.body);
     var promise = duinos.lightsOff(req.body.id);
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
