@@ -17,28 +17,28 @@ var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
-unixSocket('/tmp/hidden', function (data) {
-    var dataArray = [];
-    for (var i = 0; i < data.length; i++) {
-        dataArray.push(data[i]);
-    }
-    var id = dataArray[0];
-    var action = dataArray[1];
-    var type = dataArray[2];
-    var extra = dataArray[3];
+// unixSocket('/tmp/hidden', function (data) {
+//     var dataArray = [];
+//     for (var i = 0; i < data.length; i++) {
+//         dataArray.push(data[i]);
+//     }
+//     var id = dataArray[0];
+//     var action = dataArray[1];
+//     var type = dataArray[2];
+//     var extra = dataArray[3];
 
-    var duino = {
-        id: id,
-        action: nodePi.getDuinoAction(action),
-        type: nodePi.getDuinoType(type),
-        extra: extra,
-        heartbeat: new Date()
-    }
+//     var duino = {
+//         id: id,
+//         action: nodePi.getDuinoAction(action),
+//         type: nodePi.getDuinoType(type),
+//         extra: extra,
+//         heartbeat: new Date()
+//     }
 
-    duinos.heartbeat(duino);
+//     duinos.heartbeat(duino);
 
-    sockets.send('all', duino.action, duino);
-});
+//     sockets.send('all', duino.action, duino);
+// });
 
 var actions = nodePi.actions;
 for (var prop in actions) {
