@@ -16,34 +16,26 @@ var nodePi = new NodePi();
 var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
-// var actions = duinos.actions;
-// for (var prop in actions) {
-//     if (actions.hasOwnProperty(prop)) {
-//         var action = actions[prop];
-//         var path = `/tmp/${action}`;
+unixSocket('/tmp/heartbeat', function (data) {
+    var dataArray = [];
+    for (var i = 0; i < data.length; i++) {
+        dataArray.push(data[i]);
+    }
+    var id = dataArray[0];
+    var action = dataArray[1];
+    var type = dataArray[2];
+    var extra = dataArray[3];
 
-//         unixSocket(path, function (data) {
-//             var dataArray = [];
-//             for (var i = 0; i < data.length; i++) {
-//                 dataArray.push(data[i]);
-//             }
-//             var id = dataArray[0];
-//             var action = dataArray[1];
-//             var type = dataArray[2];
-//             var extra = dataArray[3];
+    var realType = duinos.getDuinoType(type);
+    var realAction = duinos.getDuinoAction(action);
+    var duino = new Duino(id, realType, realAction, extra);
 
-//             var realType = duinos.getDuinoType(type);
-//             var realAction = duinos.getDuinoAction(action);
-//             var duino = new Duino(id, realType, realAction, extra);
+    duino.heartbeat = new Date();
 
-//             duino.heartbeat = new Date();
+    duinos.heartbeat(duino);
 
-//             duinos.heartbeat(duino);
-
-//             sockets.send('all', duino.action, duino);
-//         });
-//     }
-// }
+    sockets.send('all', duino.action, duino);
+});
 
 setTimeout(function () {
     console.log("listening now");
@@ -111,8 +103,8 @@ app.router.get('/lightsState', function (req, res) {
     res.end();
 });
 
-app.router.get('/ping', function (req, res) {
-    unixSocket('/tmp/ping', function (data) {
+function getDuinoResponse(path, cb) {
+    unixSocket(path, function (data) {
         var dataArray = [];
         for (var i = 0; i < data.length; i++) {
             dataArray.push(data[i]);
@@ -124,11 +116,17 @@ app.router.get('/ping', function (req, res) {
 
         var realType = duinos.getDuinoType(type);
         var realAction = duinos.getDuinoAction(action);
+
         var duino = new Duino(id, realType, realAction, extra);
 
-        res.end(JSON.stringify(duino));
+        cb(duino);
+    });
+}
 
-        sockets.send('all', duino.action, duino);
+app.router.get('/ping', function (req, res) {
+
+    getDuinoResponse('/tmp/ping', function (data) {
+        res.end(JSON.stringify(data));
     });
 
     var parsed = url.parse(req.url, true);
