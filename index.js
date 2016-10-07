@@ -76,7 +76,7 @@ NodePi.prototype = {
     },
 
     getDuinoType: function (typeId) {
-        console.log(typeId)
+        console.log(this.types)
         var type = this.types[typeId];
         console.log(type)
         return type || 'unknown';
