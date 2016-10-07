@@ -71,25 +71,24 @@ NodePi.prototype = {
     },
 
     types: {
-        GENERAL: 'general',
-        RELAY: 'relay'
+        '21': 'general',
+        '22': 'relay'
     },
 
     getDuinoType: function (typeId) {
-        console.log(this.types)
         var type = this.types[typeId];
         console.log(type)
         return type || 'unknown';
     },
 
     actions: {
-        EMPTY: 'empty',
-        PING: 'ping',
-        HEARTBEAT: 'heartbeat',
-        BLINK: 'blink',
-        RELAY_STATE: 'relay_state',
-        RELAY_ON: 'relay_on',
-        RELAY_OFF: 'relay_off'
+        '-1': 'empty',
+        '1': 'ping',
+        '2': 'heartbeat',
+        '3': 'blink',
+        '4': 'relay_state',
+        '5': 'relay_on',
+        '6': 'relay_off'
     },
 
     getDuinoAction: function (actionId) {
