@@ -35,6 +35,8 @@ for (var prop in actions) {
             var realType = duinos.getDuinoType(type);
             var realAction = duinos.getDuinoAction(action);
             var duino = new Duino(id, realType, realAction, extra);
+            
+            duino.heartbeat = new Date();
 
             duinos.heartbeat(duino);
 
