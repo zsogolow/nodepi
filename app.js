@@ -16,7 +16,7 @@ var nodePi = new NodePi();
 var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
-var actions = nodePi.actions;
+var actions = duinos.actions;
 for (var prop in actions) {
     if (actions.hasOwnProperty(prop)) {
         var action = actions[prop];
@@ -34,15 +34,7 @@ for (var prop in actions) {
 
             var realType = duinos.getDuinoType(type);
             var realAction = duinos.getDuinoAction(action);
-            // var duino = new Duino(id, realType, realAction, extra);
-
-            var duino = {
-                id: id,
-                action: duinos.getDuinoAction(action),
-                type: duinos.getDuinoType(type),
-                extra: extra,
-                heartbeat: new Date()
-            }
+            var duino = new Duino(id, realType, realAction, extra);
 
             duinos.heartbeat(duino);
 
