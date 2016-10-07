@@ -39,9 +39,9 @@ Duinos.prototype = {
         duinos[duino.id] = duino;
 
         // new Promise(function (resolve, reject) {
-            for (var prop in dunios) {
+            for (var prop in duinos) {
                 if (duinos.hasOwnProperty(prop)) {
-                    var oldDuino = duions[prop];
+                    var oldDuino = duinos[prop];
                     if (oldDuino.heartbeat + 20000 < new Date()) {
                         delete duino[prop];
                     }
