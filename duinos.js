@@ -39,16 +39,17 @@ Duinos.prototype = {
         duinos[duino.id] = duino;
 
         // new Promise(function (resolve, reject) {
-            for (var prop in duinos) {
-                if (duinos.hasOwnProperty(prop)) {
-                    var oldDuino = duinos[prop];
-                    if (oldDuino.heartbeat + 2000 < new Date()) {
-                        console.log('something');
-                        delete duinos[prop];
-                    }
+        for (var prop in duinos) {
+            console.log('something else');
+            if (duinos.hasOwnProperty(prop)) {
+                var oldDuino = duinos[prop];
+                if ((oldDuino.heartbeat + 2000) < new Date()) {
+                    console.log('something');
+                    delete duinos[prop];
                 }
             }
-            // resolve(true);
+        }
+        // resolve(true);
         // }).then(function (data) {
 
         // }).catch(function (err) {
