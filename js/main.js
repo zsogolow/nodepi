@@ -88,46 +88,52 @@ _(document).bind('DOMContentLoaded', function () {
     function initTemplateActions(_template, type, id) {
         if (type == 'relay') {
             var _cloneMe = _('.relay-template');
-            var _relayTemplate = _(_cloneMe.item(0).cloneNode(true));
-            _relayTemplate.data('id', id);
-            _template.item(0).appendChild(_relayTemplate.item(0));
+            var cloneMe = _cloneMe.item(0);
+            if (cloneMe) {
+                var _relayTemplate = _(cloneMe.cloneNode(true));
+                _relayTemplate.data('id', id);
+                _template.item(0).appendChild(_relayTemplate.item(0));
 
-            var holla = {
-                'id': id + ''
-            };
+                var holla = {
+                    'id': id + ''
+                };
 
-            _relayTemplate.children('.off-button').bind('click', function () {
-                var lightsOff = _.http('/lightsOff').post(holla);
-                lightsOff.then(function (data) { }).catch(function (err) { });
-            });
+                _relayTemplate.children('.off-button').bind('click', function () {
+                    var lightsOff = _.http('/lightsOff').post(holla);
+                    lightsOff.then(function (data) { }).catch(function (err) { });
+                });
 
-            _relayTemplate.children('.on-button').bind('click', function () {
-                var lightsOn = _.http('/lightsOn').post(holla);
-                lightsOn.then(function (data) { }).catch(function (err) { });
-            });
+                _relayTemplate.children('.on-button').bind('click', function () {
+                    var lightsOn = _.http('/lightsOn').post(holla);
+                    lightsOn.then(function (data) { }).catch(function (err) { });
+                });
 
-            _relayTemplate.children('.ping-button').bind('click', function () {
-                var ping = _.http('/ping?id=' + id).get();
-                ping.then(function (data) { }).catch(function (err) { });
-            });
+                _relayTemplate.children('.ping-button').bind('click', function () {
+                    var ping = _.http('/ping?id=' + id).get();
+                    ping.then(function (data) { }).catch(function (err) { });
+                });
 
-            _relayTemplate.removeClass('hidden');
+                _relayTemplate.removeClass('hidden');
+            }
         } else {
             var _cloneMe = _('.general-template');
-            var _genearlTemplate = _(_cloneMe.item(0).cloneNode(true));
-            _genearlTemplate.data('id', id);
-            _template.item(0).appendChild(_genearlTemplate.item(0));
+            var cloneMe = _cloneMe.item(0);
+            if (cloneMe) {
+                var _genearlTemplate = _(cloneMe.cloneNode(true));
+                _genearlTemplate.data('id', id);
+                _template.item(0).appendChild(_genearlTemplate.item(0));
 
-            var holla = {
-                'id': id + ''
-            };
+                var holla = {
+                    'id': id + ''
+                };
 
-            _genearlTemplate.children('.ping-button').bind('click', function () {
-                var ping = _.http('/ping?id=' + id).get();
-                ping.then(function (data) { }).catch(function (err) { });
-            });
+                _genearlTemplate.children('.ping-button').bind('click', function () {
+                    var ping = _.http('/ping?id=' + id).get();
+                    ping.then(function (data) { }).catch(function (err) { });
+                });
 
-            _genearlTemplate.removeClass('hidden');
+                _genearlTemplate.removeClass('hidden');
+            }
         }
 
         _template.data('init', true);
@@ -196,7 +202,7 @@ _(document).bind('DOMContentLoaded', function () {
         _(_tabs.item(0)).addClass('active');
         _(_sections.item(0)).addClass('active');
 
-        clickTab('os');
+        clickTab('duinos');
 
         _tabs.bind('click', function () {
             var _clicked = _(this);
