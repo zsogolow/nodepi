@@ -70,31 +70,6 @@ NodePi.prototype = {
         });
     },
 
-    types: {
-        '21': 'general',
-        '22': 'relay'
-    },
-
-    getDuinoType: function (typeId) {
-        var type = this.types[typeId];
-        console.log(type)
-        return type || 'unknown';
-    },
-
-    actions: {
-        '-1': 'empty',
-        '1': 'ping',
-        '2': 'heartbeat',
-        '3': 'blink',
-        '4': 'relay_state',
-        '5': 'relay_on',
-        '6': 'relay_off'
-    },
-
-    getDuinoAction: function (actionId) {
-        var action = this.actions[actionId];
-        return action || 'unknown';
-    },
 }
 
 module.exports = NodePi;

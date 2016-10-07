@@ -1,7 +1,7 @@
 var webApp = require('./server/webapp');
 var NodePi = require('./index');
 var Duinos = require('./duinos');
-var NodeRelay = require('./relay');
+var Duino = require('./duino');
 var Sockets = require('./sockets');
 var unixSocket = require('./unixSocket');
 var url = require('url');
@@ -13,37 +13,16 @@ var settings = {
 };
 
 var nodePi = new NodePi();
-var nodeRelay = new NodeRelay();
 var sockets = new Sockets(app.server);
 var duinos = new Duinos();
-
-// unixSocket('/tmp/hidden', function (data) {
-//     var dataArray = [];
-//     for (var i = 0; i < data.length; i++) {
-//         dataArray.push(data[i]);
-//     }
-//     var id = dataArray[0];
-//     var action = dataArray[1];
-//     var type = dataArray[2];
-//     var extra = dataArray[3];
-
-//     var duino = {
-//         id: id,
-//         action: nodePi.getDuinoAction(action),
-//         type: nodePi.getDuinoType(type),
-//         extra: extra,
-//         heartbeat: new Date()
-//     }
-
-//     duinos.heartbeat(duino);
-
-//     sockets.send('all', duino.action, duino);
-// });
 
 var actions = nodePi.actions;
 for (var prop in actions) {
     if (actions.hasOwnProperty(prop)) {
-        unixSocket('/tmp/' + actions[prop], function (data) {
+        var action = actions[prop];
+        var path = `/tmp/${action}`;
+
+        unixSocket(path, function (data) {
             var dataArray = [];
             for (var i = 0; i < data.length; i++) {
                 dataArray.push(data[i]);
@@ -53,13 +32,10 @@ for (var prop in actions) {
             var type = dataArray[2];
             var extra = dataArray[3];
 
-            var duino = {
-                id: id,
-                action: nodePi.getDuinoAction(action),
-                type: nodePi.getDuinoType(type),
-                extra: extra,
-                heartbeat: new Date()
-            }
+            var realType = duinos.getDuinoType(type);
+            var realAction = duinos.getDuinoAction(action);
+            
+            var duino = new Duino(id, realType, realAction, extra);
 
             duinos.heartbeat(duino);
 
@@ -109,7 +85,7 @@ app.router.get('/networkInfo', function (req, res) {
 
 app.router.post('/lightsOn', function (req, res) {
     console.log(req.body);
-    var promise = nodeRelay.lightsOn(req.body.id);
+    var promise = duinos.lightsOn(req.body.id);
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
@@ -119,7 +95,7 @@ app.router.post('/lightsOn', function (req, res) {
 
 app.router.post('/lightsOff', function (req, res) {
     console.log(req.body);
-    var promise = nodeRelay.lightsOff(req.body.id);
+    var promise = duinos.lightsOff(req.body.id);
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
@@ -129,7 +105,7 @@ app.router.post('/lightsOff', function (req, res) {
 
 app.router.get('/lightsState', function (req, res) {
     var parsed = url.parse(req.url, true);
-    var promise = nodeRelay.lightsState(parsed.query.id);
+    var promise = duinos.lightsState(parsed.query.id);
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });

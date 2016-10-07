@@ -23,15 +23,28 @@ function Duinos() {
 
 Duinos.prototype = {
     duinos: {},
+    types: {
+        '21': 'general',
+        '22': 'relay'
+    },
+    actions: {
+        '-1': 'empty',
+        '1': 'ping',
+        '2': 'heartbeat',
+        '3': 'blink',
+        '4': 'relay_state',
+        '5': 'relay_on',
+        '6': 'relay_off'
+    },
 
-    ping: function (id, callback) {
-        var prom = new Promise(function (resolve, reject) {
-            execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
-                console.log(stdout);
-                resolve(stdout);
-            });
-        });
-        return prom;
+    getDuinoType: function (typeId) {
+        var type = this.types[typeId];
+        return type || 'unknown';
+    },
+
+    getDuinoAction: function (actionId) {
+        var action = this.actions[actionId];
+        return action || 'unknown';
     },
 
     heartbeat: function (duino) {
@@ -48,6 +61,49 @@ Duinos.prototype = {
                 }
             }
         }
+    },
+
+    ping: function (id, callback) {
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
+                console.log(stdout);
+                resolve(stdout);
+            });
+        });
+        return prom;
+    },
+
+    lightsState: function (id) {
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d ' + id + ' -t 4', function (stdout) {
+                var state = parseInt(stdout);
+                console.log(state);
+                resolve(state);
+            });
+        });
+        return prom;
+    },
+
+    lightsOn: function (id) {
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d ' + id + ' -t 5', function (stdout) {
+                var state = parseInt(stdout);
+                console.log(state);
+                resolve(state);
+            });
+        });
+        return prom;
+    },
+
+    lightsOff: function (id) {
+        var prom = new Promise(function (resolve, reject) {
+            execute('sudo runner -d ' + id + ' -t 6', function (stdout) {
+                var state = parseInt(stdout);
+                console.log(state);
+                resolve(state);
+            });
+        });
+        return prom;
     },
 };
 
