@@ -34,8 +34,15 @@ for (var prop in actions) {
 
             var realType = duinos.getDuinoType(type);
             var realAction = duinos.getDuinoAction(action);
+            // var duino = new Duino(id, realType, realAction, extra);
 
-            var duino = new Duino(id, realType, realAction, extra);
+            var duino = {
+                id: id,
+                action: duinos.getDuinoAction(action),
+                type: duinos.getDuinoType(type),
+                extra: extra,
+                heartbeat: new Date()
+            }
 
             duinos.heartbeat(duino);
 
@@ -47,7 +54,7 @@ for (var prop in actions) {
 setTimeout(function () {
     console.log("listening now");
     nodePi.startListening();
-}, 2500);
+}, 1500);
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
