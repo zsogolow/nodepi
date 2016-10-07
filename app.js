@@ -35,7 +35,7 @@ for (var prop in actions) {
             var realType = duinos.getDuinoType(type);
             var realAction = duinos.getDuinoAction(action);
             var duino = new Duino(id, realType, realAction, extra);
-            
+
             duino.heartbeat = new Date();
 
             duinos.heartbeat(duino);
@@ -112,13 +112,30 @@ app.router.get('/lightsState', function (req, res) {
 });
 
 app.router.get('/ping', function (req, res) {
+    unixSocket('/tmp/ping', function (data) {
+        var dataArray = [];
+        for (var i = 0; i < data.length; i++) {
+            dataArray.push(data[i]);
+        }
+        var id = dataArray[0];
+        var action = dataArray[1];
+        var type = dataArray[2];
+        var extra = dataArray[3];
+
+        var realType = duinos.getDuinoType(type);
+        var realAction = duinos.getDuinoAction(action);
+        var duino = new Duino(id, realType, realAction, extra);
+
+        res.end(duino);
+
+        sockets.send('all', duino.action, duino);
+    });
+
     var parsed = url.parse(req.url, true);
     var promise = duinos.ping(parsed.query.id);
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
-
-    res.end();
 });
 
 app.router.get('/duinosState', function (req, res) {
