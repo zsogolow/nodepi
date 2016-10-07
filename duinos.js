@@ -38,24 +38,16 @@ Duinos.prototype = {
         var duinos = this.duinos;
         duinos[duino.id] = duino;
 
-        // new Promise(function (resolve, reject) {
         for (var prop in duinos) {
-            console.log('something else');
             if (duinos.hasOwnProperty(prop)) {
                 var oldDuino = duinos[prop];
-                var check = new Date(oldDuino.heartbeat.getTime() + 5000);
+                var timeToExpire = 20000;
+                var check = new Date(oldDuino.heartbeat.getTime() + timeToExpire);
                 if (check < new Date()) {
-                    console.log('something');
                     delete duinos[prop];
                 }
             }
         }
-        // resolve(true);
-        // }).then(function (data) {
-
-        // }).catch(function (err) {
-        //     console.log(`oops...! ${err}`);
-        // })
     },
 };
 
