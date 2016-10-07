@@ -35,7 +35,24 @@ Duinos.prototype = {
     },
 
     heartbeat: function (duino) {
-        this.duinos[duino.id] = duino;
+        var duinos = this.duinos;
+        duinos[duino.id] = duino;
+
+        new Promise(function (resolve, reject) {
+            for (var prop in dunios) {
+                if (duinos.hasOwnProperty(prop)) {
+                    var oldDuino = duions[prop];
+                    if (oldDuino.heartbeat + 20000 < new Date()) {
+                        delete duino[prop];
+                    }
+                }
+            }
+            resolve(true);
+        }).then(function (data) {
+
+        }).catch(function (err) {
+            console.log(`oops...! ${err}`);
+        })
     },
 };
 
