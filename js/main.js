@@ -191,6 +191,8 @@ _(document).bind('DOMContentLoaded', function () {
     }
 
     function init() {
+        initSocket();
+
         _(_tabs.item(0)).addClass('active');
         _(_sections.item(0)).addClass('active');
 
