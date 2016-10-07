@@ -70,51 +70,29 @@ NodePi.prototype = {
         });
     },
 
+    types: {
+        GENERAL: 'general',
+        RELAY: 'relay'
+    },
+    
     getDuinoType: function (typeId) {
-        var type = undefined;
-        switch (typeId) {
-            case GENERAL:
-                type = 'general';
-                break;
-            case RELAY:
-                type = 'relay';
-                break;
-            default:
-                type = 'unknown';
-                break;
-        }
-        return type;
+        var type = this.types[typeId];
+        return type || 'unknown';
+    },
+
+    actions: {
+        EMPTY: 'empty',
+        PING: 'ping',
+        HEARTBEAT: 'heartbeat',
+        BLINK: 'blink',
+        RELAY_STATE: 'relay_state',
+        RELAY_ON: 'relay_on',
+        RELAY_OFF: 'relay_off'
     },
 
     getDuinoAction: function (actionId) {
-        var action = "hi";
-        switch (actionId) {
-            case EMPTY:
-                action = "empty";
-                break;
-            case PING:
-                action = "ping";
-                break;
-            case HEARTBEAT:
-                action = "heartbeat";
-                break;
-            case BLINK:
-                action = "blink";
-                break;
-            case RELAY_STATE:
-                action = "relay_state";
-                break;
-            case RELAY_ON:
-                action = "relay_on";
-                break;
-            case RELAY_OFF:
-                action = "relay_off";
-                break;
-            default:
-                action = "unknown";
-                break;
-        }
-        return action;
+        var action = this.actions[actionId];
+        return action || 'unknown';
     },
 }
 

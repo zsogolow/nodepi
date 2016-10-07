@@ -40,6 +40,34 @@ unixSocket('/tmp/hidden', function (data) {
     sockets.send('all', duino.action, duino);
 });
 
+var actions = nodePi.actions;
+for (var prop in actions) {
+    if (actions.hasOwnProperty(prop)) {
+        unixSocket('/tmp/' + actions[prop], function (data) {
+            var dataArray = [];
+            for (var i = 0; i < data.length; i++) {
+                dataArray.push(data[i]);
+            }
+            var id = dataArray[0];
+            var action = dataArray[1];
+            var type = dataArray[2];
+            var extra = dataArray[3];
+
+            var duino = {
+                id: id,
+                action: nodePi.getDuinoAction(action),
+                type: nodePi.getDuinoType(type),
+                extra: extra,
+                heartbeat: new Date().toLocaleString()
+            }
+
+            duinos.heartbeat(duino);
+
+            sockets.send('all', duino.action, duino);
+        });
+    }
+}
+
 setTimeout(function () {
     console.log("listening now");
     nodePi.startListening();
