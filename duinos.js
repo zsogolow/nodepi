@@ -43,7 +43,7 @@ Duinos.prototype = {
                 if (duinos.hasOwnProperty(prop)) {
                     var oldDuino = duinos[prop];
                     if (oldDuino.heartbeat + 20000 < new Date()) {
-                        delete duino[prop];
+                        delete duinos[prop];
                     }
                 }
             }
