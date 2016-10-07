@@ -62,7 +62,7 @@ _(document).bind('DOMContentLoaded', function () {
                             var duino = duinos[prop];
                             var duinoType = duino.type;
                             var duinoId = duino.id;
-                            var heartbeat = duino.heartbeat.toLocaleString();
+                            var heartbeat = new Date(duino.heartbeat).toLocaleString();
                             var _duino = _('#duino-' + duinoId);
 
                             _duino.children('#type').html(duinoType);
