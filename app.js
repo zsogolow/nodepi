@@ -103,8 +103,8 @@ app.router.get('/lightsState', function (req, res) {
     res.end();
 });
 
-function getDuinoResponse(path, cb) {
-    unixSocket(path, function (data) {
+app.router.get('/ping', function (req, res) {
+    unixSocket('/tmp/ping', function (data) {
         var dataArray = [];
         for (var i = 0; i < data.length; i++) {
             dataArray.push(data[i]);
@@ -116,17 +116,10 @@ function getDuinoResponse(path, cb) {
 
         var realType = duinos.getDuinoType(type);
         var realAction = duinos.getDuinoAction(action);
-
         var duino = new Duino(id, realType, realAction, extra);
 
-        cb(duino);
-    });
-}
+        res.end(JSON.stringify(duino));
 
-app.router.get('/ping', function (req, res) {
-
-    getDuinoResponse('/tmp/ping', function (data) {
-        res.end(JSON.stringify(data));
     });
 
     var parsed = url.parse(req.url, true);
