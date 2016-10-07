@@ -42,7 +42,8 @@ Duinos.prototype = {
             for (var prop in duinos) {
                 if (duinos.hasOwnProperty(prop)) {
                     var oldDuino = duinos[prop];
-                    if (oldDuino.heartbeat + 20000 < new Date()) {
+                    if (oldDuino.heartbeat + 2000 < new Date()) {
+                        console.log('something');
                         delete duinos[prop];
                     }
                 }
