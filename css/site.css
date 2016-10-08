@@ -137,6 +137,18 @@ p {
     display: block;
 }
 
+.small-font {
+    font-size: 14px;
+}
+
+.medium-font {
+    font-size: 24px;
+}
+
+.large-font {
+    font-size: 36px;
+}
+
 .flex-label {
     display: flex;
     flex-direction: row;
@@ -179,11 +191,8 @@ p {
     display: inline-block;
 }
 
-
-.duino-name {
-}
-
-.duino-id {
+#template {
+    text-align: center;
 }
 
 .hidden {
