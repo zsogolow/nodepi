@@ -49,7 +49,8 @@ Duinos.prototype = {
 
     heartbeat: function (duino) {
         var duinos = this.duinos;
-        duinos[duino.id] = duino;
+        if (duino.id > 0 && this.getDuinoType(duino.type) != 'unknown')
+            duinos[duino.id] = duino;
 
         for (var prop in duinos) {
             if (duinos.hasOwnProperty(prop)) {
