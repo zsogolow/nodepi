@@ -38,10 +38,10 @@ unixSocket(path, function (data) {
     sockets.send('all', duino.action, duino);
 });
 
-// setTimeout(function () {
-//     console.log("listening now");
-//     duinos.startListening();
-// }, 1500);
+setTimeout(function () {
+    console.log("listening now");
+    duinos.startListening();
+}, 1500);
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
