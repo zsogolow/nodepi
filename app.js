@@ -16,6 +16,8 @@ var nodePi = new NodePi();
 var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
+var nextResponse = undefined;
+
 var path = '/tmp/heartbeat';
 unixSocket(path, function (data) {
     var dataArray = [];
@@ -30,6 +32,10 @@ unixSocket(path, function (data) {
     var realType = duinos.getDuinoType(type);
     var realAction = duinos.getDuinoAction(action);
     var duino = new Duino(id, realType, realAction, extra);
+
+    if (nextResponse) {
+        nextResponse.end(JSON.stringify(duino));
+    }
 
     duino.heartbeat = new Date();
 
@@ -112,6 +118,16 @@ app.router.get('/ping', function (req, res) {
     });
 
     res.end();
+});
+
+app.router.get('/api/ping', function (req, res) {
+    var parsed = url.parse(req.url, true);
+    var promise = duinos.ping(parsed.query.id);
+    promise.then(function (data) {}).catch(function (err) {
+        console.log(`oops! ${err}`);
+    });
+
+    nextResponse = res;
 });
 
 app.router.get('/duinosState', function (req, res) {
