@@ -16,8 +16,6 @@ var nodePi = new NodePi();
 var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
-var nextResponse = {};
-
 var path = '/tmp/heartbeat';
 unixSocket(path, function (data) {
     var dataArray = [];
@@ -32,14 +30,6 @@ unixSocket(path, function (data) {
     var realType = duinos.getDuinoType(type);
     var realAction = duinos.getDuinoAction(action);
     var duino = new Duino(id, realType, realAction, extra);
-
-    if (nextResponse[duino.id] && nextResponse[duino.id].length > 0) {
-        var responses = nextResponse[duino.id];
-        responses.forEach(function (response) {
-            response.end(JSON.stringify(duino));
-        }, this);
-        nextResponse[duino.id] = [];
-    }
 
     duino.heartbeat = new Date();
 
@@ -88,7 +78,7 @@ app.router.get('/networkInfo', function (req, res) {
 
 app.router.post('/lightsOn', function (req, res) {
     var promise = duinos.lightsOn(req.body.id);
-    promise.then(function (data) { }).catch(function (err) {
+    promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
@@ -97,7 +87,7 @@ app.router.post('/lightsOn', function (req, res) {
 
 app.router.post('/lightsOff', function (req, res) {
     var promise = duinos.lightsOff(req.body.id);
-    promise.then(function (data) { }).catch(function (err) {
+    promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
@@ -107,7 +97,7 @@ app.router.post('/lightsOff', function (req, res) {
 app.router.get('/lightsState', function (req, res) {
     var parsed = url.parse(req.url, true);
     var promise = duinos.lightsState(parsed.query.id);
-    promise.then(function (data) { }).catch(function (err) {
+    promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
@@ -117,26 +107,11 @@ app.router.get('/lightsState', function (req, res) {
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     var promise = duinos.ping(parsed.query.id);
-    promise.then(function (data) { }).catch(function (err) {
+    promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
     res.end();
-});
-
-app.router.get('/api/ping', function (req, res) {
-    var parsed = url.parse(req.url, true);
-    var pingId = parsed.query.id;
-    var promise = duinos.ping(parsed.query.id);
-    promise.then(function (data) { }).catch(function (err) {
-        console.log(`oops! ${err}`);
-    });
-
-    if (nextResponse[pingId]) {
-        nextResponse[pingId].push(res);
-    } else {
-        nextResponse[pingId] = [];
-    }
 });
 
 app.router.get('/duinosState', function (req, res) {
