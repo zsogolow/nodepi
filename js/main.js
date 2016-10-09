@@ -64,7 +64,7 @@ _(document).bind('DOMContentLoaded', function () {
                             var duinoId = duino.id;
                             var heartbeat = new Date(duino.heartbeat).toLocaleString();
                             var _duino = _('#duino-' + duinoId);
-
+                            _duino.removeClass('hidden');
                             _duino.children('#type').html(duinoType);
                             _duino.children('.duino-id').html(duinoId);
                             _duino.children('#last-heartbeat').html(heartbeat);
@@ -175,7 +175,7 @@ _(document).bind('DOMContentLoaded', function () {
             var duinoId = duino.id;
             var heartbeat = new Date(duino.heartbeat).toLocaleString();
             var _duino = _('#duino-' + duinoId);
-
+            _duino.removeClass('hidden');
             _duino.children('#type').html(duinoType);
             _duino.children('.duino-id').html(duinoId);
             _duino.children('#last-heartbeat').html(heartbeat);
@@ -189,6 +189,7 @@ _(document).bind('DOMContentLoaded', function () {
         function pong(duino) {
             var duinoId = duino.id;
             var _duino = _('#duino-' + duinoId);
+            _duino.removeClass('hidden');
             _duino.children('.pong-label').html('pong!');
             setTimeout(function () {
                 _duino.children('.pong-label').html('');
