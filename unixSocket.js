@@ -30,11 +30,8 @@ UnixServer.prototype = {
             var unixServer = net.createServer(function (localSerialConnection) {
                 localSerialConnection.on('data', function (data) {
                     // data is a buffer from the socket
-                    if (self.next) {
-                        self.next(data);
-                    } else {
-                        cb(data);
-                    }
+                    console.log(data);
+                    cb(data);
                     // send ack
                     // localSerialConnection.write('ack!');
                 });
@@ -44,7 +41,6 @@ UnixServer.prototype = {
             unixServer.listen(path);
         });
     },
-    next: undefined
 };
 
 module.exports = UnixServer;

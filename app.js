@@ -110,11 +110,7 @@ app.router.get('/ping', function (req, res) {
         console.log(`oops! ${err}`);
     });
 
-    unixServer.next = function (data) {
-        var duino = parseDuino(data);
-        unixServer.next = undefined;
-        res.end(JSON.stringify(duino));
-    };
+    res.end();
 });
 
 app.router.get('/duinosState', function (req, res) {
