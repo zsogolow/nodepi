@@ -70,7 +70,7 @@ Duinos.prototype = {
         });
     },
 
-    ping: function (id, callback) {
+    ping: function (id) {
         var prom = new Promise(function (resolve, reject) {
             execute('sudo runner -d ' + id + ' -t 1', function (stdout) {
             });
