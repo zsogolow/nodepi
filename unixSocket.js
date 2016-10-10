@@ -7,6 +7,7 @@ function listen(path, cb) {
         path = socketPath;
     }
 
+    var unixServer;
     fs.stat(path, function (err) {
 
         if (!err) {
@@ -15,11 +16,12 @@ function listen(path, cb) {
             console.log(err);
         }
 
-        var unixServer = net.createServer(function (localSerialConnection) {
+        unixServer = net.createServer(function (localSerialConnection) {
             localSerialConnection.on('data', function (data) {
                 // data is a buffer from the socket
                 console.log(data);
-                cb(data);
+                unixServer.next(data);
+                // cb(data);
                 // send ack
                 // localSerialConnection.write('ack!');
             });
@@ -28,6 +30,8 @@ function listen(path, cb) {
 
         unixServer.listen(path);
     });
+
+    return unixServer;
 }
 
 module.exports = function (path, cb) {

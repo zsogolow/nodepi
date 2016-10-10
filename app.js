@@ -17,7 +17,7 @@ var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
 var path = '/tmp/heartbeat';
-unixSocket(path, function (data) {
+var unixServer = unixSocket(path, function (data) {
     var dataArray = [];
     for (var i = 0; i < data.length; i++) {
         dataArray.push(data[i]);
@@ -38,10 +38,10 @@ unixSocket(path, function (data) {
     sockets.send('all', duino.action, duino);
 });
 
-setTimeout(function () {
-    console.log("listening now");
-    duinos.startListening();
-}, 1500);
+// setTimeout(function () {
+//     console.log("listening now");
+//     duinos.startListening();
+// }, 1500);
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
@@ -111,7 +111,9 @@ app.router.get('/ping', function (req, res) {
         console.log(`oops! ${err}`);
     });
 
-    res.end();
+    unixServer.next = function (data) {
+        res.end(data);
+    };
 });
 
 app.router.get('/duinosState', function (req, res) {
