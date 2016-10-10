@@ -37,13 +37,20 @@ function parseDuino(data) {
     var realType = duinos.getDuinoType(type);
     var realAction = duinos.getDuinoAction(action);
     var duino = new Duino(id, realType, realAction, extra);
-    duino.heartbeat = new Date();
+    if (duino.id > 0 && duino.type != 'unknown') {
+        // considered alive!
+        duino.heartbeat = new Date();
+    }
 
     return duino;
 }
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
+
+    setTimeout(function () {
+        duinos.startListening();
+    }, 1500);
 });
 
 app.router.get('/hi', function (req, res) {

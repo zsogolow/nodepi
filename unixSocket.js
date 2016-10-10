@@ -8,7 +8,6 @@ function UnixServer() {
     }
 
     var self = this;
-
 }
 
 UnixServer.prototype = {
