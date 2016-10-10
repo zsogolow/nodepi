@@ -106,14 +106,15 @@ app.router.get('/lightsState', function (req, res) {
 
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
+    unixServer.next = function (data) {
+        res.end(data);
+    };
     var promise = duinos.ping(parsed.query.id);
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
-    unixServer.next = function (data) {
-        res.end(data);
-    };
+
 });
 
 app.router.get('/duinosState', function (req, res) {
