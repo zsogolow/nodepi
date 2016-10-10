@@ -113,11 +113,8 @@ app.router.get('/ping', function (req, res) {
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
-
-    unixServer.next = function (data) {
-        res.end(data);
-    }
-
+    
+    res.end();
 });
 
 app.router.get('/duinosState', function (req, res) {
