@@ -113,8 +113,23 @@ app.router.get('/ping', function (req, res) {
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
-    
-    res.end();
+    unixServer.next = function (data) {
+        var dataArray = [];
+        for (var i = 0; i < data.length; i++) {
+            dataArray.push(data[i]);
+        }
+        var id = dataArray[0];
+        var action = dataArray[1];
+        var type = dataArray[2];
+        var extra = dataArray[3];
+
+        var realType = duinos.getDuinoType(type);
+        var realAction = duinos.getDuinoAction(action);
+        var duino = new Duino(id, realType, realAction, extra);
+
+        duino.heartbeat = new Date();
+        res.end(JSON.stringify(duino));
+    };
 });
 
 app.router.get('/duinosState', function (req, res) {
