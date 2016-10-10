@@ -17,6 +17,8 @@ UnixServer.prototype = {
             path = socketPath;
         }
 
+        var self = this;
+
         fs.stat(path, function (err) {
 
             if (!err) {
@@ -28,7 +30,7 @@ UnixServer.prototype = {
             var unixServer = net.createServer(function (localSerialConnection) {
                 localSerialConnection.on('data', function (data) {
                     // data is a buffer from the socket
-                    next(data);
+                    self.next(data);
                     // send ack
                     // localSerialConnection.write('ack!');
                 });
