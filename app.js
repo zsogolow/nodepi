@@ -3,7 +3,7 @@ var NodePi = require('./index');
 var Duinos = require('./duinos');
 var Duino = require('./duino');
 var Sockets = require('./sockets');
-var unixSocket = require('./unixSocket');
+var UnixSocket = require('./unixSocket');
 var url = require('url');
 
 var app = webApp.createWebApp();
@@ -17,26 +17,29 @@ var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
 var path = '/tmp/heartbeat';
-var unixServer = unixSocket(path, function (data) {
-    var dataArray = [];
-    for (var i = 0; i < data.length; i++) {
-        dataArray.push(data[i]);
-    }
-    var id = dataArray[0];
-    var action = dataArray[1];
-    var type = dataArray[2];
-    var extra = dataArray[3];
+var unixServer = new UnixSocket();
+unixServer.listen(path);
 
-    var realType = duinos.getDuinoType(type);
-    var realAction = duinos.getDuinoAction(action);
-    var duino = new Duino(id, realType, realAction, extra);
+// var unixServer = unixSocket(path, function (data) {
+//     var dataArray = [];
+//     for (var i = 0; i < data.length; i++) {
+//         dataArray.push(data[i]);
+//     }
+//     var id = dataArray[0];
+//     var action = dataArray[1];
+//     var type = dataArray[2];
+//     var extra = dataArray[3];
 
-    duino.heartbeat = new Date();
+//     var realType = duinos.getDuinoType(type);
+//     var realAction = duinos.getDuinoAction(action);
+//     var duino = new Duino(id, realType, realAction, extra);
 
-    duinos.heartbeat(duino);
+//     duino.heartbeat = new Date();
 
-    sockets.send('all', duino.action, duino);
-});
+//     duinos.heartbeat(duino);
+
+//     sockets.send('all', duino.action, duino);
+// });
 
 // setTimeout(function () {
 //     console.log("listening now");
@@ -113,7 +116,8 @@ app.router.get('/ping', function (req, res) {
 
     unixServer.next = function (data) {
         res.end(data);
-    };
+    }
+
 });
 
 app.router.get('/duinosState', function (req, res) {
