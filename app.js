@@ -18,33 +18,29 @@ var duinos = new Duinos();
 
 var path = '/tmp/heartbeat';
 var unixServer = new UnixSocket();
-unixServer.listen(path);
+unixServer.listen(path, function (data) {
+    var duino = parseDuino(data);
+    duinos.heartbeat(duino);
+    sockets.send('all', duino.action, duino);
+});
 
-// var unixServer = unixSocket(path, function (data) {
-//     var dataArray = [];
-//     for (var i = 0; i < data.length; i++) {
-//         dataArray.push(data[i]);
-//     }
-//     var id = dataArray[0];
-//     var action = dataArray[1];
-//     var type = dataArray[2];
-//     var extra = dataArray[3];
+function parseDuino(data) {
+    var dataArray = [];
+    for (var i = 0; i < data.length; i++) {
+        dataArray.push(data[i]);
+    }
+    var id = dataArray[0];
+    var action = dataArray[1];
+    var type = dataArray[2];
+    var extra = dataArray[3];
 
-//     var realType = duinos.getDuinoType(type);
-//     var realAction = duinos.getDuinoAction(action);
-//     var duino = new Duino(id, realType, realAction, extra);
+    var realType = duinos.getDuinoType(type);
+    var realAction = duinos.getDuinoAction(action);
+    var duino = new Duino(id, realType, realAction, extra);
+    duino.heartbeat = new Date();
 
-//     duino.heartbeat = new Date();
-
-//     duinos.heartbeat(duino);
-
-//     sockets.send('all', duino.action, duino);
-// });
-
-// setTimeout(function () {
-//     console.log("listening now");
-//     duinos.startListening();
-// }, 1500);
+    return duino;
+}
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
@@ -113,21 +109,10 @@ app.router.get('/ping', function (req, res) {
     promise.then(function (data) {}).catch(function (err) {
         console.log(`oops! ${err}`);
     });
+
     unixServer.next = function (data) {
-        var dataArray = [];
-        for (var i = 0; i < data.length; i++) {
-            dataArray.push(data[i]);
-        }
-        var id = dataArray[0];
-        var action = dataArray[1];
-        var type = dataArray[2];
-        var extra = dataArray[3];
-
-        var realType = duinos.getDuinoType(type);
-        var realAction = duinos.getDuinoAction(action);
-        var duino = new Duino(id, realType, realAction, extra);
-
-        duino.heartbeat = new Date();
+        var duino = parseDuino(data);
+        unixServer.next = undefined;
         res.end(JSON.stringify(duino));
     };
 });

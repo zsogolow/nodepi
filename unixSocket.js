@@ -12,7 +12,7 @@ function UnixServer() {
 }
 
 UnixServer.prototype = {
-    listen: function (path) {
+    listen: function (path, cb) {
         if (!path) {
             path = socketPath;
         }
@@ -30,7 +30,11 @@ UnixServer.prototype = {
             var unixServer = net.createServer(function (localSerialConnection) {
                 localSerialConnection.on('data', function (data) {
                     // data is a buffer from the socket
-                    self.next(data);
+                    if (self.next) {
+                        self.next(data);
+                    } else {
+                        cb(data);
+                    }
                     // send ack
                     // localSerialConnection.write('ack!');
                 });
@@ -40,40 +44,7 @@ UnixServer.prototype = {
             unixServer.listen(path);
         });
     },
-    next: function (data) {
-        console.log(data);
-    }
+    next: undefined
 };
-
-function listen(path, cb) {
-    if (!path) {
-        path = socketPath;
-    }
-
-    var unixServer;
-    fs.stat(path, function (err) {
-
-        if (!err) {
-            fs.unlinkSync(path);
-        } else {
-            console.log(err);
-        }
-
-        unixServer = net.createServer(function (localSerialConnection) {
-            localSerialConnection.on('data', function (data) {
-                // data is a buffer from the socket
-                console.log(data);
-                // cb(data);
-                // send ack
-                // localSerialConnection.write('ack!');
-            });
-            // write to socket with localSerialConnection.write()
-        });
-
-        unixServer.listen(path);
-    });
-
-    return unixServer;
-}
 
 module.exports = UnixServer;
