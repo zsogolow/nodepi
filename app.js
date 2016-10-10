@@ -48,9 +48,9 @@ function parseDuino(data) {
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
 
-    // setTimeout(function () {
-    //     duinos.startListening();
-    // }, 1500);
+    setTimeout(function () {
+        duinos.startListening();
+    }, 1500);
 });
 
 app.router.get('/hi', function (req, res) {
