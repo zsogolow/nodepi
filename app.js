@@ -102,37 +102,41 @@ app.router.get('/networkInfo', function (req, res) {
 
 app.router.post('/lightsOn', function (req, res) {
     var promise = duinos.lightsOn(req.body.id);
-    promise.then(function (data) { }).catch(function (err) {
-        console.log(`oops! ${err}`);
-    });
+    var msg = req.body.id + '5';
+    client.write(msg);
+    // promise.then(function (data) { }).catch(function (err) {
+    //     console.log(`oops! ${err}`);
+    // });
 
     res.end();
 });
 
 app.router.post('/lightsOff', function (req, res) {
     var promise = duinos.lightsOff(req.body.id);
-    promise.then(function (data) { }).catch(function (err) {
-        console.log(`oops! ${err}`);
-    });
+    var msg = req.body.id + '6';
+    client.write(msg);
+    // promise.then(function (data) { }).catch(function (err) {
+    //     console.log(`oops! ${err}`);
+    // });
 
     res.end();
 });
 
 app.router.get('/lightsState', function (req, res) {
     var parsed = url.parse(req.url, true);
-    var promise = duinos.lightsState(parsed.query.id);
-    promise.then(function (data) { }).catch(function (err) {
-        console.log(`oops! ${err}`);
-    });
+    var msg = parsed.query.id + '4';
+    client.write(msg);
+    // var promise = duinos.lightsState(parsed.query.id);
+    // promise.then(function (data) { }).catch(function (err) {
+    //     console.log(`oops! ${err}`);
+    // });
 
     res.end();
 });
 
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
-    console.log('hi')
     var msg = parsed.query.id + '1';
-    console.log(msg);
     client.write(msg);
     // var promise = duinos.ping(parsed.query.id);
     // promise.then(function (data) { }).catch(function (err) {
