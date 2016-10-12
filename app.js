@@ -101,9 +101,9 @@ app.router.get('/networkInfo', function (req, res) {
 });
 
 app.router.post('/lightsOn', function (req, res) {
-    var promise = duinos.lightsOn(req.body.id);
     var msg = req.body.id + '5';
     client.write(msg);
+    // var promise = duinos.lightsOn(req.body.id);
     // promise.then(function (data) { }).catch(function (err) {
     //     console.log(`oops! ${err}`);
     // });
@@ -112,9 +112,9 @@ app.router.post('/lightsOn', function (req, res) {
 });
 
 app.router.post('/lightsOff', function (req, res) {
-    var promise = duinos.lightsOff(req.body.id);
     var msg = req.body.id + '6';
     client.write(msg);
+    // var promise = duinos.lightsOff(req.body.id);
     // promise.then(function (data) { }).catch(function (err) {
     //     console.log(`oops! ${err}`);
     // });
