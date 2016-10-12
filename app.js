@@ -126,6 +126,7 @@ app.router.get('/lightsState', function (req, res) {
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     client.write("11");
+    console.log('h');
     // client.write(`${parsed.id}${1}`)
     // var promise = duinos.ping(parsed.query.id);
     // promise.then(function (data) { }).catch(function (err) {
