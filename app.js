@@ -51,11 +51,9 @@ app.listen(settings.port, settings.hostname, () => {
 });
 
 duinos.startListening();
-
-var socketPath = '/tmp/hidden';
-const client;
 setTimeout(function () {
-    client = net.connect(socketPath, () => {
+    var socketPath = '/tmp/hidden';
+    const client = net.connect(socketPath, () => {
         //'connect' listener
         console.log('connected to server!');
     });
@@ -67,7 +65,8 @@ setTimeout(function () {
     client.on('end', () => {
         console.log('disconnected from server');
     });
-}, 2000);
+}, 2000)
+
 app.router.get('/hi', function (req, res) {
     res.end('you got hi!');
 });
