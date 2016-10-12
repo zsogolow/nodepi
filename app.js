@@ -16,7 +16,7 @@ var nodePi = new NodePi();
 var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
-var path = '/tmp/heartbeat';
+var path = '/tmp/responses';
 var unixServer = new UnixSocket();
 unixServer.listen(path, function (data) {
     var duino = parseDuino(data);

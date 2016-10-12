@@ -65,7 +65,7 @@ Duinos.prototype = {
     },
 
     startListening: function () {
-        execute('sudo runner -t 2', function (stdout) {
+        execute('sudo threadpi', function (stdout) {
             console.log(stdout);
         });
     },
