@@ -54,7 +54,7 @@ duinos.startListening();
 
 
 var socketPath = '/tmp/hidden';
-const client;
+var client;
 setTimeout(function () {
     client = net.connect(socketPath, () => {
         //'connect' listener
