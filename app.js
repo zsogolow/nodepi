@@ -51,21 +51,22 @@ app.listen(settings.port, settings.hostname, () => {
 });
 
 duinos.startListening();
-setTimeout(function () {
-    var socketPath = '/tmp/hidden';
-    const client = net.connect(socketPath, () => {
-        //'connect' listener
-        console.log('connected to server!');
-    });
 
-    client.on('data', (data) => {
-        console.log(data.toString());
-    });
+setTimeout(function () { console.log('ok') }, 2000);
 
-    client.on('end', () => {
-        console.log('disconnected from server');
-    });
-}, 2000)
+var socketPath = '/tmp/hidden';
+const client = net.connect(socketPath, () => {
+    //'connect' listener
+    console.log('connected to server!');
+});
+
+client.on('data', (data) => {
+    console.log(data.toString());
+});
+
+client.on('end', () => {
+    console.log('disconnected from server');
+});
 
 app.router.get('/hi', function (req, res) {
     res.end('you got hi!');
@@ -127,7 +128,7 @@ app.router.get('/lightsState', function (req, res) {
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     client.write("11");
-    console.log('h');
+    console.log('hi')
     // client.write(`${parsed.id}${1}`)
     // var promise = duinos.ping(parsed.query.id);
     // promise.then(function (data) { }).catch(function (err) {
