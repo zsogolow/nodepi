@@ -131,7 +131,7 @@ app.router.get('/lightsState', function (req, res) {
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     console.log('hi')
-    var msg = parsed.id + '1';
+    var msg = parsed.query.id + '1';
     console.log(msg);
     client.write(msg);
     // var promise = duinos.ping(parsed.query.id);
