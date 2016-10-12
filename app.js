@@ -132,6 +132,7 @@ app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     console.log('hi')
     var msg = parsed.id + '1';
+    console.log(msg);
     client.write(msg);
     // var promise = duinos.ping(parsed.query.id);
     // promise.then(function (data) { }).catch(function (err) {
