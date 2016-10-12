@@ -5,6 +5,7 @@ var Duino = require('./duino');
 var Sockets = require('./sockets');
 var UnixSocket = require('./unixSocket');
 var url = require('url');
+var net = require('net');
 
 var app = webApp.createWebApp();
 var settings = {
