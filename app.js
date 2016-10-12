@@ -60,17 +60,16 @@ setTimeout(function () {
         //'connect' listener
         console.log('connected to server!');
     });
+
+    client.on('data', (data) => {
+        console.log(data.toString());
+    });
+
+    client.on('end', () => {
+        console.log('disconnected from server');
+    });
 }, 2000);
 
-
-
-client.on('data', (data) => {
-    console.log(data.toString());
-});
-
-client.on('end', () => {
-    console.log('disconnected from server');
-});
 
 app.router.get('/hi', function (req, res) {
     res.end('you got hi!');
