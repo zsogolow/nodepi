@@ -47,10 +47,22 @@ function parseDuino(data) {
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
+});
 
-    setTimeout(function () {
-        duinos.startListening();
-    }, 1500);
+duinos.startListening();
+
+var socketPath = '/tmp/hidden';
+const client = net.connect(socketPath, () => {
+    //'connect' listener
+    console.log('connected to server!');
+});
+
+client.on('data', (data) => {
+    console.log(data.toString());
+});
+
+client.on('end', () => {
+    console.log('disconnected from server');
 });
 
 app.router.get('/hi', function (req, res) {
@@ -84,7 +96,7 @@ app.router.get('/networkInfo', function (req, res) {
 
 app.router.post('/lightsOn', function (req, res) {
     var promise = duinos.lightsOn(req.body.id);
-    promise.then(function (data) {}).catch(function (err) {
+    promise.then(function (data) { }).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
@@ -93,7 +105,7 @@ app.router.post('/lightsOn', function (req, res) {
 
 app.router.post('/lightsOff', function (req, res) {
     var promise = duinos.lightsOff(req.body.id);
-    promise.then(function (data) {}).catch(function (err) {
+    promise.then(function (data) { }).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
@@ -103,7 +115,7 @@ app.router.post('/lightsOff', function (req, res) {
 app.router.get('/lightsState', function (req, res) {
     var parsed = url.parse(req.url, true);
     var promise = duinos.lightsState(parsed.query.id);
-    promise.then(function (data) {}).catch(function (err) {
+    promise.then(function (data) { }).catch(function (err) {
         console.log(`oops! ${err}`);
     });
 
@@ -112,10 +124,11 @@ app.router.get('/lightsState', function (req, res) {
 
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
-    var promise = duinos.ping(parsed.query.id);
-    promise.then(function (data) {}).catch(function (err) {
-        console.log(`oops! ${err}`);
-    });
+    client.write(`${parsed.id}${1}`)
+    // var promise = duinos.ping(parsed.query.id);
+    // promise.then(function (data) { }).catch(function (err) {
+    //     console.log(`oops! ${err}`);
+    // });
 
     res.end();
 });
