@@ -80,7 +80,7 @@ Duinos.prototype = {
             var socketPath = '/tmp/action.sock';
             self.actionClient = net.connect(socketPath, () => {
                 console.log('connected to server!');
-                client.write("0000");
+                actionClient.write("0000");
             });
 
             self.actionClient.on('data', (data) => {
