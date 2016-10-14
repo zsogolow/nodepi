@@ -76,21 +76,7 @@ Duinos.prototype = {
         var self = this;
         execute('sudo threadpi', function (stdout) {
             console.log(stdout);
-            setTimeout(function () {
-                var socketPath = '/tmp/hidden';
-                self.actionClient = net.connect(socketPath, () => {
-                    console.log('connected to server!');
-                    self.actionClient.write("0000");
-                });
-
-                self.actionClient.on('data', (data) => {
-                    console.log(data.toString());
-                });
-
-                self.actionClient.on('end', () => {
-                    console.log('disconnected from server');
-                });
-            }, 2000);
+          
         });
     },
 
