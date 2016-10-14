@@ -28,30 +28,9 @@ unixServer.listen(path, function (data) {
 
 var clientPath = '/tmp/hidden';
 var unixClient = new UnixClient();
-unixClient.open(clientPath, function (client) {
-    client.write('0000');
-});
-
-function parseDuino(data) {
-    var dataArray = [];
-    for (var i = 0; i < data.length; i++) {
-        dataArray.push(data[i]);
-    }
-    var id = dataArray[0];
-    var action = dataArray[1];
-    var type = dataArray[2];
-    var extra = dataArray[3];
-
-    var realType = duinos.getDuinoType(type);
-    var realAction = duinos.getDuinoAction(action);
-    var duino = new Duino(id, realType, realAction, extra);
-    if (duino.id > 0 && duino.type != 'unknown') {
-        // considered alive!
-        duino.heartbeat = new Date();
-    }
-
-    return duino;
-}
+// unixClient.open(clientPath, function (client) {
+//     client.write('0000');
+// });
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
@@ -59,6 +38,11 @@ app.listen(settings.port, settings.hostname, () => {
 
 duinos.startListening();
 
+setTimeout(function () {
+    unixClient.open(clientPath, function (client) {
+        client.write('0000');
+    });
+}, 2000);
 
 app.router.get('/hi', function (req, res) {
     res.end('you got hi!');
@@ -92,22 +76,12 @@ app.router.get('/networkInfo', function (req, res) {
 app.router.post('/lightsOn', function (req, res) {
     var msg = req.body.id + '5';
     unixClient.write(msg);
-    // var promise = duinos.lightsOn(req.body.id);
-    // promise.then(function (data) { }).catch(function (err) {
-    //     console.log(`oops! ${err}`);
-    // });
-
     res.end();
 });
 
 app.router.post('/lightsOff', function (req, res) {
     var msg = req.body.id + '6';
     unixClient.write(msg);
-    // var promise = duinos.lightsOff(req.body.id);
-    // promise.then(function (data) { }).catch(function (err) {
-    //     console.log(`oops! ${err}`);
-    // });
-
     res.end();
 });
 
@@ -115,11 +89,6 @@ app.router.get('/lightsState', function (req, res) {
     var parsed = url.parse(req.url, true);
     var msg = parsed.query.id + '4';
     unixClient.write(msg);
-    // var promise = duinos.lightsState(parsed.query.id);
-    // promise.then(function (data) { }).catch(function (err) {
-    //     console.log(`oops! ${err}`);
-    // });
-
     res.end();
 });
 
@@ -127,11 +96,6 @@ app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     var msg = parsed.query.id + '1';
     unixClient.write(msg);
-    // var promise = duinos.ping(parsed.query.id);
-    // promise.then(function (data) { }).catch(function (err) {
-    //     console.log(`oops! ${err}`);
-    // });
-
     res.end();
 });
 
@@ -152,3 +116,25 @@ app.router.post('/reboot', function (req, res) {
 sockets.stream(1000, 'all', 'uptime', function () {
     return nodePi.osInfo().uptime;
 });
+
+
+function parseDuino(data) {
+    var dataArray = [];
+    for (var i = 0; i < data.length; i++) {
+        dataArray.push(data[i]);
+    }
+    var id = dataArray[0];
+    var action = dataArray[1];
+    var type = dataArray[2];
+    var extra = dataArray[3];
+
+    var realType = duinos.getDuinoType(type);
+    var realAction = duinos.getDuinoAction(action);
+    var duino = new Duino(id, realType, realAction, extra);
+    if (duino.id > 0 && duino.type != 'unknown') {
+        // considered alive!
+        duino.heartbeat = new Date();
+    }
+
+    return duino;
+}
