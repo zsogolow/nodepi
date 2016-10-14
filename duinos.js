@@ -38,8 +38,6 @@ Duinos.prototype = {
         '6': 'relay_off'
     },
 
-    // actionClient: {},
-
     getDuinoType: function (typeId) {
         var type = this.types[typeId];
         return type || 'unknown';
@@ -76,7 +74,6 @@ Duinos.prototype = {
         var self = this;
         execute('sudo threadpi', function (stdout) {
             console.log(stdout);
-          
         });
     },
 

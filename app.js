@@ -5,6 +5,7 @@ var Duino = require('./duino');
 var Sockets = require('./sockets');
 var UnixSocket = require('./unixSocket');
 var url = require('url');
+var net = require('net');
 
 var app = webApp.createWebApp();
 var settings = {
@@ -51,23 +52,24 @@ app.listen(settings.port, settings.hostname, () => {
 
 duinos.startListening();
 
-// var socketPath = '/tmp/action.sock';
-// var client;
-// setTimeout(function () {
-//     client = net.connect(socketPath, () => {
-//         //'connect' listener
-//         console.log('connected to server!');
-//         client.write("0000");
-//     });
+var socketPath = '/tmp/hidden';
+var client;
+setTimeout(function () {
+    client = net.connect(socketPath, () => {
+        //'connect' listener
+        console.log('connected to server!');
+        client.write("0000");
+    });
 
-//     client.on('data', (data) => {
-//         console.log(data.toString());
-//     });
+    client.on('data', (data) => {
+        console.log(data.toString());
+    });
 
-//     client.on('end', () => {
-//         console.log('disconnected from server');
-//     });
-// }, 2000);
+    client.on('end', () => {
+        console.log('disconnected from server');
+    });
+}, 2000);
+
 
 app.router.get('/hi', function (req, res) {
     res.end('you got hi!');
