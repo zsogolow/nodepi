@@ -77,7 +77,7 @@ Duinos.prototype = {
         execute('sudo threadpi', function (stdout) {
             console.log(stdout);
             setTimeout(function () {
-                var socketPath = '/tmp/action.sock';
+                var socketPath = '/tmp/hidden';
                 self.actionClient = net.connect(socketPath, () => {
                     console.log('connected to server!');
                     self.actionClient.write("0000");
