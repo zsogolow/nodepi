@@ -52,13 +52,13 @@ app.listen(settings.port, settings.hostname, () => {
 
 duinos.startListening();
 
-
 var socketPath = '/tmp/hidden';
 var client;
 setTimeout(function () {
     client = net.connect(socketPath, () => {
         //'connect' listener
         console.log('connected to server!');
+        client.write("0000");
     });
 
     client.on('data', (data) => {
