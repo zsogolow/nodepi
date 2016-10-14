@@ -38,7 +38,7 @@ Duinos.prototype = {
         '6': 'relay_off'
     },
 
-    actionClient: {},
+    // actionClient: {},
 
     getDuinoType: function (typeId) {
         var type = this.types[typeId];
