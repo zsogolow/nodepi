@@ -38,7 +38,9 @@ UnixClient.prototype = {
     },
 
     write: function (msg) {
-        this.client.write(msg);
+        var self = this;
+        
+        self.client.write(msg);
     }
 };
 
