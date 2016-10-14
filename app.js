@@ -3,7 +3,8 @@ var NodePi = require('./index');
 var Duinos = require('./duinos');
 var Duino = require('./duino');
 var Sockets = require('./sockets');
-var UnixSocket = require('./unixSocket');
+var UnixServer = require('./unixServer');
+var UnixClient = require('./unixClient');
 var url = require('url');
 var net = require('net');
 
@@ -18,11 +19,17 @@ var sockets = new Sockets(app.server);
 var duinos = new Duinos();
 
 var path = '/tmp/responses';
-var unixServer = new UnixSocket();
+var unixServer = new UnixServer();
 unixServer.listen(path, function (data) {
     var duino = parseDuino(data);
     duinos.heartbeat(duino);
     sockets.send('all', duino.action, duino);
+});
+
+var clientPath = '/tmp/hidden';
+var unixClient = new UnixClient();
+unixClient.open(clientPath, function (client) {
+    client.write('0000');
 });
 
 function parseDuino(data) {
@@ -51,24 +58,6 @@ app.listen(settings.port, settings.hostname, () => {
 });
 
 duinos.startListening();
-
-var socketPath = '/tmp/hidden';
-var client;
-setTimeout(function () {
-    client = net.connect(socketPath, () => {
-        //'connect' listener
-        console.log('connected to server!');
-        client.write("0000");
-    });
-
-    client.on('data', (data) => {
-        console.log(data.toString());
-    });
-
-    client.on('end', () => {
-        console.log('disconnected from server');
-    });
-}, 2000);
 
 
 app.router.get('/hi', function (req, res) {
@@ -102,7 +91,7 @@ app.router.get('/networkInfo', function (req, res) {
 
 app.router.post('/lightsOn', function (req, res) {
     var msg = req.body.id + '5';
-    client.write(msg);
+    unixClient.write(msg);
     // var promise = duinos.lightsOn(req.body.id);
     // promise.then(function (data) { }).catch(function (err) {
     //     console.log(`oops! ${err}`);
@@ -113,7 +102,7 @@ app.router.post('/lightsOn', function (req, res) {
 
 app.router.post('/lightsOff', function (req, res) {
     var msg = req.body.id + '6';
-    client.write(msg);
+    unixClient.write(msg);
     // var promise = duinos.lightsOff(req.body.id);
     // promise.then(function (data) { }).catch(function (err) {
     //     console.log(`oops! ${err}`);
@@ -125,7 +114,7 @@ app.router.post('/lightsOff', function (req, res) {
 app.router.get('/lightsState', function (req, res) {
     var parsed = url.parse(req.url, true);
     var msg = parsed.query.id + '4';
-    client.write(msg);
+    unixClient.write(msg);
     // var promise = duinos.lightsState(parsed.query.id);
     // promise.then(function (data) { }).catch(function (err) {
     //     console.log(`oops! ${err}`);
@@ -137,7 +126,7 @@ app.router.get('/lightsState', function (req, res) {
 app.router.get('/ping', function (req, res) {
     var parsed = url.parse(req.url, true);
     var msg = parsed.query.id + '1';
-    client.write(msg);
+    unixClient.write(msg);
     // var promise = duinos.ping(parsed.query.id);
     // promise.then(function (data) { }).catch(function (err) {
     //     console.log(`oops! ${err}`);
