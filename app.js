@@ -28,21 +28,18 @@ unixServer.listen(path, function (data) {
 
 var clientPath = '/tmp/hidden';
 var unixClient = new UnixClient();
-// unixClient.open(clientPath, function (client) {
-//     client.write('0000');
-// });
 
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
+
+    duinos.startListening();
+
+    setTimeout(function () {
+        unixClient.open(clientPath, function (client) {
+            client.write('0000');
+        });
+    }, 2000);
 });
-
-duinos.startListening();
-
-setTimeout(function () {
-    unixClient.open(clientPath, function (client) {
-        client.write('0000');
-    });
-}, 2000);
 
 app.router.get('/hi', function (req, res) {
     res.end('you got hi!');
