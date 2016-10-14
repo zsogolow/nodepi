@@ -61,7 +61,7 @@ Duinos.prototype = {
         for (var prop in duinos) {
             if (duinos.hasOwnProperty(prop)) {
                 var oldDuino = duinos[prop];
-                var timeToExpire = 20000;
+                var timeToExpire = 60000;
                 var check = new Date(oldDuino.heartbeat.getTime() + timeToExpire);
                 if (check < new Date()) {
                     delete duinos[prop];
