@@ -280,5 +280,5 @@ p {
 }
 
 .pong .icon {
-    color: #000;
+    color: #000 !important;
 }
