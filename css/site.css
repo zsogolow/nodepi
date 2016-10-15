@@ -179,9 +179,8 @@ p {
     flex-basis: 30%;
     min-width: 150px;
     min-height: 100px;
-    margin:4px;
-    box-shadow: 0 0 2px #040404;
-    padding: 2px 6px;
+    
+    /*padding: 2px 6px;*/
 }
 
 .duino-header {
@@ -196,10 +195,45 @@ p {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .flex-spacer {
     flex: 1;
 }
 
+.card {
+    display:flex;
+    flex-direction: column;
+    box-shadow: 0 0 2px #040404;
+    margin:4px;   
+}
+
+.card-header {
+    min-height: 100px;
+    flex:3;
+    background:#9c27b0; 
+    color:#FFFFFF;
+}
+
+.card-info {
+    flex:1;
+    background:#FFFFFF;
+    padding: 16px 8px;
+}
+
+.card-actions {
+    display: flex;
+    background:#FFFFFF;
+    
+}
+.action {
+    flex:1;
+    padding:8px;
+    min-width: 60px;
+    background:none;
+    border:none;
+    color:#ff9800;
+    text-transform: uppercase;
+    font-weight: bold;
+}

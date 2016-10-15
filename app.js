@@ -20,11 +20,11 @@ var duinos = new Duinos();
 
 var path = '/tmp/responses';
 var unixServer = new UnixServer();
-unixServer.listen(path, function (data) {
-    var duino = parseDuino(data);
-    duinos.heartbeat(duino);
-    sockets.send('all', duino.action, duino);
-});
+// unixServer.listen(path, function (data) {
+//     var duino = parseDuino(data);
+//     duinos.heartbeat(duino);
+//     sockets.send('all', duino.action, duino);
+// });
 
 var clientPath = '/tmp/hidden';
 var unixClient = new UnixClient();
@@ -32,13 +32,13 @@ var unixClient = new UnixClient();
 app.listen(settings.port, settings.hostname, () => {
     console.log(`Server running at http://${settings.hostname}:${settings.port}/`);
 
-    duinos.startListening();
+    // duinos.startListening();
 
-    setTimeout(function () {
-        unixClient.open(clientPath, function (client) {
-            client.write('0000');
-        });
-    }, 2000);
+    // setTimeout(function () {
+    //     unixClient.open(clientPath, function (client) {
+    //         client.write('0000');
+    //     });
+    // }, 2000);
 });
 
 app.router.get('/hi', function (req, res) {
