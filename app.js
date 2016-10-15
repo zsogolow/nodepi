@@ -131,7 +131,6 @@ function parseDuinos(data) {
     for (var i = 0; i < responses; i++) {
         var duino = readDuino(dataArray, i * duinoLength, duinoLength);
         parsedDuinos.push(duino);
-        console.log(duino);
     }
     return parsedDuinos;
 }
