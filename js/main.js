@@ -117,6 +117,23 @@ _(document).bind('DOMContentLoaded', function () {
                 lightsState.then(function (data) {}).catch(function (err) {});
 
                 _relayTemplate.removeClass('hidden');
+
+                var _duino = _('#duino-' + id);
+                var _duinoSwitch = _duino.children('i');
+                _duinoSwitch.addClass('action');
+                _duinoSwitch.bind('click', function () {
+                    var _this = _(this);
+                    var holla = {
+                        'id': duinoId + ''
+                    };
+                    if (_duino.item(0).classList.contains('lights-on')) {
+                        var lightsOff = _.http('/lightsOff').post(holla);
+                        lightsOff.then(function (data) {}).catch(function (err) {});
+                    } else {
+                        var lightsOn = _.http('/lightsOn').post(holla);
+                        lightsOn.then(function (data) {}).catch(function (err) {});
+                    }
+                });
             }
         } else {
             var _cloneMe = _('.general-template');
@@ -191,21 +208,6 @@ _(document).bind('DOMContentLoaded', function () {
                 _duino.removeClass('lights-on');
                 _duino.addClass('lights-off');
             }
-
-            _duino.children('i').addClass('action');
-            _duino.children('i').bind('click', function () {
-                var _this = _(this);
-                var holla = {
-                    'id': duinoId + ''
-                };
-                if (_duino.item(0).classList.contains('lights-on')) {
-                    var lightsOff = _.http('/lightsOff').post(holla);
-                    lightsOff.then(function (data) {}).catch(function (err) {});
-                } else {
-                    var lightsOn = _.http('/lightsOn').post(holla);
-                    lightsOn.then(function (data) {}).catch(function (err) {});
-                }
-            });
         }
 
         function updateDuino(duino) {
