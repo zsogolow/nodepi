@@ -114,7 +114,6 @@ sockets.stream(1000, 'all', 'uptime', function () {
     return nodePi.osInfo().uptime;
 });
 
-
 function parseDuino(data) {
     var dataArray = [];
     for (var i = 0; i < data.length; i++) {

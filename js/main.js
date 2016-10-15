@@ -100,17 +100,17 @@ _(document).bind('DOMContentLoaded', function () {
 
                 _relayTemplate.children('.off-button').bind('click', function () {
                     var lightsOff = _.http('/lightsOff').post(holla);
-                    lightsOff.then(function (data) { }).catch(function (err) { });
+                    lightsOff.then(function (data) {}).catch(function (err) {});
                 });
 
                 _relayTemplate.children('.on-button').bind('click', function () {
                     var lightsOn = _.http('/lightsOn').post(holla);
-                    lightsOn.then(function (data) { }).catch(function (err) { });
+                    lightsOn.then(function (data) {}).catch(function (err) {});
                 });
 
                 _relayTemplate.children('.ping-button').bind('click', function () {
                     var ping = _.http('/ping?id=' + id).get();
-                    ping.then(function (data) { }).catch(function (err) { });
+                    ping.then(function (data) {}).catch(function (err) {});
                 });
 
                 _relayTemplate.removeClass('hidden');
@@ -129,7 +129,7 @@ _(document).bind('DOMContentLoaded', function () {
 
                 _genearlTemplate.children('.ping-button').bind('click', function () {
                     var ping = _.http('/ping?id=' + id).get();
-                    ping.then(function (data) { }).catch(function (err) { });
+                    ping.then(function (data) {}).catch(function (err) {});
                 });
 
                 _genearlTemplate.removeClass('hidden');
@@ -160,6 +160,9 @@ _(document).bind('DOMContentLoaded', function () {
                 case 'ping':
                     pong(data.data);
                     break;
+                case 'relay':
+                    updateDuinoLights(data.data);
+                    break;
                 default:
                     console.log(data.data);
                     break;
@@ -168,6 +171,21 @@ _(document).bind('DOMContentLoaded', function () {
 
         function updateUptime(data) {
             _('#uptimeField').html(data);
+        }
+
+        function updateDuinoLights(duino) {
+            var duinoType = duino.type;
+            var duinoId = duino.id;
+            var heartbeat = new Date(duino.heartbeat).toLocaleString();
+            var _duino = _('#duino-' + duinoId);
+            var lightsState = duino.extra;
+            if (lightsState == 1) {
+                _duino.removeClass('lights-off');
+                _duino.addClass('lights-on');
+            } else {
+                _duino.removeClass('lights-on');
+                _duino.addClass('lights-off');
+            }
         }
 
         function updateDuino(duino) {
@@ -246,7 +264,7 @@ _(document).bind('DOMContentLoaded', function () {
         });
     }
 
-    function resize(event) { }
+    function resize(event) {}
     var lastResizeEvent = undefined;
     var resizing = false;
     window.requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame;

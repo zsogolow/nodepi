@@ -197,6 +197,14 @@ p {
     /*padding: 2px 6px;*/
 }
 
+.duino .lights-on .icon {
+    color: yellow;
+}
+
+.duino .lights-off .icon {
+    color: gray;
+}
+
 .duino-header {
     display: flex;
 }
