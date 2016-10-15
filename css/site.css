@@ -70,7 +70,7 @@ p {
     position: relative;
     height: calc(100% - 112px);
     top: 56px;
-    bottom: 56px;
+    bottom: 24px;
     /*margin: 2px;*/
     border-radius: 2px;
 }
@@ -81,10 +81,10 @@ p {
     right: 0;
     left: 0;
     z-index: 2;
-    padding: 0  24px;
-    height:56px;
+    padding: 0 24px;
+    height: 56px;
 }
-    
+
 .tabs ul {
     margin: 0;
     padding: 0;
@@ -94,6 +94,7 @@ p {
 .tabs li {
     display: inline-block;
 }
+
 .tabs .tab {
     display: inline-block;
     position: relative;
@@ -153,9 +154,7 @@ p {
     font-size: 36px;
 }
 
-.inline-label {
-
-}
+.inline-label {}
 
 .inline-label p {
     display: inline-block;
@@ -164,6 +163,7 @@ p {
 .inline-label .data {
     padding-left: 24px;
 }
+
 .flex-label {
     display: flex;
     flex-direction: row;
@@ -190,18 +190,19 @@ p {
 }
 
 .duino {
-    flex:1;
+    flex: 1;
     flex-basis: 30%;
     min-width: 230px;
     min-height: 100px;
-    
     /*padding: 2px 6px;*/
 }
 
 .duino-header {
     display: flex;
 }
-.duino-name, .duino-id {
+
+.duino-name,
+.duino-id {
     display: inline-block;
 }
 
@@ -218,11 +219,10 @@ p {
 }
 
 .card {
-    display:flex;
+    display: flex;
     flex-direction: column;
     box-shadow: 0 0 2px #040404;
-    margin:4px;   
-
+    margin: 4px;
     -webkit-transition: box-shadow 1s ease 0s;
     -moz-transition: box-shadow 1s ease 0s;
     transition: box-shadow 1s ease 0s;
@@ -230,29 +230,38 @@ p {
 
 .card-header {
     min-height: 100px;
-    flex:3;
-    background:#9c27b0; 
-    color:#FFFFFF;
+    flex: 3;
+    background: #9c27b0;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+}
+
+.card-header .icon {
+    font-size: 72px;
+    text-align: center;
+    color: #FFFFFF;
+    align-self: center;
 }
 
 .card-info {
-    flex:1;
-    background:#FFFFFF;
+    flex: 1;
+    background: #FFFFFF;
     padding: 16px 8px;
 }
 
 .card-actions {
     display: flex;
-    background:#FFFFFF;
-    
+    background: #FFFFFF;
 }
+
 .action {
-    flex:1;
-    padding:8px;
+    flex: 1;
+    padding: 8px;
     min-width: 60px;
-    background:none;
-    border:none;
-    color:#ff9800;
+    background: none;
+    border: none;
+    color: #ff9800;
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
