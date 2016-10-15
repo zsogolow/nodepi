@@ -198,7 +198,7 @@ _(document).bind('DOMContentLoaded', function () {
                 var holla = {
                     'id': duinoId + ''
                 };
-                if (_this.item(0).classList.contains('lights-on')) {
+                if (_duino.item(0).classList.contains('lights-on')) {
                     var lightsOff = _.http('/lightsOff').post(holla);
                     lightsOff.then(function (data) {}).catch(function (err) {});
                 } else {
