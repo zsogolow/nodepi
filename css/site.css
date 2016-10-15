@@ -208,7 +208,7 @@ p {
     box-shadow: 0 0 2px #040404;
     margin:4px;   
 
-     -webkit-transition: box-shadow 1s ease 0s;
+    -webkit-transition: box-shadow 1s ease 0s;
     -moz-transition: box-shadow 1s ease 0s;
     transition: box-shadow 1s ease 0s;
 }

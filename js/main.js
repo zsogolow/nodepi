@@ -193,7 +193,7 @@ _(document).bind('DOMContentLoaded', function () {
             _duino.addClass('pong');
             setTimeout(function () {
                 _duino.removeClass('pong');
-            }, 2000);
+            }, 1000);
             // _duino.children('.pong-label').html('pong!');
             // setTimeout(function () {
             //     _duino.children('.pong-label').html('');
