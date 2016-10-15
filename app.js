@@ -22,7 +22,7 @@ var path = '/tmp/responses';
 var unixServer = new UnixServer();
 unixServer.listen(path, function (data) {
     var foundDuinos = parseDuinos(data);
-    for (var i = 0; i < duinos.length; i++) {
+    for (var i = 0; i < foundDuinos.length; i++) {
         var duino = foundDuinos[i];
         duinos.heartbeat(duino);
         sockets.send('all', duino.action, duino);
