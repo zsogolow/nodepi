@@ -21,9 +21,14 @@ var duinos = new Duinos();
 var path = '/tmp/responses';
 var unixServer = new UnixServer();
 unixServer.listen(path, function (data) {
-    var duino = parseDuino(data);
-    duinos.heartbeat(duino);
-    sockets.send('all', duino.action, duino);
+    var foundDuinos = parseDuinos(data);
+    for (var i = 0; i < duinos.length; i++) {
+        var duino = foundDuinos[i];
+        duinos.heartbeat(duino);
+        sockets.send('all', duino.action, duino);
+    }
+    // duinos.heartbeat(duino);
+    // sockets.send('all', duino.action, duino);
 });
 
 var clientPath = '/tmp/hidden';
@@ -114,15 +119,26 @@ sockets.stream(1000, 'all', 'uptime', function () {
     return nodePi.osInfo().uptime;
 });
 
-function parseDuino(data) {
+function parseDuinos(data) {
     var dataArray = [];
     for (var i = 0; i < data.length; i++) {
         dataArray.push(data[i]);
     }
-    var id = dataArray[0];
-    var action = dataArray[1];
-    var type = dataArray[2];
-    var extra = dataArray[3];
+    var parsedDuinos = [];
+    var duinoLength = 4;
+    var responses = dataArray.length / duinoLength;
+    for (var i = 0; i < responses.length; i++) {
+        var duino = readDuino(dataArray, i * duinoLength, duinoLength);
+        parsedDuinos.push(duino);
+    }
+    return parsedDuinos;
+}
+
+function readDuino(data, index, length) {
+    var id = data[index + 0];
+    var action = data[index + 1];
+    var type = data[index + 2];
+    var extra = data[index + 3];
 
     var realType = duinos.getDuinoType(type);
     var realAction = duinos.getDuinoAction(action);
