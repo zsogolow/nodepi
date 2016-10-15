@@ -9,10 +9,19 @@ body {
     margin: 0;
 }
 
+
 /*#dc002e RED*/
+
+
 /*#efefef light gray*/
+
+
 /*#646464 dark gray*/
+
+
 /*#b2b2b2 gray*/
+
+
 /*#040404 black*/
 
 a,
@@ -116,8 +125,14 @@ p {
     cursor: pointer;
 }
 
-.tabs .tab.active {
-    background-color: #efefef;
+.tabs .tab.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    height: 2px;
+    background-color: #b2b2b2;
 }
 
 .tabs .tab a {
@@ -132,11 +147,11 @@ p {
     top: 48px;
     bottom: 0;
     padding: 6px;
-    background-color: #efefef;
+    /*background-color: #efefef;*/
     font-size: 24px;
     color: #040404;
     overflow-y: auto;
-    border-radius: 4px;
+    border-radius: 2px;
     margin-left: 12px;
     margin-right: 12px;
 }
@@ -280,8 +295,9 @@ p {
     cursor: pointer;
 }
 
-.action::active {
+.action:active {
     border: none;
+    background: none;
 }
 
 .card-actions .action {
