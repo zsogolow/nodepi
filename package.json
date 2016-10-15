@@ -7,7 +7,8 @@
     "router": "~1.1.4",
     "node-static": "~0.7.8",
     "body-parser": "~1.15.2",
-    "socket.io": "~1.4.8"
+    "socket.io": "~1.4.8",
+    "mdi": "~1.7.22"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
