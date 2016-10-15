@@ -68,7 +68,7 @@ p {
 
 .tabs {
     position: relative;
-    height: calc(100% - 112px);
+    height: calc(100% - 70px);
     top: 56px;
     bottom: 56px;
     /*margin: 2px;*/
