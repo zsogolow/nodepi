@@ -70,7 +70,7 @@ p {
     position: relative;
     height: calc(100% - 112px);
     top: 56px;
-    bottom: 24px;
+    bottom: 56px;
     /*margin: 2px;*/
     border-radius: 2px;
 }
@@ -268,5 +268,9 @@ p {
 }
 
 .pong {
-    box-shadow: 0 0 24px red;
+    box-shadow: 0 0 24px #000;
+}
+
+.pong .icon {
+    color: #000;
 }
