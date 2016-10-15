@@ -273,6 +273,10 @@ p {
     cursor: pointer;
 }
 
+.action::active {
+    border: none;
+}
+
 .card-actions .action {
     flex: 1;
     color: #ff9800;
