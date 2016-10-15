@@ -239,8 +239,8 @@ p {
 }
 
 .pong {
-    box-shadow: 0 0 2px red;
-    -webkit-transition: box-shadow 1s ease-in-out 0s;
-    -moz-transition: box-shadow 1s ease-in-out 0s;
-    transition: box-shadow 1s ease-in-out 0s;
+    box-shadow: 0 0 24px red;
+    -webkit-transition: box-shadow 1s ease 0s;
+    -moz-transition: box-shadow 1s ease 0s;
+    transition: box-shadow 1s ease 0s;
 }
