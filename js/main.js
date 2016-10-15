@@ -113,6 +113,9 @@ _(document).bind('DOMContentLoaded', function () {
                     ping.then(function (data) {}).catch(function (err) {});
                 });
 
+                var lightsState = _.http('/lightsState?id=' + id).get();
+                lightsState.then(function (data) {}).catch(function (err) {});
+
                 _relayTemplate.removeClass('hidden');
             }
         } else {

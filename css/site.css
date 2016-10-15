@@ -198,11 +198,11 @@ p {
 }
 
 .duino.lights-on .icon {
-    color: yellow;
+    color: #ffff00;
 }
 
 .duino.lights-off .icon {
-    color: gray;
+    color: #757575;
 }
 
 .duino-header {
