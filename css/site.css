@@ -264,15 +264,18 @@ p {
 }
 
 .action {
-    flex: 1;
     padding: 8px;
     min-width: 60px;
     background: none;
     border: none;
-    color: #ff9800;
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
+}
+
+.card-actions .action {
+    flex: 1;
+    color: #ff9800;
 }
 
 .pong {
