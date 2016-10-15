@@ -160,7 +160,9 @@ _(document).bind('DOMContentLoaded', function () {
                 case 'ping':
                     pong(data.data);
                     break;
-                case 'relay':
+                case 'relay_on':
+                case 'relay_off':
+                case 'relay_state':
                     updateDuinoLights(data.data);
                     break;
                 default:
