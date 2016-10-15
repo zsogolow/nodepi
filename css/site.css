@@ -149,10 +149,21 @@ p {
     font-size: 36px;
 }
 
+.inline-label {
+
+}
+
+.inline-label p {
+    display: inline-block;
+}
+
+.inline-label .data {
+    padding-left: 24px;
+}
 .flex-label {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start
+    justify-content: flex-start;
 }
 
 .flex-label p {
