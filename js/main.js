@@ -190,10 +190,14 @@ _(document).bind('DOMContentLoaded', function () {
             var duinoId = duino.id;
             var _duino = _('#duino-' + duinoId);
             _duino.removeClass('hidden');
-            _duino.children('.pong-label').html('pong!');
+            _duino.addClass('pong');
             setTimeout(function () {
-                _duino.children('.pong-label').html('');
+                _duino.removeClass('pong');
             }, 2000);
+            // _duino.children('.pong-label').html('pong!');
+            // setTimeout(function () {
+            //     _duino.children('.pong-label').html('');
+            // }, 2000);
         }
     }
 
