@@ -124,7 +124,7 @@ _(document).bind('DOMContentLoaded', function () {
                 _duinoSwitch.bind('click', function () {
                     var _this = _(this);
                     var holla = {
-                        'id': duinoId + ''
+                        'id': id + ''
                     };
                     if (_duino.item(0).classList.contains('lights-on')) {
                         var lightsOff = _.http('/lightsOff').post(holla);
