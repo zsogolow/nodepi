@@ -238,7 +238,7 @@ _(document).bind('DOMContentLoaded', function () {
             var heartbeat = new Date(duino.heartbeat).toLocaleString();
             var _duino = _('#duino-' + duinoId);
             var sensorReading = duino.extra;
-            _duino.children('sensor-label').html(sensorReading);
+            _duino.children('.sensor-label').html(sensorReading);
         }
 
         function updateDuino(duino) {
