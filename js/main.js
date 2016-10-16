@@ -135,6 +135,25 @@ _(document).bind('DOMContentLoaded', function () {
                     }
                 });
             }
+        } else if (type == 'sensor') {
+            var _cloneMe = _('.sensor-template');
+            var cloneMe = _cloneMe.item(0);
+            if (cloneMe) {
+                var _genearlTemplate = _(cloneMe.cloneNode(true));
+                _genearlTemplate.data('id', id);
+                _template.item(0).appendChild(_genearlTemplate.item(0));
+
+                var holla = {
+                    'id': id + ''
+                };
+
+                _genearlTemplate.children('.ping-button').bind('click', function () {
+                    var ping = _.http('/ping?id=' + id).get();
+                    ping.then(function (data) {}).catch(function (err) {});
+                });
+
+                _genearlTemplate.removeClass('hidden');
+            }
         } else {
             var _cloneMe = _('.general-template');
             var cloneMe = _cloneMe.item(0);
@@ -185,6 +204,9 @@ _(document).bind('DOMContentLoaded', function () {
                 case 'relay_state':
                     updateDuinoLights(data.data);
                     break;
+                case 'sensor_data':
+                    updateDuinoData(data.data);
+                    break;
                 default:
                     console.log(data.data);
                     break;
@@ -208,6 +230,15 @@ _(document).bind('DOMContentLoaded', function () {
                 _duino.removeClass('lights-on');
                 _duino.addClass('lights-off');
             }
+        }
+
+        function updateDuinoData(duino) {
+            var duinoType = duino.type;
+            var duinoId = duino.id;
+            var heartbeat = new Date(duino.heartbeat).toLocaleString();
+            var _duino = _('#duino-' + duinoId);
+            var sensorReading = duino.extra;
+            _duino.children('sensor-label').html(sensorReading);
         }
 
         function updateDuino(duino) {
