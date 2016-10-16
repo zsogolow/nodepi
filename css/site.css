@@ -84,10 +84,10 @@ p {
 
 .tabs {
     position: relative;
-    height: calc(100% - 70px);
+    height: calc(100% - 56px);
     top: 56px;
     bottom: 56px;
-    /*margin: 2px;*/
+    background: #EFEFEF;
     border-radius: 2px;
 }
 
