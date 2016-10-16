@@ -332,7 +332,7 @@ _(document).bind('DOMContentLoaded', function () {
         resizing = true;
     });
 
-    _('.tab-seciton').bind('scroll', function () {
+    _('.tab-section').bind('scroll', function () {
         var _this = _(this);
         if (_this.item(0).scrollTop > 0) {
             _tabs.addClass('scrolled');
