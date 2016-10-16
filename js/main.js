@@ -10,6 +10,9 @@ _(document).bind('DOMContentLoaded', function () {
         _menuToggle = _('.menu-icon');
 
     function clickTab(tab) {
+        // remove the scroll!
+        _tabsContainer.removeClass('scrolled');
+
         var netContent = _.http('/' + tab).get();
         netContent.then(function (data) {
             _section = _('.tab-section[data-tab="' + tab + '"]');
