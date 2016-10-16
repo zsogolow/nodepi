@@ -94,6 +94,10 @@ p {
     border-radius: 2px;
 }
 
+.tabs.scrolled nav {
+    box-shadow: 0 4px 2px -2px gray;
+}
+
 .tabs nav {
     position: absolute;
     top: 0;
