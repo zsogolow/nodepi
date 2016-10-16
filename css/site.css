@@ -13,6 +13,9 @@ body {
 /*#dc002e RED*/
 
 
+/*#03a9f4; light blue*/
+
+
 /*#efefef light gray*/
 
 
@@ -261,7 +264,7 @@ p {
 .card-header {
     min-height: 100px;
     flex: 3;
-    background: #dc002e;
+    background: #03a9f4;
     color: #FFFFFF;
     display: flex;
     justify-content: center;
@@ -303,7 +306,7 @@ p {
 .card-actions .action {
     flex: 1;
     color: #dc002e;
-    opacity: 0.7;
+    opacity: 0.9;
 }
 
 .pong {
