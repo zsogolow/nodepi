@@ -26,7 +26,8 @@ Duinos.prototype = {
     duinos: {},
     types: {
         '21': 'general',
-        '22': 'relay'
+        '22': 'relay',
+        '23': 'sensor'
     },
     actions: {
         '-1': 'empty',
@@ -35,7 +36,8 @@ Duinos.prototype = {
         '3': 'blink',
         '4': 'relay_state',
         '5': 'relay_on',
-        '6': 'relay_off'
+        '6': 'relay_off',
+        '7': 'sensor_data'
     },
 
     getDuinoType: function (typeId) {
