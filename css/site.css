@@ -15,6 +15,7 @@ body {
 
 /*#03a9f4; light blue*/
 
+/* #607d8b something gray blue */
 
 /*#efefef light gray*/
 
@@ -268,7 +269,7 @@ p {
 .card-header {
     min-height: 100px;
     flex: 3;
-    background: #03a9f4;
+    background: #607d8b;
     color: #FFFFFF;
     display: flex;
     justify-content: center;
