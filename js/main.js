@@ -233,9 +233,11 @@ _(document).bind('DOMContentLoaded', function () {
             if (lightsState == 1) {
                 _duino.removeClass('lights-off');
                 _duino.addClass('lights-on');
+                _duino.children('#extra').html('on');
             } else {
                 _duino.removeClass('lights-on');
                 _duino.addClass('lights-off');
+                _duino.children('#extra').html('off');
             }
         }
 
