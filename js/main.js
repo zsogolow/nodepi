@@ -69,6 +69,7 @@ _(document).bind('DOMContentLoaded', function () {
                             var extra = duino.extra;
                             var _duino = _(_('#duino-template').item(0).cloneNode(true));
                             _duino.item(0).id = 'duino-' + duinoId;
+                            _('.duinos-flexbox').item(0).appendChild(_duino.item(0));
                             // var _duino = _('#duino-' + duinoId);
                             _duino.removeClass('hidden');
                             _duino.children('#type').html(duinoType);
@@ -79,7 +80,6 @@ _(document).bind('DOMContentLoaded', function () {
                             if (!_template.data('init')) {
                                 initTemplateActions(_template, duinoType, duinoId);
                             }
-                            _('.duinos-flexbox').item(0).appendChild(_duino.item(0));
                         }
                     }
                 }).catch(function (err) {
