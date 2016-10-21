@@ -66,12 +66,13 @@ _(document).bind('DOMContentLoaded', function () {
                             var duinoType = duino.type;
                             var duinoId = duino.id;
                             var heartbeat = new Date(duino.heartbeat).toLocaleString();
+                            var extra = duino.extra;
                             var _duino = _('#duino-' + duinoId);
                             _duino.removeClass('hidden');
                             _duino.children('#type').html(duinoType);
                             _duino.children('.duino-id').html(duinoId);
                             _duino.children('#last-heartbeat').html(heartbeat);
-
+                            _duino.children('#extra').html(extra);
                             var _template = _duino.children('#template');
                             if (!_template.data('init')) {
                                 initTemplateActions(_template, duinoType, duinoId);
