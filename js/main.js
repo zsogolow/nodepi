@@ -67,7 +67,9 @@ _(document).bind('DOMContentLoaded', function () {
                             var duinoId = duino.id;
                             var heartbeat = new Date(duino.heartbeat).toLocaleString();
                             var extra = duino.extra;
-                            var _duino = _('#duino-' + duinoId);
+                            var _duino = _(_('#duino-template').item(0).cloneNode(true));
+                            _duino.item(0).id = 'duino-' + duinoId;
+                            // var _duino = _('#duino-' + duinoId);
                             _duino.removeClass('hidden');
                             _duino.children('#type').html(duinoType);
                             _duino.children('.duino-id').html(duinoId);
@@ -77,6 +79,7 @@ _(document).bind('DOMContentLoaded', function () {
                             if (!_template.data('init')) {
                                 initTemplateActions(_template, duinoType, duinoId);
                             }
+                            _('.duinos-flexbox').item(0).appendChild(_duino.item(0));
                         }
                     }
                 }).catch(function (err) {
@@ -91,7 +94,7 @@ _(document).bind('DOMContentLoaded', function () {
 
     function initTemplateActions(_template, type, id) {
         if (type == 'relay') {
-            var _cloneMe = _('.relay-template');
+            var _cloneMe = _('#relay-template');
             var cloneMe = _cloneMe.item(0);
             if (cloneMe) {
                 var _relayTemplate = _(cloneMe.cloneNode(true));
@@ -140,7 +143,7 @@ _(document).bind('DOMContentLoaded', function () {
                 });
             }
         } else if (type == 'sensor') {
-            var _cloneMe = _('.sensor-template');
+            var _cloneMe = _('#sensor-template');
             var cloneMe = _cloneMe.item(0);
             if (cloneMe) {
                 var _sensorTemplate = _(cloneMe.cloneNode(true));
@@ -159,7 +162,7 @@ _(document).bind('DOMContentLoaded', function () {
                 _sensorTemplate.removeClass('hidden');
             }
         } else {
-            var _cloneMe = _('.general-template');
+            var _cloneMe = _('#general-template');
             var cloneMe = _cloneMe.item(0);
             if (cloneMe) {
                 var _genearlTemplate = _(cloneMe.cloneNode(true));

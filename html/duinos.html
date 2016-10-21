@@ -1,5 +1,5 @@
 <div class="tab-content">
-	<div class="relay-template hidden">
+	<div id="relay-template" class="hidden">
 		<button class="action on-button">lights on</button>
 		<button class="action off-button">lights off</button>
 		<button class="action ping-button">ping</button>
@@ -7,172 +7,43 @@
 		<label class="pong-label"></label>
 	</div>
 
-	<div class="general-template hidden">
+	<div id="general-template" class="hidden">
 		<button class="action ping-button">ping</button>
 		<div class="flex-spacer"></div>
 		<label class="pong-label"></label>
 	</div>
-	<div class="sensor-template hidden">
+	<div id="sensor-template" class="hidden">
 		<button class="action ping-button">ping</button>
 		<div class="flex-spacer"></div>
 		<label class="pong-label"></label>
+	</div>
+	<div id="duino-template" class="card duino hidden">
+		<div class="card-header">
+			<i class="icon mdi mdi-bug"></i>
+		</div>
+		<div class="card-info">
+			<div class="duino-header">
+				<h3 class="duino-name">duino</h3>
+				<div class="flex-spacer"></div>
+				<h4 class="duino-id"></h4>
+			</div>
+			<div class="small-font inline-label">
+				<p>type: </p>
+				<p id="type" class="data"></p>
+			</div>
+			<div class="small-font inline-label">
+				<p>heartbeat: </p>
+				<p id="last-heartbeat" class="data"></p>
+			</div>
+			<div class="small-font inline-label">
+				<p>extra: </p>
+				<p id="extra" class="data"></p>
+			</div>
+		</div>
+		<div id="template" class="card-actions">
+		</div>
 	</div>
 	<div class="duinos-flexbox">
-		<div id="duino-1" class="card duino hidden">
-			<div class="card-header">
-				<i class="icon mdi mdi-bug"></i>
-			</div>
-			<div class="card-info">
-				<div class="duino-header">
-					<h3 class="duino-name">duino</h3>
-					<div class="flex-spacer"></div>
-					<h4 class="duino-id"></h4>
-				</div>
-				<div class="small-font inline-label">
-					<p>type: </p>
-					<p id="type" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>heartbeat: </p>
-					<p id="last-heartbeat" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>extra: </p>
-					<p id="extra" class="data"></p>
-				</div>
-			</div>
-			<div id="template" class="card-actions">
-			</div>
-		</div>
-		<div id="duino-2" class="card duino hidden">
-			<div class="card-header">
-				<i class="icon mdi mdi-bug"></i>
-			</div>
-			<div class="card-info">
-				<div class="duino-header">
-					<h3 class="duino-name">duino</h3>
-					<div class="flex-spacer"></div>
-					<h4 class="duino-id"></h4>
-				</div>
-				<div class="small-font inline-label">
-					<p>type: </p>
-					<p id="type" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>heartbeat: </p>
-					<p id="last-heartbeat" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>extra: </p>
-					<p id="extra" class="data"></p>
-				</div>
-			</div>
-			<div id="template" class="card-actions">
-			</div>
-		</div>
-		<div id="duino-3" class="card duino hidden">
-			<div class="card-header">
-				<i class="icon mdi mdi-bug"></i>
-			</div>
-			<div class="card-info">
-				<div class="duino-header">
-					<h3 class="duino-name">duino</h3>
-					<div class="flex-spacer"></div>
-					<h4 class="duino-id"></h4>
-				</div>
-				<div class="small-font inline-label">
-					<p>type: </p>
-					<p id="type" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>heartbeat: </p>
-					<p id="last-heartbeat" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>extra: </p>
-					<p id="extra" class="data"></p>
-				</div>
-			</div>
-			<div id="template" class="card-actions">
-			</div>
-		</div>
-		<div id="duino-4" class="card duino hidden">
-			<div class="card-header">
-				<i class="icon mdi mdi-bug"></i>
-			</div>
-			<div class="card-info">
-				<div class="duino-header">
-					<h3 class="duino-name">duino</h3>
-					<div class="flex-spacer"></div>
-					<h4 class="duino-id"></h4>
-				</div>
-				<div class="small-font inline-label">
-					<p>type: </p>
-					<p id="type" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>heartbeat: </p>
-					<p id="last-heartbeat" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>extra: </p>
-					<p id="extra" class="data"></p>
-				</div>
-			</div>
-			<div id="template" class="card-actions">
-			</div>
-		</div>
-		<div id="duino-5" class="card duino hidden">
-			<div class="card-header">
-				<i class="icon mdi mdi-bug"></i>
-			</div>
-			<div class="card-info">
-				<div class="duino-header">
-					<h3 class="duino-name">duino</h3>
-					<div class="flex-spacer"></div>
-					<h4 class="duino-id"></h4>
-				</div>
-				<div class="small-font inline-label">
-					<p>type: </p>
-					<p id="type" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>heartbeat: </p>
-					<p id="last-heartbeat" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>extra: </p>
-					<p id="extra" class="data"></p>
-				</div>
-			</div>
-			<div id="template" class="card-actions">
-			</div>
-		</div>
-		<div id="duino-6" class="card duino hidden">
-			<div class="card-header">
-				<i class="icon mdi mdi-bug"></i>
-			</div>
-			<div class="card-info">
-				<div class="duino-header">
-					<h3 class="duino-name">duino</h3>
-					<div class="flex-spacer"></div>
-					<h4 class="duino-id"></h4>
-				</div>
-				<div class="small-font inline-label">
-					<p>type: </p>
-					<p id="type" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>heartbeat: </p>
-					<p id="last-heartbeat" class="data"></p>
-				</div>
-				<div class="small-font inline-label">
-					<p>extra: </p>
-					<p id="extra" class="data"></p>
-				</div>
-			</div>
-			<div id="template" class="card-actions">
-			</div>
-		</div>
+
 	</div>
 </div>
