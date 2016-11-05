@@ -27,7 +27,7 @@ Duinos.prototype = {
     types: {
         '21': 'general',
         '22': 'relay',
-        '23': 'sensor',
+        '23': 'temp',
         '24': 'motion'
     },
     actions: {

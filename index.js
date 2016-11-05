@@ -8,7 +8,7 @@ var execSync = require('child_process').execSync;
 // types
 const GENERAL = 21;
 const RELAY = 22;
-const SENSOR = 23;
+const TEMP = 23;
 const MOTION = 24;
 
 // actions
