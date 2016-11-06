@@ -15,7 +15,9 @@ body {
 
 /*#03a9f4; light blue*/
 
+
 /* #607d8b something gray blue */
+
 
 /*#efefef light gray*/
 
@@ -239,9 +241,14 @@ p {
     display: flex;
 }
 
-.duino-name,
+
+/*.duino-name,*/
+
 .duino-id {
     display: inline-block;
+    position: absolute;
+    right: 4px;
+    top: 4px;
 }
 
 #template {
@@ -273,6 +280,7 @@ p {
     color: #FFFFFF;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .card-header .icon {
