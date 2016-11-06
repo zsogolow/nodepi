@@ -68,7 +68,7 @@ _(document).bind('DOMContentLoaded', function () {
                             var heartbeat = new Date(duino.heartbeat).toLocaleString();
                             var extra = duino.extra;
                             var _duino = _(_('#duino-template').item(0).cloneNode(true));
-                            _duino.children('.icon').addClass('mdi-bug');
+                            // _duino.children('.icon').addClass('mdi-bug');
                             _duino.item(0).id = 'duino-' + duinoId;
                             _('.duinos-flexbox').item(0).appendChild(_duino.item(0));
                             // var _duino = _('#duino-' + duinoId);
@@ -127,6 +127,7 @@ _(document).bind('DOMContentLoaded', function () {
                 _relayTemplate.removeClass('hidden');
 
                 var _duino = _('#duino-' + id);
+                _duino.children('.icon').addClass('mdi-lightbulb-outline');
                 var _duinoSwitch = _duino.children('i');
                 _duinoSwitch.addClass('action');
                 _duinoSwitch.bind('click', function () {
@@ -143,7 +144,7 @@ _(document).bind('DOMContentLoaded', function () {
                     }
                 });
             }
-        } else if (type == 'sensor') {
+        } else if (type == 'temp') {
             var _cloneMe = _('#sensor-template');
             var cloneMe = _cloneMe.item(0);
             if (cloneMe) {
@@ -161,6 +162,9 @@ _(document).bind('DOMContentLoaded', function () {
                 });
 
                 _sensorTemplate.removeClass('hidden');
+
+                var _duino = _('#duino-' + id);
+                _duino.children('.icon').addClass('mdi-thermometer-lines');
             }
         } else {
             var _cloneMe = _('#general-template');
@@ -180,6 +184,9 @@ _(document).bind('DOMContentLoaded', function () {
                 });
 
                 _genearlTemplate.removeClass('hidden');
+
+                    var _duino = _('#duino-' + id);
+                _duino.children('.icon').addClass('mdi-bug');
             }
         }
 
