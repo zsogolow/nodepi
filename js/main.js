@@ -68,6 +68,7 @@ _(document).bind('DOMContentLoaded', function () {
                             var heartbeat = new Date(duino.heartbeat).toLocaleString();
                             var extra = duino.extra;
                             var _duino = _(_('#duino-template').item(0).cloneNode(true));
+                            _duino.children('.icon').addClass('mdi-bug');
                             _duino.item(0).id = 'duino-' + duinoId;
                             _('.duinos-flexbox').item(0).appendChild(_duino.item(0));
                             // var _duino = _('#duino-' + duinoId);
